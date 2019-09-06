@@ -1,6 +1,6 @@
 ---
 title: "Cours sweep/aggregate"
-author: "Aristide Chauveau"
+author: "Aristide Chauveau / Maxime Jaunatre"
 date: "06/09/2019"
 output: ioslides_presentation
 ---
