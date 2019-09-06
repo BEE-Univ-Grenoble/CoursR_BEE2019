@@ -20,6 +20,8 @@ When you click the **Knit** button a document will be generated that includes bo
 - Bullet 1
 - Bullet 2
 - Bullet 3
+- Bullet 4
+
 
 ## Slide with R Output
 
