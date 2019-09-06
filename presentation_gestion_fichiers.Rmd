@@ -1,8 +1,8 @@
 ---
-title: "Cours Pipo"
-author: "Eric Coissac"
-date: "9/6/2019"
-output: ioslides_presentation
+title: "presentation_gestion_fichiers"
+author: "Ludovic Chaumaz"
+date: "6 septembre 2019"
+output: slidy_presentation
 ---
 
 ```{r setup, include=FALSE}
@@ -10,9 +10,6 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ## R Markdown
-
-modif martial
-
 
 This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
