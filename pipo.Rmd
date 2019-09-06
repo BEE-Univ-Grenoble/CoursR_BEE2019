@@ -17,7 +17,7 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ## Slide with Bullets
 
-- Bullet 1
+- Bullet 1 Ellie
 - Bullet 2
 - Bullet 3
 
