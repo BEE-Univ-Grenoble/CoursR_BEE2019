@@ -17,17 +17,21 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ## Variables globales 
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+- Peuvent être accedés et modifiés à partir de n'importe où dans le programme
+- Assigner une variable globale de l'intérieur d'une fonction avec "a <<- 2" 
+- Fonction ls() permet d'identifier toutes les variables dans le workspace actuel
+- Utile à savoir
+  "rm(list=ls())" Suprimer tous les objets 
+  "rm(list=lsf.str())" Suprimer les fonctions en laissant les variables
+  "rm(list = setdiff(ls(), lsf.str()))" Suprimer les variables en laissant les fonctions  
 
-## Slide with R Output
+## Variables locales
 
 ```{r cars, echo = TRUE}
 summary(cars)
 ```
 
-## Slide with Plot
+## Parametres de fonctions
 
 ```{r pressure}
 plot(pressure)
