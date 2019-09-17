@@ -40,8 +40,8 @@ plot(pressure)
 
 ## Fonction aggregate()
 
-Fonction permettant de travailler sur des sous-sections de data.frame, en y appliquant des fonctions de type rÃ©sumÃ© ( sum(), mean() ). 
-La fonction choisie s'applique selon une liste Ã  fournir.
+Fonction permettant de travailler sur des sous-sections de data.frame, en y appliquant des fonctions de type résumé ( sum(), mean() ). 
+La fonction choisie s'applique selon une liste à fournir.
 
 Lien vers l'aide R de la fonction :  <hhttps://www.rdocumentation.org/packages/stats/versions/3.6.1/topics/aggregate>.
 
@@ -57,7 +57,7 @@ help('aggregate')
 
 - by, une liste contenant au minimum 1 vecteur.
 
-- FUN, une fonction de rÃ©sumÃ© de base, telle que sum(), mean(). Il est possible d'ajouter sa propre fonction.
+- FUN, une fonction de résumé de base, telle que sum(), mean(). Il est possible d'ajouter sa propre fonction.
 ```{r arguments, eval=FALSE, include=TRUE}
 # not runable, for syntax purppose
 aggregate ( x = data.frame, by = list( c(1:5) ), FUN = mean )
@@ -87,14 +87,14 @@ aggregate(x= state.x77, FUN= mean,
 
 ## Cas particuliers
 
-La fonction ne considÃ¨re pas les NAs, que ce soit dans le data.frame ou la liste. Les lignes sont 'oublies'.
+La fonction ne considère pas les NAs, que ce soit dans le data.frame ou la liste. Les lignes sont 'oublies'.
 ```{r NAs}
 # consider NAs :
 #> fby1 <- factor(by1, exclude = "")
 #> fby2 <- factor(by2, exclude = "")
 ```
 
-Les Ã©lÃ©ments de vecteurs de la liste by peuvent comprendre character, booleen, numerics.
+Les éléments de vecteurs de la liste by peuvent comprendre character, booleen, numerics.
 
 ## Autres formulations : tilde
 
