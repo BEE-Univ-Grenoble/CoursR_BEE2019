@@ -8,7 +8,7 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## R Markdown
@@ -46,7 +46,7 @@ La fonction choisie s'applique selon une liste à fournir.
 Lien vers l'aide R de la fonction :  <hhttps://www.rdocumentation.org/packages/stats/versions/3.6.1/topics/aggregate>.
 
 ou alors : 
-```{r help, eval=FALSE, include=FALSE}
+```{r help}
 help('aggregate')
 ```
 
@@ -58,14 +58,14 @@ help('aggregate')
 - by, une liste contenant au minimum 1 vecteur.
 
 - FUN, une fonction de résumé de base, telle que sum(), mean(). Il est possible d'ajouter sa propre fonction.
-```{r arguments, echo=TRUE}
+```{r arguments, eval=FALSE, include=TRUE}
 # not runable, for syntax purppose
-# aggregate ( x = data.frame, by = list( c(1:5) ), FUN = mean )
+aggregate ( x = data.frame, by = list( c(1:5) ), FUN = mean )
 ```
 
 ## Exemple issu de R, data(state)
 
-```{r exemple , echo = TRUE}
+```{r exemple}
 state.x77[1:4,] ; class(state.x77)
 
 state.region[1:4] ; class(state.region)
@@ -73,12 +73,12 @@ state.region[1:4] ; class(state.region)
 
 ## Application simple
 
-```{r exemple R, echo = TRUE}
+```{r exemple R}
 ## Calcul les moyennes par regions.
 aggregate(state.x77, list(Region = state.region), mean)
 ```
 ## Application, deux parametres
-```{r exemple R2, echo = TRUE}
+```{r exemple R2}
 ## Calcul les moyennes par regions et selon le gel
 aggregate(x= state.x77, FUN= mean,
           by=list(Region = state.region, Cold = state.x77[,"Frost"] > 130))
@@ -88,7 +88,7 @@ aggregate(x= state.x77, FUN= mean,
 ## Cas particuliers
 
 La fonction ne considère pas les NAs, que ce soit dans le data.frame ou la liste. Les lignes sont 'oublies'.
-```{r NAs, echo=TRUE}
+```{r NAs}
 # consider NAs :
 #> fby1 <- factor(by1, exclude = "")
 #> fby2 <- factor(by2, exclude = "")
@@ -99,7 +99,7 @@ Les éléments de vecteurs de la liste by peuvent comprendre character, booleen,
 ## Autres formulations : tilde
 
 Si le vecteur 'by' est dans le tableau, possibilite d'utiliser tilde '~'. 
-```{r tilde, echo=TRUE}
+```{r tilde}
 summary(chickwts)
 aggregate(weight ~ feed, data = chickwts, mean)
 ```
