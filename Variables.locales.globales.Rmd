@@ -25,32 +25,33 @@ knitr::opts_chunk$set(echo = TRUE)
 - Déclarées hors d'une fonction
 - Peuvent être accedées et modifiées à partir de n'importe où dans le programme
 - Assigner une variable globale de l'intérieur d'une fonction avec 
-   ```
-"a <<- 2" 
- ```
+```{r eval=FALSE, include=TRUE}
+a <<- 2
+```
 - Fonction "ls()" permet d'identifier toutes les variables dans le workspace actuel
 - Fonction "assign" permet de definir l'environnement d'affectation d'une variable globale
-       ```
+
+```{r eval=FALSE, include=TRUE}
        envir = .GlobalEnv
         assign(x = "x", 
         value = x + 1, 
         envir = .GlobalEnv)
-         ```
+```
 
 
 ## Supprimer des variables
 - Supprimer les variables 
-```
- "rm(list=ls())"
+```{r eval=FALSE, include=TRUE}
+ rm(list=ls())
 ```
 - Supprimer les fonctions en laissant les variables
-  ```
-  "rm(list=lsf.str())"
-  ```
+```{r eval=FALSE, include=TRUE}
+  rm(list=lsf.str())
+```
 - Supprimer les variables en laissant les fonctions
-  ```
-  "rm(list = setdiff(ls(), lsf.str()))"
-  ```
+```{r eval=FALSE, include=TRUE}
+  rm(list = setdiff(ls(), lsf.str()))
+```
   
 
 
@@ -58,7 +59,7 @@ knitr::opts_chunk$set(echo = TRUE)
 - Variables locales masquent les variables globales de mÊme nom 
 - Déclarées à l'intérieur d'une fonction, dont on peut chercher au sein de leur environnement avec : 
 
-```
+```{r eval=FALSE, include=TRUE}
 get('var', envir=test.env)
 ```
 
