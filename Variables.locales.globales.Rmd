@@ -2,18 +2,22 @@
 title: "Variables locales et globales"
 author: "Ellie Tideswell and Jeremy Bornerieux"
 date: "6 September 2019"
-output: ioslides_presentation
+output:
+  ioslides_presentation: default
+  slidy_presentation: default
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Notion d'environnement
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+*R est un language orienté objet ce qui veut dire que les variables et les fonctions sont des objets*
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+- Un environement sert comme espace de stockage de ces objets
+- on distingue l'environement locale et global
+- R sauvegarde automatiquement une copie de l'environement global en fermant R
 
 ## Variables globales 
 
@@ -31,9 +35,81 @@ When you click the **Knit** button a document will be generated that includes bo
 summary(cars)
 ```
 
+## Cas particulier: Package
+
+- Utiliser un package avec library revient à travailler avec un nouvel environnement
+- cet environement doit être rechargé à chaque ouverture de r
+- il contient les fonctions et les données du package
+
+![](Captureenvir.PNG)
+
+
+
 ## Parametres de fonctions
 
-```{r pressure}
-plot(pressure)
+
+
+```{r }
+
+a<-1
+
+fun<-function(x){
+a<-10
+return(x+a)
+}
+fun(1)
+a
+
 ```
+
+
+## Parametres de fonctions
+
+```{r }
+
+a<-1
+
+fun<-function(x){
+
+return(x+a)
+}
+fun(1)
+a
+
+```
+
+## Parametres de fonctions
+
+```{r }
+
+a<-1
+
+fun<-function(x){
+a<<-10
+return(x+a)
+}
+fun(1)
+a
+
+```
+
+
+## Parametres de fonctions
+
+```{r }
+
+a<-1
+x<-100
+fun<-function(x=1){
+
+return(x+a)
+}
+fun()
+a
+
+```
+
+
+
+
 
