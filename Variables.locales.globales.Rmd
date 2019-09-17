@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 *R est un language orienté objet ce qui veut dire que les variables et les fonctions sont des objets*
 
 - Un environement sert comme espace de stockage de ces objets
+- un objet = un nom (ex:a) associé à une valeure (ex:1)
 - on distingue l'environement locale et global
 - R sauvegarde automatiquement une copie de l'environement global en fermant R
 
@@ -136,7 +137,22 @@ a
 
 ```
 
+## Manipuler un environement
+
+*On peut creer et remplir d'autres environements*
 
 
+```{r }
+a<-1
+env2<-new.env()
+assign("a",2,envir=env2)
 
+a
 
+get("a",envir=env2)
+
+env2$b<-2
+env2$b
+```
+
+## Interet d'un nouvel environement
