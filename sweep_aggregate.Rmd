@@ -1,12 +1,14 @@
 ---
 title: "Cours sweep/aggregate"
-author: "Aristide Chauveau"
+author: "Aristide Chauveau / Maxime Jaunatre"
 date: "06/09/2019"
 output: ioslides_presentation
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## R Markdown
@@ -33,3 +35,100 @@ summary(cars)
 plot(pressure)
 ```
 
+
+<!--Maxime & aggregate-->
+
+## Fonction aggregate()
+
+Fonction permettant de travailler sur des sous-sections de data.frame, en y appliquant des fonctions de type résumé ( sum(), mean() ). 
+La fonction choisie s'applique selon une liste à fournir.
+
+Lien vers l'aide R de la fonction :  <hhttps://www.rdocumentation.org/packages/stats/versions/3.6.1/topics/aggregate>.
+
+ou alors : 
+```{r help}
+help('aggregate')
+```
+
+
+## Arguments
+
+- data.frame.
+
+- by, une liste contenant au minimum 1 vecteur.
+
+- FUN, une fonction de résumé de base, telle que sum(), mean(). Il est possible d'ajouter sa propre fonction.
+```{r arguments, eval=FALSE, include=TRUE}
+# not runable, for syntax purppose
+aggregate ( x = data.frame, by = list( c(1:5) ), FUN = mean )
+```
+
+## Exemple issu de R, data(state)
+
+```{r exemple}
+state.x77[1:4,] ; class(state.x77)
+
+state.region[1:4] ; class(state.region)
+```
+
+## Application simple
+
+```{r exemple R}
+## Calcul les moyennes par regions.
+aggregate(state.x77, list(Region = state.region), mean)
+```
+## Application, deux parametres
+```{r exemple R2}
+## Calcul les moyennes par regions et selon le gel
+aggregate(x= state.x77, FUN= mean,
+          by=list(Region = state.region, Cold = state.x77[,"Frost"] > 130))
+```
+
+
+## Cas particuliers
+
+La fonction ne considère pas les NAs, que ce soit dans le data.frame ou la liste. Les lignes sont 'oublies'.
+```{r NAs}
+# consider NAs :
+#> fby1 <- factor(by1, exclude = "")
+#> fby2 <- factor(by2, exclude = "")
+```
+
+Les éléments de vecteurs de la liste by peuvent comprendre character, booleen, numerics.
+
+## Autres formulations : tilde
+
+Si le vecteur 'by' est dans le tableau, possibilite d'utiliser tilde '~'. 
+```{r tilde}
+summary(chickwts)
+aggregate(weight ~ feed, data = chickwts, mean)
+```
+
+<!--
+## Autres exemples
+ exemple de r
+```{r exemple R3, echo = TRUE}
+
+## Formulas, one ~ one, one ~ many, many ~ one, and many ~ many:
+aggregate(weight ~ feed, data = chickwts, mean)
+aggregate(breaks ~ wool + tension, data = warpbreaks, mean)
+aggregate(cbind(Ozone, Temp) ~ Month, data = airquality, mean)
+aggregate(cbind(ncases, ncontrols) ~ alcgp + tobgp, data = esoph, sum)
+
+## Dot notation:
+aggregate(. ~ Species, data = iris, mean)
+aggregate(len ~ ., data = ToothGrowth, mean)
+
+## Often followed by xtabs():
+ag <- aggregate(len ~ ., data = ToothGrowth, mean)
+xtabs(len ~ ., data = ag)
+
+
+## Compute the average annual approval ratings for American presidents.
+aggregate(presidents, nfrequency = 1, FUN = mean)
+## Give the summer less weight.
+aggregate(presidents, nfrequency = 1,
+          FUN = weighted.mean, w = c(1, 1, 0.5, 1))
+# }
+``` 
+*Fin maxime-->

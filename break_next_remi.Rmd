@@ -1,5 +1,5 @@
 ---
-title: "break_next_remi"
+title: "break_next_presentation"
 author: "Rémi MUGNIER"
 date: "6 septembre 2019"
 output: ioslides_presentation
@@ -9,27 +9,32 @@ output: ioslides_presentation
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## R Markdown
+## L'argument Break
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-## Slide with Bullets
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-## Slide with R Output
+- Cet argument s'utilise à l'interieur d'une boucle repeat, for ou while pour arreter et sortir de la boucle.   
+- Tant que la condition du Break n'est pas vrai alors la boucle continue.  
+- Break s'ecrit à l'interieur d'une branche if, else ou ifelse.  
 
 ```{r cars, echo = TRUE}
-summary(cars)
+vecteur=1:100
+for (valeur in vecteur) {
+  if (valeur > 62) {
+    break
+  }
+}
+valeur
 ```
 
-## Slide with Plot
+## L'argument Next
 
-```{r pressure}
-plot(pressure)
+- L'argument Next permet de sauter des itérations d'une boucle sans la terminer, on passe a l'itération suivante.
+
+```{r pressure, echo=T}
+vecteur=1:4
+for (valeur in vecteur) {
+  if (valeur == 3) {
+    next
+  }
+  print(valeur)
+}
 ```
-
