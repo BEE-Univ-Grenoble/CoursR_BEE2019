@@ -1,0 +1,58 @@
+---
+title: "Les boucles for et while"
+output:
+  beamer_presentation: default
+  ioslides_presentation: default
+date: "17 septembre 2019"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Rappel
+
+Les boucles sont des structures itératives permettant de répéter une ou plusieurs instructions. Ces répétitions peuvent s'effectuer un nombre fixé de fois ou tant qu'une condition est vérifié.
+
+## Boucle for
+
+Pour les boucles for, le nombre d'itération est fixe. Elles permettent de répéter des instructions un nombre de fois déterminé.
+
+for (variable in vecteur) {instructions}
+
+```{r echo=TRUE}
+for (i in 1:5){
+  print(i^2)
+}
+```
+
+## Boucle while
+
+Les boucles while vont permettre de répéter les instructions un nombre indéterminé de fois tant que la condition fixée est vrai.
+
+while (condition) {instructions}
+
+```{r echo=TRUE}
+j<-1
+
+while (j<=5){
+  print (j^2)
+  j<-j+1
+}
+```
+
+## Différences entre boucle for et boucle while
+
+Les boucles while peuvent être utilisées lorsque l'on ne connait pas le nombre exact de fois ou l'on va devoir passer dans la boucle.
+
+```{r echo=TRUE}
+pop <- 100
+t<-0
+
+while (pop < 1000){
+  pop<-pop+pop*0.1
+  t<-t+1
+}
+print(t)
+```
+
