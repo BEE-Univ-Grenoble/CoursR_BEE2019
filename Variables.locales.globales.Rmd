@@ -24,11 +24,14 @@ When you click the **Knit** button a document will be generated that includes bo
   "rm(list=ls())" Suprimer tous les objets 
   "rm(list=lsf.str())" Suprimer les fonctions en laissant les variables
   "rm(list = setdiff(ls(), lsf.str()))" Suprimer les variables en laissant les fonctions  
+  
 
 ## Variables locales
 
+Variables locales  = variables déclarées à l'intérieur d'une fonction, dont on peut chercher au sein de leur environnement avec : 
+
 ```{r cars, echo = TRUE}
-summary(cars)
+get('var', envir=test.env)
 ```
 
 ## Parametres de fonctions
