@@ -17,22 +17,33 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ## Variables globales 
 
-- Peuvent être accedés et modifiés à partir de n'importe où dans le programme
+- Déclarées hors d'une fonction
+- Peuvent être accedées et modifiées à partir de n'importe où dans le programme
 - Assigner une variable globale de l'intérieur d'une fonction avec "a <<- 2" 
 - Fonction ls() permet d'identifier toutes les variables dans le workspace actuel
-- Utile à savoir
+- Supprimer les variables 
   "rm(list=ls())" Suprimer tous les objets 
   "rm(list=lsf.str())" Suprimer les fonctions en laissant les variables
   "rm(list = setdiff(ls(), lsf.str()))" Suprimer les variables en laissant les fonctions  
-  
+- Fonction "assign" permet de definir l'environnement d'affectation d'une variable globale
+      Ex envir = .GlobalEnv
+        assign(x = "x", 
+        value = x + 1, 
+        envir = .GlobalEnv)
+
 
 ## Variables locales
+- Variables locales masquent les variables globales de meme nom 
+- Déclarées à l'intérieur d'une fonction, dont on peut chercher au sein de leur environnement avec : 
 
-Variables locales  = variables déclarées à l'intérieur d'une fonction, dont on peut chercher au sein de leur environnement avec : 
-
-```{r cars, echo = TRUE}
+```
 get('var', envir=test.env)
 ```
+
+
+## Variables libres ("Free variables")
+- Trouvées à l'intérieur d'une fonction, mais ne sont pas définies par la fonction comme arguments, R va chercher la valeur de ces variables dans l'environnement où ils étaient crées
+
 
 ## Parametres de fonctions
 
