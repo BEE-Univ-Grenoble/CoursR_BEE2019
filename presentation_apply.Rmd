@@ -8,7 +8,6 @@ output:
 ---
 <<<<<<< HEAD
 ```{r}
-knitr::opts_chunk$set(echo = FALSE)
 library(utf8)
 ```
 
@@ -21,19 +20,17 @@ library(utf8)
 A appliquer une fonction sur tout ou partie d'un objet
 
 ```{r echo=FALSE}
-
 knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/apply_family.PNG")
 ```
 
-<<<<<<< HEAD
+
 ## Comment ça marche?
-=======
-## Comment ?a marche?
+
 ```{r}
 df = matrix(seq(1:9), nrow = 3, ncol = 3)
 df
 ```
->>>>>>> d95e62d3ddc0164c0e1f9f4092bdff71f4b10995
+
 
 
 Pour faire fonctionner un 'apply' :
@@ -44,11 +41,11 @@ il faut un objet l'argument 'X' :
 * Matrices
 * Data Frame
 
-<<<<<<< HEAD
+
 Il faut également une fonction à appliquer : l'argument 'FUN'
-=======
-Il faut ?galement une fonction ? appliquer : l'argument 'FUN'
->>>>>>> d95e62d3ddc0164c0e1f9f4092bdff71f4b10995
+
+
+
 
 Dans certain cas : des conditions : l'argument 'MARGIN'
 L'argument 'MARGIN' indique à R sur quoi appliquer la fonction : 
@@ -56,9 +53,22 @@ L'argument 'MARGIN' indique à R sur quoi appliquer la fonction :
 * soit colonnes : 2
 
 
-<<<<<<< HEAD
+```{r echo=FALSE}
+knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/content_content_apply_1.png")
+```
+
+
 ## Piege à éviter
-=======
+
+Chaque fonction de la famille des aplly, possede des specificité de sortie.
+
+
+lapply : Listes
+
+sapply : 
+vapply : Vecteur 
+
+
 ```{r}
 apply(df, 1, "[") # extracting values by crossing dim 1
 apply(df, 2, "[") # extracting values by crossing dim 2
@@ -69,21 +79,7 @@ apply(df, 2, sum)     # vector of sums, by crossing dim 2
 
 ```
 
-                                                  
-## Piege ? ?viter
->>>>>>> d95e62d3ddc0164c0e1f9f4092bdff71f4b10995
 
-```{r setup}
-knitr::opts_chunk$set(echo = FALSE)
-knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/content_content_apply_1.png")
-```
-Chaque fonction de la famille des aplly, possede des specificité de sortie.
-
-<<<<<<< HEAD
-lapply : Listes
-vapply : Listes
-sapply : 
-=======
 ```{r}
 #       sapply(X, FUN)
 sapply(df, "[") # returns vector
@@ -128,7 +124,7 @@ lsta[[1]]
 rowmeanfun(lsta[[1]])
 
 ```
->>>>>>> d95e62d3ddc0164c0e1f9f4092bdff71f4b10995
+
 
 ```{r}
 
@@ -144,11 +140,8 @@ sapply(lsta, rowmeanfun) # returns a df if dimensions are compatible
 
 ```{r}
 
-<<<<<<< HEAD
-
-=======
 vapply(lsta, rowmeanfun, FUN.VALUE = c("row1" = 0, "row2" = 0, "row3" = 0)) # spply with security check
 
 ```
->>>>>>> d95e62d3ddc0164c0e1f9f4092bdff71f4b10995
+
 
