@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Liste des présentations
 
 Pour le 17 septembre :

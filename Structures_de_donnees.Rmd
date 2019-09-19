@@ -1,17 +1,20 @@
 ---
-title: "Structures de données"
+title: "Structures de donn?es"
 author: "Lecaude Cresciense"
 date: "6 septembre 2019"
-output: ioslides_presentation
+output:
+  slidy_presentation: default
+  ioslides_presentation: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(utf8)
 ```
 
 ## Les matrices 
 
-Ce sont des vecteurs de même nature organisés en données tabulaires.
+Ce sont des vecteurs de m?me nature organis?s en donn?es tabulaires.
 Les attributs correspondent aux dimensions de la matrice. 
 
 ```{r}
@@ -35,7 +38,7 @@ attributes(m)
 
 ##
 
-Les matrices se remplissent par défaut en colonnes 
+Les matrices se remplissent par d?faut en colonnes 
 
 
 ```{r}
@@ -45,7 +48,7 @@ m2
 ```
 
 ##
-On peut aussi transformer des vecteurs en matrices en intégrant une dimension. 
+On peut aussi transformer des vecteurs en matrices en int?grant une dimension. 
 
 
 ```{r}
@@ -53,10 +56,10 @@ vec = 1:10
 dim(vec)=c(2,5) 
 vec
 ```
- On indique que le vecteur doit maintenant être ordonné suivant deux lignes et 5 colonnes
+ On indique que le vecteur doit maintenant ?tre ordonn? suivant deux lignes et 5 colonnes
 
 ##
-On peut aussi assembler plusieurs vecteurs en matrices à condition qu'ils aient la même taille.
+On peut aussi assembler plusieurs vecteurs en matrices ? condition qu'ils aient la m?me taille.
 
 ```{r}
 x=4:7
@@ -79,8 +82,8 @@ m5
 
 ## Les listes 
  
- Ce sont des vecteurs particuliers qui contiennent des objets de différentes classes. 
- Elles sont très utilisées avec les fonctions de la famille "apply" 
+ Ce sont des vecteurs particuliers qui contiennent des objets de diff?rentes classes. 
+ Elles sont tr?s utilis?es avec les fonctions de la famille "apply" 
  
 
 ```{r}
@@ -112,9 +115,9 @@ y
  
 ## Les dataframes 
 
-Ils sont utilisés pour les données tabulaires. 
-Tous les objets le composant doivent avoir la même longueur.
-Ils peuvent être de classes différentes.
+Ils sont utilis?s pour les donn?es tabulaires. 
+Tous les objets le composant doivent avoir la m?me longueur.
+Ils peuvent ?tre de classes diff?rentes.
 
 
 
@@ -146,10 +149,10 @@ t(x)
 
 ##
 
-Comment passer d'une matrice à un data frame, comment faire passer les lignes en colonnes ? 
+Comment passer d'une matrice ? un data frame, comment faire passer les lignes en colonnes ? 
 Avec as.data.frame(x), as.matrix(x), 
 
-Ajouter une colonne à un data frame 
+Ajouter une colonne ? un data frame 
 
 
 ```{r}
@@ -174,7 +177,7 @@ M
 
 ##
 
-Stocker les résultats d'une boucle dans un dataframe
+Stocker les r?sultats d'une boucle dans un dataframe
 
 
 ```{r}

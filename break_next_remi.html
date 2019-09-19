@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Variables locales et globales</title>
+  <title>break_next_presentation</title>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -9,7 +9,6 @@
 
 
 
-  <meta name="date" content="2019-09-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -20,7 +19,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Variables locales et globales',
+                title: 'break_next_presentation',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -30,7 +29,7 @@
       // Author information
       presenters: [
             {
-        name:  'Ellie Tideswell and Jeremy Bornerieux' ,
+        name:  'Rémi MUGNIER' ,
         company: '',
         gplus: '',
         twitter: '',
@@ -3116,166 +3115,45 @@ slide:not(.current) .plotly.html-widget{
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">6 September 2019</p>
+            <p style="margin-top: 6px; margin-left: -2px;">6 septembre 2019</p>
           </hgroup>
   </slide>
 
-<slide class=""><hgroup><h2>Notion d’environnement</h2></hgroup><article  id="notion-denvironnement">
-
-<p><em>R est un language orienté objet ce qui veut dire que les variables et les fonctions sont des objets</em></p>
+<slide class=""><hgroup><h2>L’argument Break</h2></hgroup><article  id="largument-break">
 
 <ul>
-<li>Un environement sert comme espace de stockage de ces objets</li>
-<li>un objet = un nom (ex:a) associé à une valeure (ex:1)</li>
-<li>on distingue l’environement locale et global</li>
-<li>R sauvegarde automatiquement une copie de l’environement global en fermant R</li>
+<li>Cet argument s’utilise à l’interieur d’une boucle repeat, for ou while pour arreter et sortir de la boucle.<br/></li>
+<li>Tant que la condition du Break n’est pas vrai alors la boucle continue.<br/></li>
+<li>Break s’ecrit à l’interieur d’une branche if, else ou ifelse.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Variables globales</h2></hgroup><article  id="variables-globales">
-
-<ul>
-<li>Déclarées hors d’une fonction</li>
-<li>Peuvent être accedées et modifiées à partir de n’importe où dans le programme</li>
-<li>Assigner une variable globale de l’intérieur d’une fonction avec</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>a &lt;&lt;- 2</pre>
-
-<ul>
-<li>Fonction &ldquo;ls()&rdquo; permet d’identifier toutes les variables dans le workspace actuel</li>
-<li>Fonction &ldquo;assign&rdquo; permet de definir l’environnement d’affectation d’une variable globale</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>       envir = .GlobalEnv
-        assign(x = &quot;x&quot;, 
-        value = x + 1, 
-        envir = .GlobalEnv)</pre>
-
-</article></slide><slide class=""><hgroup><h2>Supprimer des variables</h2></hgroup><article  id="supprimer-des-variables">
-
-<ul>
-<li>Supprimer les variables</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'> rm(list=ls())</pre>
-
-<ul>
-<li>Supprimer les fonctions en laissant les variables</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>  rm(list=lsf.str())</pre>
-
-<ul>
-<li>Supprimer les variables en laissant les fonctions</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>  rm(list = setdiff(ls(), lsf.str()))</pre>
-
-</article></slide><slide class=""><hgroup><h2>Variables locales</h2></hgroup><article  id="variables-locales">
-
-<ul>
-<li>Variables locales masquent les variables globales de mÊme nom</li>
-<li>Déclarées à l’intérieur d’une fonction, dont on peut chercher au sein de leur environnement avec :</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>get(&#39;var&#39;, envir=test.env)</pre>
-
-</article></slide><slide class=""><hgroup><h2>Cas particulier: Package</h2></hgroup><article  id="cas-particulier-package">
-
-<ul>
-<li>Utiliser un package avec library revient à travailler avec un nouvel environnement</li>
-<li>cet environement doit être rechargé à chaque ouverture de r</li>
-<li>il contient les fonctions et les données du package</li>
-</ul>
-
-<img src='data:image/png;base64,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' title=''/>
-
-</article></slide><slide class=""><hgroup><h2>Parametres de fonctions</h2></hgroup><article  id="parametres-de-fonctions">
-
-<pre class = 'prettyprint lang-r'>a&lt;-1
-
-fun&lt;-function(x){
-a&lt;-10
-return(x+a)
+<pre class = 'prettyprint lang-r'>vecteur=1:100
+for (valeur in vecteur) {
+  if (valeur &gt; 62) {
+    break
+  }
 }
-fun(1)</pre>
+valeur</pre>
 
-<pre >## [1] 11</pre>
+<pre >## [1] 63</pre>
 
-<pre class = 'prettyprint lang-r'>a</pre>
+</article></slide><slide class=""><hgroup><h2>L’argument Next</h2></hgroup><article  id="largument-next">
 
-<pre >## [1] 1</pre>
+<ul>
+<li>L’argument Next permet de sauter des itérations d’une boucle sans la terminer, on passe a l’itération suivante.</li>
+</ul>
 
-</article></slide><slide class=""><hgroup><h2>Parametres de fonctions</h2></hgroup><article  id="parametres-de-fonctions-1">
+<pre class = 'prettyprint lang-r'>vecteur=1:4
+for (valeur in vecteur) {
+  if (valeur == 3) {
+    next
+  }
+  print(valeur)
+}</pre>
 
-<pre class = 'prettyprint lang-r'>a&lt;-1
-
-fun&lt;-function(x){
-
-return(x+a)
-}
-fun(1)</pre>
-
-<pre >## [1] 2</pre>
-
-<pre class = 'prettyprint lang-r'>a</pre>
-
-<pre >## [1] 1</pre>
-
-</article></slide><slide class=""><hgroup><h2>Parametres de fonctions</h2></hgroup><article  id="parametres-de-fonctions-2">
-
-<pre class = 'prettyprint lang-r'>a&lt;-1
-
-fun&lt;-function(x){
-a&lt;&lt;-10
-return(x+a)
-}
-fun(1)</pre>
-
-<pre >## [1] 11</pre>
-
-<pre class = 'prettyprint lang-r'>a</pre>
-
-<pre >## [1] 10</pre>
-
-</article></slide><slide class=""><hgroup><h2>Parametres de fonctions</h2></hgroup><article  id="parametres-de-fonctions-3">
-
-<pre class = 'prettyprint lang-r'>a&lt;-1
-x&lt;-100
-fun&lt;-function(x=1){
-
-return(x+a)
-}
-fun()</pre>
-
-<pre >## [1] 2</pre>
-
-<pre class = 'prettyprint lang-r'>a</pre>
-
-<pre >## [1] 1</pre>
-
-</article></slide><slide class=""><hgroup><h2>Manipuler un environement</h2></hgroup><article  id="manipuler-un-environement">
-
-<p><em>On peut creer et remplir d’autres environements</em></p>
-
-<pre class = 'prettyprint lang-r'>a&lt;-1
-env2&lt;-new.env()
-assign(&quot;a&quot;,2,envir=env2)
-
-a</pre>
-
-<pre >## [1] 1</pre>
-
-<pre class = 'prettyprint lang-r'>get(&quot;a&quot;,envir=env2)</pre>
-
-<pre >## [1] 2</pre>
-
-<pre class = 'prettyprint lang-r'>env2$b&lt;-2
-env2$b</pre>
-
-<pre >## [1] 2</pre>
-
-</article></slide><slide class=""><hgroup><h2>Interet d’un nouvel environement</h2></hgroup><article  id="interet-dun-nouvel-environement"></article></slide>
+<pre >## [1] 1
+## [1] 2
+## [1] 4</pre></article></slide>
 
 
   <slide class="backdrop"></slide>
