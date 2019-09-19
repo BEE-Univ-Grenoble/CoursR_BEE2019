@@ -6,12 +6,10 @@ output:
   slidy_presentation: default
   powerpoint_presentation: default
 ---
-
-
+<<<<<<< HEAD
 
 
 ## A quoi ça sert ?
-
 
 
 * Apply = Appliquer
@@ -38,7 +36,7 @@ Il faut également une fonction à appliquer : l'argument 'FUN'
 
 Dans certain cas : des conditions : l'argument 'MARGIN'
 
-*apply(X,MARGIN,FUN,...)
+* apply(X,MARGIN,FUN,...)
 
 ```{r}
 
@@ -61,3 +59,5 @@ knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/content_content_app
 plot(pressure)
 ```
 
+=======
+>>>>>>> 96e004bac65471053d23888e23cead33f46e3a06
