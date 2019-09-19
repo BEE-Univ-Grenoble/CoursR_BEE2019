@@ -13,7 +13,7 @@ library(utf8)
 ```
 
 
-## A quoi ça sert ?
+## A quoi Ã§a sert ?
 
 
 * Apply = Appliquer
@@ -25,7 +25,11 @@ A appliquer une fonction sur tout ou partie d'un objet
 knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/apply_family.PNG")
 ```
 
-## Comment ça marche?
+## Comment ?a marche?
+```{r}
+df = matrix(seq(1:9), nrow = 3, ncol = 3)
+df
+```
 
 
 Pour faire fonctionner un 'apply' :
@@ -36,32 +40,90 @@ il faut un objet l'argument 'X' :
 * Matrices
 * Data Frame
 
-Il faut également une fonction à appliquer : l'argument 'FUN'
+Il faut ?galement une fonction ? appliquer : l'argument 'FUN'
 
 Dans certain cas : des conditions : l'argument 'MARGIN'
 
 * apply(X,MARGIN,FUN,...)
 
 ```{r}
+apply(df, 1, "[") # extracting values by crossing dim 1
+apply(df, 2, "[") # extracting values by crossing dim 2
 
+
+apply(df, 1, sum)     # vector of sums, by crossing dim 1
+apply(df, 2, sum)     # vector of sums, by crossing dim 2
 
 ```
 
                                                   
-## Piege à éviter
+## Piege ? ?viter
 
 ```{r setup}
 knitr::opts_chunk$set(echo = FALSE)
 knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/content_content_apply_1.png")
 ```
 
+```{r}
+#       sapply(X, FUN)
+sapply(df, "[") # returns vector
 
-
-## Slide with Plot
-
-```{r pressure}
-plot(pressure)
 ```
 
-=======
->>>>>>> 96e004bac65471053d23888e23cead33f46e3a06
+```{r}
+#       vapply(X, FUN, FUN.VALUE, ..., USE.NAMES = TRUE)
+vapply(df, "[", FUN.VALUE = c(1)) # result length = 1 bc it is a vector
+
+```
+
+```{r}
+
+#       lapply(X, FUN, ...)
+lapply(df, "[") # result is list of length = 9
+
+```
+
+```{r}
+# on passe aux listes
+lsta = list(df, cbind(df, c(20:22)), df) # list of 3 having one different-lenghted df
+
+lsta
+
+
+```
+
+```{r}
+
+lapply(lsta, mean) # mean of all values in sub-objects, returns a list
+
+sapply(lsta, mean) # mean of all values in sub-objects, returns a vector
+
+
+```
+
+
+```{r}
+rowmeanfun = function(x) {apply(x, 1, mean)}
+lsta[[1]]
+rowmeanfun(lsta[[1]])
+
+```
+
+```{r}
+
+lapply(lsta, rowmeanfun) # returns a list
+
+```
+
+```{r}
+
+sapply(lsta, rowmeanfun) # returns a df if dimensions are compatible
+
+```
+
+```{r}
+
+vapply(lsta, rowmeanfun, FUN.VALUE = c("row1" = 0, "row2" = 0, "row3" = 0)) # spply with security check
+
+```
+
