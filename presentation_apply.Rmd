@@ -7,6 +7,10 @@ output:
   powerpoint_presentation: default
 ---
 <<<<<<< HEAD
+```{r}
+knitr::opts_chunk$set(echo = FALSE)
+library(utf8)
+```
 
 
 ## A quoi ça sert ?
@@ -17,7 +21,7 @@ output:
 A appliquer une fonction sur tout ou partie d'un objet
 
 ```{r echo=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+
 knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/apply_family.PNG")
 ```
 
