@@ -39,29 +39,25 @@ il faut un objet l'argument 'X' :
 Il faut également une fonction à appliquer : l'argument 'FUN'
 
 Dans certain cas : des conditions : l'argument 'MARGIN'
+L'argument 'MARGIN' indique à R sur quoi appliquer la fonction : 
+* soit lignes : 1
+* soit colonnes : 2
 
-* apply(X,MARGIN,FUN,...)
 
-```{r}
-
-
-```
-
-                                                  
 ## Piege à éviter
 
 ```{r setup}
 knitr::opts_chunk$set(echo = FALSE)
 knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/content_content_apply_1.png")
 ```
+Chaque fonction de la famille des aplly, possede des specificité de sortie.
+
+lapply : Listes
+vapply : Listes
+sapply : 
 
 
 
-## Slide with Plot
-
-```{r pressure}
-plot(pressure)
-```
 
 =======
 >>>>>>> 96e004bac65471053d23888e23cead33f46e3a06
