@@ -52,6 +52,9 @@ Dans certain cas : des conditions : l'argument 'MARGIN'
 knitr::opts_chunk$set(echo = FALSE)
 knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/content_content_apply_1.png")
 ```
+
+
+
 ## Slide with Plot
 
 ```{r pressure}
