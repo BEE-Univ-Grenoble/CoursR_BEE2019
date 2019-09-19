@@ -13,7 +13,7 @@ library(utf8)
 ```
 
 
-## A quoi ça sert ?
+## A quoi Ã§a sert ?
 
 
 * Apply = Appliquer
@@ -25,7 +25,7 @@ A appliquer une fonction sur tout ou partie d'un objet
 knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/apply_family.PNG")
 ```
 
-## Comment ça marche?
+## Comment Ã§a marche?
 
 
 Pour faire fonctionner un 'apply' :
@@ -36,7 +36,7 @@ il faut un objet l'argument 'X' :
 * Matrices
 * Data Frame
 
-Il faut également une fonction à appliquer : l'argument 'FUN'
+Il faut Ã©galement une fonction Ã  appliquer : l'argument 'FUN'
 
 Dans certain cas : des conditions : l'argument 'MARGIN'
 
@@ -48,7 +48,7 @@ Dans certain cas : des conditions : l'argument 'MARGIN'
 ```
 
                                                   
-## Piege à éviter
+## Piege Ã  Ã©viter
 
 ```{r setup}
 knitr::opts_chunk$set(echo = FALSE)
