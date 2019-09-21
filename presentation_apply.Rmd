@@ -1,39 +1,147 @@
 ---
-title: "presentation _apply"
-author: "martial"
+title: "We are Apply Familly"
+author: "Julia Guerra, Martial Leroy"
 date: "9/6/2019"
 output:
   slidy_presentation: default
   powerpoint_presentation: default
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+<<<<<<< HEAD
+```{r}
+library(utf8)
 ```
 
-Essai de changement
 
-## R Markdown
+## A quoi ça sert ?
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+* Apply = Appliquer
 
-## Slide with Bullets
+A appliquer une fonction sur tout ou partie d'un objet
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-## Slide with R Output
-
-```{r cars, echo = TRUE}
-summary(cars)
+```{r echo=FALSE}
+knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/apply_family.PNG")
 ```
 
-## Slide with Plot
 
-```{r pressure}
-plot(pressure)
+## Comment ça marche?
+
+```{r}
+df = matrix(seq(1:9), nrow = 3, ncol = 3)
+df
 ```
+
+
+
+Pour faire fonctionner un 'apply' :
+
+il faut un objet l'argument 'X' :
+
+* Vecteurs
+* Matrices
+* Data Frame
+
+
+Il faut également une fonction à appliquer : l'argument 'FUN'
+
+
+
+
+Dans certain cas : des conditions : l'argument 'MARGIN'
+L'argument 'MARGIN' indique à R sur quoi appliquer la fonction : 
+* soit lignes : 1
+* soit colonnes : 2
+
+
+```{r echo=FALSE}
+knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/content_content_apply_1.png")
+```
+
+
+## Piege à éviter
+
+Chaque fonction de la famille des aplly, possede des specificité de sortie.
+
+
+lapply : Listes
+
+sapply : 
+vapply : Vecteur 
+
+
+```{r}
+apply(df, 1, "[") # extracting values by crossing dim 1
+apply(df, 2, "[") # extracting values by crossing dim 2
+
+
+apply(df, 1, sum)     # vector of sums, by crossing dim 1
+apply(df, 2, sum)     # vector of sums, by crossing dim 2
+
+```
+
+
+```{r}
+#       sapply(X, FUN)
+sapply(df, "[") # returns vector
+
+```
+
+```{r}
+#       vapply(X, FUN, FUN.VALUE, ..., USE.NAMES = TRUE)
+vapply(df, "[", FUN.VALUE = c(1)) # result length = 1 bc it is a vector
+
+```
+
+```{r}
+
+#       lapply(X, FUN, ...)
+lapply(df, "[") # result is list of length = 9
+
+```
+
+```{r}
+# on passe aux listes
+lsta = list(df, cbind(df, c(20:22)), df) # list of 3 having one different-lenghted df
+
+lsta
+
+
+```
+
+```{r}
+
+lapply(lsta, mean) # mean of all values in sub-objects, returns a list
+
+sapply(lsta, mean) # mean of all values in sub-objects, returns a vector
+
+
+```
+
+
+```{r}
+rowmeanfun = function(x) {apply(x, 1, mean)}
+lsta[[1]]
+rowmeanfun(lsta[[1]])
+
+```
+
+
+```{r}
+
+lapply(lsta, rowmeanfun) # returns a list
+
+```
+
+```{r}
+
+sapply(lsta, rowmeanfun) # returns a df if dimensions are compatible
+
+```
+
+```{r}
+
+vapply(lsta, rowmeanfun, FUN.VALUE = c("row1" = 0, "row2" = 0, "row3" = 0)) # spply with security check
+
+```
+
 
