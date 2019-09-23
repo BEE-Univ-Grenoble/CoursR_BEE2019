@@ -20,7 +20,7 @@ library(utf8)
 A appliquer une fonction sur tout ou partie d'un objet
 
 ```{r echo=FALSE}
-knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/apply_family.PNG")
+knitr::include_graphics("https://raw.githubusercontent.com/BEE-Univ-Grenoble/CoursR_BEE2019/master/apply_family.PNG")
 ```
 
 
@@ -54,7 +54,7 @@ L'argument 'MARGIN' indique à R sur quoi appliquer la fonction :
 
 
 ```{r echo=FALSE}
-knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/content_content_apply_1.png")
+knitr::include_graphics("https://raw.githubusercontent.com/BEE-Univ-Grenoble/CoursR_BEE2019/master/content_content_apply_1.png")
 ```
 
 
