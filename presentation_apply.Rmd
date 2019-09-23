@@ -94,7 +94,7 @@ vapply(df, "[", FUN.VALUE = c(1)) # result length = 1 bc it is a vector
 lapply(df, "[") # result is list of length = 9
 
 ```
-# Si on a des listes en entré
+# Si on a des listes en entrée
 ```{r}
 # on passe aux listes
 lsta = list(df, cbind(df, c(20:22)), df) # list of 3 having one different-lenghted df
@@ -103,17 +103,20 @@ lsta
 
 
 ```
-# lapply
-```{r}
-
-lapply(lsta, mean) # mean of all values in sub-objects, returns a list
-```
 # sapply
 ```{r}
 sapply(lsta, mean) # mean of all values in sub-objects, returns a vector
 
 
 ```
+# vapply
+
+# lapply
+```{r}
+
+lapply(lsta, mean) # mean of all values in sub-objects, returns a list
+```
+
 
 # Utilisation en imbriquant plusieurs fonction
 ```{r}
@@ -141,5 +144,4 @@ sapply(lsta, rowmeanfun) # returns a df if dimensions are compatible
 vapply(lsta, rowmeanfun, FUN.VALUE = c("row1" = 0, "row2" = 0, "row3" = 0)) # spply with security check
 
 ```
-
 
