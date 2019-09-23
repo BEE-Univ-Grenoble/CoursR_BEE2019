@@ -6,13 +6,13 @@ output:
   slidy_presentation: default
   powerpoint_presentation: default
 ---
-<<<<<<< HEAD
-```{r}
+
+```{r include=FALSE}
 library(utf8)
 ```
 
 
-## A quoi ça sert ?
+# A quoi ça sert ?
 
 
 * Apply = Appliquer
@@ -24,7 +24,7 @@ knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/apply_family.PNG")
 ```
 
 
-## Comment ça marche?
+# Comment ça marche?
 
 ```{r}
 df = matrix(seq(1:9), nrow = 3, ncol = 3)
@@ -45,7 +45,7 @@ il faut un objet l'argument 'X' :
 Il faut également une fonction à appliquer : l'argument 'FUN'
 
 
-
+# Bien spécifier sur quoi on applique la fonction
 
 Dans certain cas : des conditions : l'argument 'MARGIN'
 L'argument 'MARGIN' indique à R sur quoi appliquer la fonction : 
@@ -58,47 +58,43 @@ knitr::include_graphics("M:/cours/M2/bio_math/CoursR_BEE2019/content_content_app
 ```
 
 
-## Piege à éviter
+# Piege à éviter
 
-Chaque fonction de la famille des aplly, possede des specificité de sortie.
-
-
-lapply : Listes
-
-sapply : 
-vapply : Vecteur 
-
+Chaque fonction de la famille des apply, possede des specificité de sortie.
 
 ```{r}
 apply(df, 1, "[") # extracting values by crossing dim 1
 apply(df, 2, "[") # extracting values by crossing dim 2
 
+```
 
+#
+```{r}
 apply(df, 1, sum)     # vector of sums, by crossing dim 1
 apply(df, 2, sum)     # vector of sums, by crossing dim 2
 
 ```
 
-
+# sapply
 ```{r}
 #       sapply(X, FUN)
 sapply(df, "[") # returns vector
 
 ```
-
+# vapply
 ```{r}
 #       vapply(X, FUN, FUN.VALUE, ..., USE.NAMES = TRUE)
 vapply(df, "[", FUN.VALUE = c(1)) # result length = 1 bc it is a vector
 
 ```
-
+# lapply
 ```{r}
 
 #       lapply(X, FUN, ...)
 lapply(df, "[") # result is list of length = 9
 
 ```
-
+# Si on a des listes en entré
 ```{r}
 # on passe aux listes
 lsta = list(df, cbind(df, c(20:22)), df) # list of 3 having one different-lenghted df
@@ -107,11 +103,13 @@ lsta
 
 
 ```
-
+# lapply
 ```{r}
 
 lapply(lsta, mean) # mean of all values in sub-objects, returns a list
-
+```
+# sapply
+```{r}
 sapply(lsta, mean) # mean of all values in sub-objects, returns a vector
 
 
