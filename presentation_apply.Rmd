@@ -115,7 +115,7 @@ sapply(lsta, mean) # mean of all values in sub-objects, returns a vector
 
 ```
 
-
+# Utilisation en imbriquant plusieurs fonction
 ```{r}
 rowmeanfun = function(x) {apply(x, 1, mean)}
 lsta[[1]]
