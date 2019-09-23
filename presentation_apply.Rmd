@@ -9,8 +9,21 @@ output:
 
 ```{r include=FALSE}
 library(utf8)
-```
 
+```
+```{r include=FALSE}
+library(htmltools)
+knitr::opts_chunk$set(
+  fig.align = "center"
+)
+knitr::knit_hooks$set(imgcenter = function(before, options, envir){
+  if (before) {
+    HTML("<p align='center'>")
+  } else {
+    HTML("</p>")
+  }
+})
+```    
 
 # A quoi ça sert ?
 
@@ -19,7 +32,7 @@ library(utf8)
 
 A appliquer une fonction sur tout ou partie d'un objet
 
-```{r echo=FALSE}
+```{r echo=FALSE, imgcenter = TRUE}
 knitr::include_graphics("https://raw.githubusercontent.com/BEE-Univ-Grenoble/CoursR_BEE2019/master/apply_family.PNG")
 ```
 
@@ -53,9 +66,16 @@ L'argument 'MARGIN' indique à R sur quoi appliquer la fonction :
 * soit colonnes : 2
 
 
-```{r echo=FALSE}
+
+```{r echo=FALSE, imgcenter = TRUE}
+
 knitr::include_graphics("https://raw.githubusercontent.com/BEE-Univ-Grenoble/CoursR_BEE2019/master/content_content_apply_1.png")
+
 ```
+
+
+
+
 
 
 # Piege à éviter
