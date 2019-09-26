@@ -1,5 +1,5 @@
 ---
-title: "Expressions rÃ©guliÃ¨res"
+title: "Les Expressions régulières sous R"
 author: "Ameline et Maude"
 date: "6 septembre 2019"
 output: ioslides_presentation
@@ -9,17 +9,32 @@ output: ioslides_presentation
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## R Markdown
+## Introduction :
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+### Définition
+Les expressions régulières sont des **chaînes de caractères** décrivant un *motif*, un enssemble de chaînes de caractères possible, selon une syntaxe définie.  
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+### Exemples
 
-## Slide with Bullets
+en expressiosn régulières le `.` correspond a tout autres caractères donc `t.t.` peut correspondre à :
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+- tata
+- totO
+- ou  t,t4 (à verififer si ça marche avec les virgules)
+
+## Normes de syntaxes
+Il existes 2 types de syntaxes.
+
+- Perl-Compatible Régular Expressions (PCRE) compatible avec le code Python
+- POSIX normalisé, théoriquement plus simple, plus lente.
+
+**R** utilise la norme **POSIX** par défaut.
+
+(*la Norme PCRE s'utilise sur R à condition d'indiquer perl=TRUE*)
+
+## Syntaxe POSIX
+
+
 
 ## Slide with R Output
 
