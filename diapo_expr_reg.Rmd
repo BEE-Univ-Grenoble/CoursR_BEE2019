@@ -1,5 +1,5 @@
 ---
-title: "Les Expressions régulières sous R"
+title: "Les Expressions r?guli?res sous R"
 author: "Ameline et Maude"
 date: "6 septembre 2019"
 output: ioslides_presentation
@@ -11,26 +11,26 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Introduction :
 
-### Définition
-Les expressions régulières sont des **chaînes de caractères** décrivant un *motif*, un enssemble de chaînes de caractères possible, selon une syntaxe définie.  
+### D?finition
+Les expressions r?guli?res sont des **cha?nes de caract?res** d?crivant un *motif*, un enssemble de cha?nes de caract?res possible, selon une syntaxe d?finie.  
 
 ### Exemples
 
-en expressiosn régulières le `.` correspond a tout autres caractères donc `t.t.` peut correspondre à :
+en expressiosn r?guli?res le `.` correspond a tout autres caract?res donc `t.t.` peut correspondre ? :
 
 - tata
 - totO
-- ou  t,t4 (à verififer si ça marche avec les virgules)
+- ou  t,t4 (? verififer si ?a marche avec les virgules)
 
 ## Normes de syntaxes
 Il existes 2 types de syntaxes.
 
-- Perl-Compatible Régular Expressions (PCRE) compatible avec le code Python
-- POSIX normalisé, théoriquement plus simple, plus lente.
+- Perl-Compatible R?gular Expressions (PCRE) compatible avec le code Python
+- POSIX normalis?, th?oriquement plus simple, plus lente.
 
-**R** utilise la norme **POSIX** par défaut.
+**R** utilise la norme **POSIX** par d?faut.
 
-(*la Norme PCRE s'utilise sur R à condition d'indiquer perl=TRUE*)
+(*la Norme PCRE s'utilise sur R ? condition d'indiquer perl=TRUE*)
 
 ## Syntaxe POSIX
 
