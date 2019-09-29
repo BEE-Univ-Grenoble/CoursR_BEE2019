@@ -33,7 +33,22 @@ Il existes 2 types de syntaxes.
 (*la Norme PCRE s'utilise sur R ? condition d'indiquer perl=TRUE*)
 
 ## Syntaxe POSIX
+Quelques éléments de syntaxes pour les expressions régulières...
 
+`.` tout caractère 
+ex : tot. pour toto tota totu etc...
+
+`^` le motif est en début de chaine 
+ex : ^man pour mannuel mais pas batman  
+`$`
+`|` donne un motif alternatif
+ex : to|ti selectionnera to et ti en absence de to ?
+`?` 0 ou 1 occurence du motif
+ex : test bla mais pas blabla ?
+`*` 0 ou plusieiurs occurence du motif
+ex bla ou blabla
+`+` 1 ou plusieurs occurences du motif 
+ex : "bla" et "blabla" mais pas "test"
 
 
 ## Slide with R Output
