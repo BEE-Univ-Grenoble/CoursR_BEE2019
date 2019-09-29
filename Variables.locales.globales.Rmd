@@ -3,6 +3,7 @@ title: "Variables locales et globales"
 author: "Ellie Tideswell and Jeremy Bornerieux"
 date: "6 September 2019"
 output:
+  beamer_presentation: default
   ioslides_presentation: default
   slidy_presentation: default
 ---
