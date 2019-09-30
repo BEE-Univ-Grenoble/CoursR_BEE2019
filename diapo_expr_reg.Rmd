@@ -1,5 +1,5 @@
 ---
-title: "Les Expressions r?guli?res sous R"
+title: "Les Expressions réguliéres sous R"
 author: "Ameline et Maude"
 date: "6 septembre 2019"
 output: ioslides_presentation
@@ -11,55 +11,56 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Introduction :
 
-### D?finition
-Les expressions r?guli?res sont des **cha?nes de caract?res** d?crivant un *motif*, un enssemble de cha?nes de caract?res possible, selon une syntaxe d?finie.  
+### Définition
+Les expressions régulières sont des **chaînes de caractères** décrivant un *motif*, un enssemble de chaînes de caractères possible, selon une syntaxe définie.  
 
 ### Exemples
 
-en expressiosn r?guli?res le `.` correspond a tout autres caract?res donc `t.t.` peut correspondre ? :
+en expressiosn régulières le `.` correspond a tout autres caractères donc `t.t.` peut correspondre à :
 
 - tata
 - totO
-- ou  t,t4 (? verififer si ?a marche avec les virgules)
+- ou  tot4 
 
 ## Normes de syntaxes
 Il existes 2 types de syntaxes.
 
-- Perl-Compatible R?gular Expressions (PCRE) compatible avec le code Python
-- POSIX normalis?, th?oriquement plus simple, plus lente.
+- Perl-Compatible Régular Expressions (PCRE) compatible avec le code Python
+- POSIX normalisé, théoriquement plus simple, plus lente.
 
-**R** utilise la norme **POSIX** par d?faut.
+**R** utilise la norme **POSIX** par défaut.
 
-(*la Norme PCRE s'utilise sur R ? condition d'indiquer perl=TRUE*)
+(*la Norme PCRE s'utilise sur R à condition d'indiquer perl=TRUE*)
 
 ## Syntaxe POSIX
 Quelques éléments de syntaxes pour les expressions régulières...
 
 `.` tout caractère 
-ex : tot. pour toto tota totu etc...
+ex : tot. peut correspondre à toto tota totu etc...
 
-`^` le motif est en début de chaine 
-ex : ^man pour mannuel mais pas batman  
-`$`
-`|` donne un motif alternatif
-ex : to|ti selectionnera to et ti en absence de to ?
+`^` le motif qui suit le "^" est situé en début de chaine 
+ex : ^man peut correspondre à mange mais pas démange
+
+`$` le motif qui suit le "$" est situé en fin de chaine
+
+`|` indique un motif alternatif
+ex : to|ti sélectionnera to et ti en absence de to ? (à vérifier)
+
 `?` 0 ou 1 occurence du motif
-ex : test bla mais pas blabla ?
-`*` 0 ou plusieiurs occurence du motif
-ex bla ou blabla
+ex : ?bla sélectionnera toto et bla mais pas blabla
+
+## Syntaxe POSIX
+
+`*` 0 ou plusieurs occurence du motif
+ex : *bla selectionnera toto ou blabla mais pas bla
+
 `+` 1 ou plusieurs occurences du motif 
-ex : "bla" et "blabla" mais pas "test"
+ex : +bla selectionnera bla et blabla mais pas toto
 
+`[...]` le motif peut prendre un des caractères entre crochets
+ex : t[oa]to peut correspondre à tato ou toto
 
-## Slide with R Output
+`[^...]` le motif peut prendre tout les caractère a l'exeption de ceux qui sont indiquer entre crochet
+ex : t[^u]to peut correspondre à toto, t4to mais pas à tuto
 
-```{r cars, echo = TRUE}
-summary(cars)
-```
-
-## Slide with Plot
-
-```{r pressure}
-plot(pressure)
-```
 
