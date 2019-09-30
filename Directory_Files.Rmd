@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 unlink('~/ETUDES/UGA/M2_BEE_DynaMO/UE_OIMM/CoursR_BEE2019/Directory_Files_cache', recursive = TRUE)
 ```
 
-# We can use R to create, delete and move and obtain information on files and directories.
+# We can use R to create, delete, move and obtain information on files and directories.
 
 ## Get and change the current working directory
 
