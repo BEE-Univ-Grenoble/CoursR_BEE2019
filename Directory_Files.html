@@ -3119,7 +3119,7 @@ slide:not(.current) .plotly.html-widget{
           </hgroup>
   </slide>
 
-<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>We can use R to create, delete and move and obtain information on files and directories.</h2></hgroup><article  id="we-can-use-r-to-create-delete-and-move-and-obtain-information-on-files-and-directories.">
+<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>We can use R to create, delete, move and obtain information on files and directories.</h2></hgroup><article  id="we-can-use-r-to-create-delete-move-and-obtain-information-on-files-and-directories.">
 
 </article></slide><slide class=""><hgroup><h2>Get and change the current working directory</h2></hgroup><article  id="get-and-change-the-current-working-directory">
 
@@ -3277,19 +3277,19 @@ library(filesstrings)</pre>
 head(snapshot$info)</pre>
 
 <pre >##               size isdir mode               mtime               ctime
-## Banana.docx      0 FALSE  666 2019-09-30 17:36:37 2019-09-30 17:36:37
-## Egg_plant.csv    0 FALSE  666 2019-09-30 17:36:37 2019-09-30 17:36:37
-## Kitchen          0  TRUE  777 2019-09-30 17:36:37 2019-09-30 17:36:37
-## Livingroom       0  TRUE  777 2019-09-30 17:36:37 2019-09-30 17:36:37
-## Potatoe.txt      0 FALSE  666 2019-09-30 17:36:37 2019-09-30 17:36:37
-## Truite.txt       0 FALSE  666 2019-09-30 17:36:37 2019-09-30 17:36:37
+## Banana.docx      0 FALSE  666 2019-09-30 17:39:30 2019-09-30 17:39:30
+## Egg_plant.csv    0 FALSE  666 2019-09-30 17:39:30 2019-09-30 17:39:30
+## Kitchen          0  TRUE  777 2019-09-30 17:39:30 2019-09-30 17:39:29
+## Livingroom       0  TRUE  777 2019-09-30 17:39:30 2019-09-30 17:39:30
+## Potatoe.txt      0 FALSE  666 2019-09-30 17:39:30 2019-09-30 17:39:30
+## Truite.txt       0 FALSE  666 2019-09-30 17:39:30 2019-09-30 17:39:30
 ##                             atime exe
-## Banana.docx   2019-09-30 17:36:37  no
-## Egg_plant.csv 2019-09-30 17:36:37  no
-## Kitchen       2019-09-30 17:36:37  no
-## Livingroom    2019-09-30 17:36:37  no
-## Potatoe.txt   2019-09-30 17:36:37  no
-## Truite.txt    2019-09-30 17:36:37  no</pre>
+## Banana.docx   2019-09-30 17:39:30  no
+## Egg_plant.csv 2019-09-30 17:39:30  no
+## Kitchen       2019-09-30 17:39:30  no
+## Livingroom    2019-09-30 17:39:30  no
+## Potatoe.txt   2019-09-30 17:39:30  no
+## Truite.txt    2019-09-30 17:39:30  no</pre>
 
 <ul>
 <li><strong>file.info</strong> function for a file :</li>
@@ -3298,9 +3298,9 @@ head(snapshot$info)</pre>
 <pre class = 'prettyprint lang-r'>file.info(&quot;Garden/Banana.docx&quot;)</pre>
 
 <pre >##                    size isdir mode               mtime               ctime
-## Garden/Banana.docx    0 FALSE  666 2019-09-30 17:36:37 2019-09-30 17:36:37
+## Garden/Banana.docx    0 FALSE  666 2019-09-30 17:39:30 2019-09-30 17:39:30
 ##                                  atime exe
-## Garden/Banana.docx 2019-09-30 17:36:37  no</pre>
+## Garden/Banana.docx 2019-09-30 17:39:30  no</pre>
 
 <p>To have seperated details you can also use <strong>file.ctime</strong> and <strong>file.mtime</strong> functions.</p>
 
