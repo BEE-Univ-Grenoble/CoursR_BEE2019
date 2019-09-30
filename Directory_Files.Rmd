@@ -1,0 +1,155 @@
+---
+title: "Dealing with directory and files"
+author: "Nicolas BARTALUCCI, Ludovic CHAUMAZ"
+date: "30/09/2019"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+unlink('~/ETUDES/UGA/M2_BEE_DynaMO/UE_OIMM/CoursR_BEE2019/Directory_Files_cache', recursive = TRUE)
+```
+
+# We can use R to create, delete and move and obtain information on files and directories.
+
+## Get and change the current working directory
+
+- **getwd** function :
+```{r getwd, echo = TRUE}
+getwd()
+```
+
+- **setwd** function :
+```{r setwd, echo = TRUE}
+setwd("C:/Users/BARTALUCCI_Nicolas/Desktop/")
+```
+
+
+## Create files and directory
+
+- **dir.create** function to create a folder :
+```{r dir.create, echo = TRUE}
+dir.create("Garden")
+dir.create("Garden/Kitchen")
+```
+It is still possible to create a folder by giving the full path where we want to create it.
+
+- **file.create** function to create a file :
+```{r file.create, echo = TRUE, results="hide"}
+file.create("Garden/Potatoe.txt") #text document
+file.create("Garden/Banana.docx") #word document
+file.create("Garden/Egg_plant.csv") #csv document
+```
+
+Thus, creating a lot of files is easy :
+```{r sapply, echo = TRUE, results="hide"}
+sapply(paste0("Garden/Vegetable_", 1:42,".txt"), file.create)
+```
+
+## Rename a file
+
+- **file.rename** function :
+```{r rename, echo=TRUE}
+file.rename("Garden/Vegetable_22.txt","Garden/Truite.txt")
+```
+
+
+## How to move a file
+
+- **file.move** from *filesstrings* library can be used :
+```{r move, echo=TRUE}
+#install.packages("filesstrings")
+library(filesstrings)
+file.move("Garden/Vegetable_11.txt", "Garden/Livingroom")
+```
+
+
+## Copying a file or folder
+
+- **file.copy** function :
+```{r copy, echo = TRUE}
+file.copy("Garden/Banana.docx","Garden/Kitchen")
+```
+The second argument is the folder in which you want to duplicate the file.
+
+## Listing files in a directory
+
+- **list.files** function :
+```{r listing, echo = TRUE}
+list.files("Garden",
+           recursive = TRUE, #if you want all the subdirectory files
+           full.names = TRUE #to have the full names
+           )
+list.files("Garden",
+           recursive = TRUE, #if you want all the subdirectory files
+           pattern = ".csv")
+```
+
+Useful if you want to read in all the CSV files from a directory :
+```{r csv, echo = TRUE}
+#all_csv=lapply(list.files("Garden",pattern = ".csv"), read.csv)
+```
+
+## Get details about files
+
+- **fileSnapshot** function for a directory :
+```{r details, echo = TRUE}
+snapshot=fileSnapshot("Garden")
+head(snapshot$info)
+```
+
+- **file.info** function for a file :
+```{r file.info, echo = TRUE}
+file.info("Garden/Banana.docx")
+```
+To have seperated details you can also use **file.ctime** and **file.mtime** functions.
+
+## Delete files
+
+- **file.remove** and **unlink** functions :
+```{r delete, echo = TRUE}
+file.remove("Garden/Banana.docx")
+unlink("Garden/Potatoe.txt")
+unlink("Garden/Kitchen", recursive = TRUE)
+```
+
+## Check the existence of a directory or a file
+
+- **file.exists** function :
+- **file.remove** and **unlink** functions :
+```{r exist, echo = TRUE}
+file.exists(c("Garden/Egg_plant.csv","Garden/Vegetable_1.txt","Garden/Potatoe.txt"))
+dir.exists(c("Garden","Garden/Kitchen", "Mountain"))
+```
+
+## Get other informations on a file
+
+- **basename** function gives the basename :
+```{r basename, echo = TRUE}
+basename("Garden/Egg_plant.csv")
+```
+- **dirname** function gives the path of the directory :
+```{r dirname, echo = TRUE}
+dirname("Garden/Egg_plant.csv")
+```
+- **file_ext** function (*tools* package) gives the extension :
+```{r extension, echo = TRUE}
+library(tools) ; file_ext("Garden/Egg_plant.csv")
+```
+## Physically open a file or open a selection window
+
+- **shell.exec** or **file.show** functions can be used :
+```{r open, echo = TRUE}
+#shell.exec("C:/Users/BARTALUCCI_Nicolas/Desktop/Garden/Vegetable_1.txt")
+#file.show("Garden/Egg_plant.csv")
+```
+
+- **file.choose** function opens a selection window :
+```{r selection window, echo = TRUE}
+#file.choose()
+```
+
+```{r, include=FALSE}
+unlink("Garden", recursive = TRUE)
+```
+
