@@ -1,5 +1,5 @@
 ---
-title: "Les Expressions réguliéres sous R"
+title: "Les Expressions régulières sous R"
 author: "Ameline et Maude"
 date: "6 septembre 2019"
 output: ioslides_presentation
@@ -9,31 +9,32 @@ output: ioslides_presentation
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+
 ## Introduction :
 
 ### Définition
-Les expressions régulières sont des **chaînes de caractères** décrivant un *motif*, un enssemble de chaînes de caractères possible, selon une syntaxe définie.  
+Les expressions régulières sont des **chaînes de caractères** décrivant un *motif*, un ensemble de chaînes de caractères possible, selon une syntaxe définie.  
 
 ### Exemples
 
-en expressiosn régulières le `.` correspond a tout autres caractères donc `t.t.` peut correspondre à :
+en expressions régulières le `.` correspond à tout autre caractère donc `t.t.` peut correspondre à :
 
 - tata
 - totO
 - ou  tot4 
 
-## Normes de syntaxes
-Il existes 2 types de syntaxes.
+## Normes de syntaxe
+Il existe 2 types de syntaxe :
 
 - Perl-Compatible Régular Expressions (PCRE) compatible avec le code Python
-- POSIX normalisé, théoriquement plus simple, plus lente.
+- POSIX normalisé, théoriquement plus simple, plus lente
 
 **R** utilise la norme **POSIX** par défaut.
 
 (*la Norme PCRE s'utilise sur R à condition d'indiquer perl=TRUE*)
 
 ## Syntaxe POSIX
-Quelques éléments de syntaxes pour les expressions régulières...
+Quelques éléments de syntaxe pour les expressions régulières...
 
 `.` tout caractère 
 ex : tot. peut correspondre à toto tota totu etc...
@@ -51,7 +52,7 @@ ex : ?bla sélectionnera toto et bla mais pas blabla
 
 ## Syntaxe POSIX
 
-`*` 0 ou plusieurs occurence du motif
+`*` 0 ou plusieurs occurences du motif
 ex : *bla selectionnera toto ou blabla mais pas bla
 
 `+` 1 ou plusieurs occurences du motif 
@@ -60,7 +61,61 @@ ex : +bla selectionnera bla et blabla mais pas toto
 `[...]` le motif peut prendre un des caractères entre crochets
 ex : t[oa]to peut correspondre à tato ou toto
 
-`[^...]` le motif peut prendre tout les caractère a l'exeption de ceux qui sont indiquer entre crochet
+`[^...]` le motif peut prendre tous les caracteres a l'exception de ceux qui sont indiqués entre crochets
 ex : t[^u]to peut correspondre à toto, t4to mais pas à tuto
+
+
+
+## Les principales fonctions
+
+*grep* recherche les éléments d'une chaîne de caractères (`text`) qui présentent le motif (`pattern`) indiqué.
+
+Il retourne les indices de ces éléments :
+
+```{r echo=TRUE}
+grep("^cha*t", c("achat", "chaat", "chti"), value = FALSE)
+```
+
+Ou il retourne un nouveau vecteur avec les éléments qui présentent le motif :
+
+```{r echo=TRUE}
+grep("^cha*t", c("achat", "chaat", "chti"), value = TRUE)
+```
+
+## 
+
+*grepl* retourne un vecteur logique (TRUE ou FALSE) selon si l'élément du vecteur présente le motif ou non.
+
+```{r echo=TRUE}
+grepl("^cha*t", c("achat", "chaat", "chti"))
+```
+
+##
+
+*regexpr* renvoie un vecteur de même longueur que le `text` donnant la position de départ de la première correspondance ou -1 s'il n'y en a pas. Il renvoie aussi l'attribut "match.length" donnant la longueur du texte trouvé (ou -1 si pas de correspondance).
+
+```{r echo=TRUE}
+regexpr("^cha*t", c("achat", "chaat", "chti"))
+```
+
+*regexec* pareil mais retourne une liste.
+
+## Fonctions de substitution
+
+*sub* permet de remplacer le premier motif (`pattern`) correspondant des éléments du `text` par un nouveau caractères/chaîne de caractères (`replacement`). Elle retourne un nouveau vecteur de même longueur que le `text` avec les substitutions réalisées.
+
+```{r echo=TRUE}
+sub("cha", "CHU", c("achatchat", "chaat", "chti"))
+```
+
+*gsub* pareil mais permet de remplacer tous les motifs correspondants et non que le premier.
+
+```{r echo=TRUE}
+gsub("cha", "CHU", c("achatchat", "chaat", "chti"))
+```
+
+
+
+
 
 
