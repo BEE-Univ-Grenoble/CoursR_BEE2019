@@ -1,8 +1,8 @@
 ---
-title: "presentation_gestion_fichiers"
-author: "Ludovic Chaumaz"
-date: "6 septembre 2019"
-output: slidy_presentation
+title: "Cours Latex/Sweave"
+author: "Ludovic Chaumaz / Maxime Jaunatre"
+date: "19 septembre 2019"
+output: ioslides_presentation
 ---
 
 ```{r setup, include=FALSE}
@@ -32,4 +32,16 @@ summary(cars)
 ```{r pressure}
 plot(pressure)
 ```
+
+<!--Maxime & sweave-->
+
+## Incorporer du code R
+
+Lorem Ipsum
+
+ou alors : 
+```{r help}
+help('aggregate')
+```
+
 

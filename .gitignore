@@ -2,6 +2,11 @@
 .Rhistory
 .RData
 .Ruserdata
+<<<<<<< HEAD
 presentation_gestion_fichiers-figure
 presentation_gestion_fichiers.Rpres
 presentation_gestion_fichiers.md
+=======
+presentation_apply.pptx
+presentation_apply.html
+>>>>>>> 801f07e2b539757d150c7eb8479bd70c5f11c9db
