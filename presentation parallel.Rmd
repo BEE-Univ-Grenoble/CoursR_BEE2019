@@ -6,12 +6,29 @@ output: ioslides_presentation
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Boucle Foreach
+## Le processeur
+- Est le composant du PC qui effectue les calculs et instructions 
+- Il est divisé en coeurs (core)
+- un coeur ne peut traiter q'une instruction à la fois
+- R utilise par défaut qu'un coeur
+- Utiliser plusieurs coeurs peut augmenter la vitesse de calcul
+
+![circuit integré du i7-2600k](intelcore.png)
 
 
+## La paralellisation
+- Est un moyen efficace mais situationnel de reduire le temps de calcul
+- Repose sur deux packages
+```{r ,include=TRUE}
+library(foreach)
+library(doParallel)
+```
+
+
+## Boucle foreach
 
 ## Doparallel
 
@@ -20,5 +37,15 @@ knitr::opts_chunk$set(echo = FALSE)
 - Bullet 3
 
 ## exemple
+
+```{r, include=TRUE,eval=FALSE}
+r <- foreach(icount(n), .combine=cbind) %dopar% {
+      ind <- sample(100, 100, replace=TRUE)
+      result1 <- glm(x[ind,2]~x[ind,1], family=binomial(logit))
+      coefficients(result1)
+}
+```
+
+![rouge: calcul séquentiel (1 coeur), bleu: 2 coeurs, vert: 4 coeurs](Plotpara1.PNG)
 
 
