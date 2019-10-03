@@ -3135,7 +3135,13 @@ slide:not(.current) .plotly.html-widget{
 <li><strong>setwd</strong> function :</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>setwd(&quot;C:/Users/BARTALUCCI_Nicolas/Desktop/&quot;)</pre>
+<pre class = 'prettyprint lang-r'>original.path=getwd()
+setwd(&quot;../&quot;)
+getwd()</pre>
+
+<pre >## [1] &quot;D:/Documents/ETUDES/UGA/M2_BEE_DynaMO/UE_OIMM&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>setwd(original.path)</pre>
 
 </article></slide><slide class=""><hgroup><h2>Create files and directory</h2></hgroup><article  id="create-files-and-directory">
 
@@ -3277,19 +3283,19 @@ library(filesstrings)</pre>
 head(snapshot$info)</pre>
 
 <pre >##               size isdir mode               mtime               ctime
-## Banana.docx      0 FALSE  666 2019-09-30 17:39:30 2019-09-30 17:39:30
-## Egg_plant.csv    0 FALSE  666 2019-09-30 17:39:30 2019-09-30 17:39:30
-## Kitchen          0  TRUE  777 2019-09-30 17:39:30 2019-09-30 17:39:29
-## Livingroom       0  TRUE  777 2019-09-30 17:39:30 2019-09-30 17:39:30
-## Potatoe.txt      0 FALSE  666 2019-09-30 17:39:30 2019-09-30 17:39:30
-## Truite.txt       0 FALSE  666 2019-09-30 17:39:30 2019-09-30 17:39:30
+## Banana.docx      0 FALSE  666 2019-10-03 18:23:46 2019-10-03 18:23:46
+## Egg_plant.csv    0 FALSE  666 2019-10-03 18:23:46 2019-10-03 18:23:46
+## Kitchen          0  TRUE  777 2019-10-03 18:23:47 2019-10-03 18:23:46
+## Livingroom       0  TRUE  777 2019-10-03 18:23:47 2019-10-03 18:23:47
+## Potatoe.txt      0 FALSE  666 2019-10-03 18:23:46 2019-10-03 18:23:46
+## Truite.txt       0 FALSE  666 2019-10-03 18:23:46 2019-10-03 18:23:46
 ##                             atime exe
-## Banana.docx   2019-09-30 17:39:30  no
-## Egg_plant.csv 2019-09-30 17:39:30  no
-## Kitchen       2019-09-30 17:39:30  no
-## Livingroom    2019-09-30 17:39:30  no
-## Potatoe.txt   2019-09-30 17:39:30  no
-## Truite.txt    2019-09-30 17:39:30  no</pre>
+## Banana.docx   2019-10-03 18:23:46  no
+## Egg_plant.csv 2019-10-03 18:23:46  no
+## Kitchen       2019-10-03 18:23:47  no
+## Livingroom    2019-10-03 18:23:47  no
+## Potatoe.txt   2019-10-03 18:23:46  no
+## Truite.txt    2019-10-03 18:23:46  no</pre>
 
 <ul>
 <li><strong>file.info</strong> function for a file :</li>
@@ -3298,9 +3304,9 @@ head(snapshot$info)</pre>
 <pre class = 'prettyprint lang-r'>file.info(&quot;Garden/Banana.docx&quot;)</pre>
 
 <pre >##                    size isdir mode               mtime               ctime
-## Garden/Banana.docx    0 FALSE  666 2019-09-30 17:39:30 2019-09-30 17:39:30
+## Garden/Banana.docx    0 FALSE  666 2019-10-03 18:23:46 2019-10-03 18:23:46
 ##                                  atime exe
-## Garden/Banana.docx 2019-09-30 17:39:30  no</pre>
+## Garden/Banana.docx 2019-10-03 18:23:47  no</pre>
 
 <p>To have seperated details you can also use <strong>file.ctime</strong> and <strong>file.mtime</strong> functions.</p>
 
@@ -3321,7 +3327,6 @@ unlink(&quot;Garden/Kitchen&quot;, recursive = TRUE)</pre>
 
 <ul>
 <li><strong>file.exists</strong> function :</li>
-<li><strong>file.remove</strong> and <strong>unlink</strong> functions :</li>
 </ul>
 
 <pre class = 'prettyprint lang-r'>file.exists(c(&quot;Garden/Egg_plant.csv&quot;,&quot;Garden/Vegetable_1.txt&quot;,&quot;Garden/Potatoe.txt&quot;))</pre>
@@ -3364,14 +3369,24 @@ unlink(&quot;Garden/Kitchen&quot;, recursive = TRUE)</pre>
 <li><strong>shell.exec</strong> or <strong>file.show</strong> functions can be used :</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>#shell.exec(&quot;C:/Users/BARTALUCCI_Nicolas/Desktop/Garden/Vegetable_1.txt&quot;)
+<pre class = 'prettyprint lang-r'>#shell.exec(&quot;Garden/Vegetable_1.txt&quot;)
 #file.show(&quot;Garden/Egg_plant.csv&quot;)</pre>
 
 <ul>
 <li><strong>file.choose</strong> function opens a selection window :</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>#file.choose()</pre></article></slide>
+<pre class = 'prettyprint lang-r'>#file.choose()</pre>
+
+</article></slide><slide class=""><hgroup><h2>Save and reload a R object</h2></hgroup><article  id="save-and-reload-a-r-object">
+
+<ul>
+<li><strong>save</strong> and <strong>load</strong> functions are usefull to create a file and load it with a R object inside :</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>dt=data.frame(c(1:10),c(2:11))
+save(dt, file=&quot;Garden/Tomatoe.Rdata&quot;)
+dt2=get(load(&quot;Garden/Tomatoe.Rdata&quot;))</pre></article></slide>
 
 
   <slide class="backdrop"></slide>
