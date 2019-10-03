@@ -15,7 +15,7 @@ library(purrr)
 mtcars
 ```
 
-## A quoi ?a sert et qu'est ce qu'est ? 
+## A quoi ?a sert et qu'est ce c'est ? 
 
 C'est un package du tidyverse.
 
@@ -108,7 +108,7 @@ mtcars
 mtcars %>% map(sum)
 
 ```
-  Trop cool 
+
   
   ##
 
@@ -123,8 +123,7 @@ mtcars%>%
   split(.$cyl) %>%
   map(~ lm(mpg ~ wt, data = .x))
 ```
-  Tellement nice 
-  
+
   Rend les r?sultats au carr? sous forme de data frame
 ```{r}
 mtcars %>%
@@ -146,20 +145,43 @@ print_moyenne=function(x){
 }
 walk(x,print_moyenne)
 ```
+ ##Pour éviter les problèmes 
   
-  Pour ?viter les probl?mes 
 ```{r}
+  
+ reg=function(x,y,w=rep(1,length(x))){
+  result=lm(y~x,weights=w)
+  return(result)
+}
+```
+
+
+
+  Pour ?viter les probl?mes 
+
+
 myX=list(c(2,5,6,7,1,0,1,1),
          c(5,1,6,4,2),
          c())
 myY=list(c(5,8,9,7,22,1,9,9),
          c(2,8,9,5,4),
          c())
-map2(myX,myY,reg)
-```
-  Soucis car le troisi?me objet de la liste est nul. 
-  Pour faire appara?tre les deux premiers qui sont bons on utilise safety()
-```{r}
+
+
+map2(myX,myY,reg) 
+
+##
+  Soucis car le troisième objet de la liste est nul. 
+  Pour faire apparaître les deux premiers qui sont bons on utilise safely()
+
+
+
+reg=function(x,y,w=rep(1,length(x))){
+  result=lm(y~x,weights=w)
+  return(result)
+}
+
+
 myX=list(c(2,5,6,7,1,0,1,1),
          c(5,1,6,4,2),
          c())
@@ -167,6 +189,11 @@ myY=list(c(5,8,9,7,22,1,9,9),
          c(2,8,9,5,4),
          c())
 map2(myX,myY,safely(reg))
-```
+
   
+
+  ##
   
+  La fonction array-coercion () 
+  
+Utile pour transformer une matrice en liste 
