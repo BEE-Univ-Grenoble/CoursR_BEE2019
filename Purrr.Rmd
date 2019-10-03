@@ -15,21 +15,21 @@ library(purrr)
 mtcars
 ```
 
-## A quoi ça sert et qu'est ce c'est ? 
+## A quoi ?a sert et qu'est ce qu'est ? 
 
 C'est un package du tidyverse.
 
-Pour la programmation fonctionnelle : ce qui arrive dans R est le résultat d 'une fonction. Ce qui y est déjà est un objet 
+Pour la programmation fonctionnelle : ce qui arrive dans R est le r?sultat d 'une fonction. Ce qui y est d?j? est un objet 
 
-Le package purrr fait intervenir principalement les fonctions de type map, les fonctions walk et safely, et est surtout utilisé pour les objets de type liste. 
-Il permet d'éviter les boucles en itérant une fonction sur chaque objet de la liste.
+Le package purrr fait intervenir principalement les fonctions de type map, les fonctions walk et safely, et est surtout utilis? pour les objets de type liste. 
+Il permet d'?viter les boucles en it?rant une fonction sur chaque objet de la liste.
 
- La sortie finale est de la même taille que l'objet initial.
+ La sortie finale est de la m?me taille que l'objet initial.
 
 
 ##
 
-Avant tout, que retournent ces fonctions ? 
+Avant tout, que retournent ces fonctions map ? 
 
 - Celles qui retournent des listes 
     map()
@@ -43,24 +43,35 @@ Avant tout, que retournent ces fonctions ?
   
   ##
   
-  Celles qui retournent des dataframes créés par jointure de lignes ou de colonnes 
+  Celles qui retournent des dataframes cr??s par jointure de lignes ou de colonnes 
   -map_dfr et map_dfc
   
   
-## Structuration 
-  map(.x, .f,...)
+  
+  
+  ## Structuration 
 
+`map(.x, .f)`
    .x = objet 
-  .f = fonction appliquée
+  .f = fonction appliqu?e
   
+`map_if(.x, .p, .f)`
 
- map_if(.x, .p, .f, ...)
- 
   .x = objet 
-  .p = sélection des éléments de .x   
-  .f = fonction appliquée 
-  
-## Exemples 
+  .p = fonction de guarde
+  .f = fonction appliqu?e 
+
+La condition est l'action qu'execut?e par la fonction .p. Elle doit etre verifi?e pour  que la fonction map_if traite l'objet.
+
+`map_at(.x, .at, .f)`
+
+  .x = objet
+  .at = vecteur de nom au format caract?res (inclure) ou un vecteur de num?riques positifs (inclure) ou de num?riques n?gatifs (exclure)
+  .f = fonction appliqu?e
+
+Seul les ?l?ments s?lectionn?s seront modifi?
+
+  ## Exemples 
   
 ```{r}
 myX=list(c(33,NA,2,15,7,4,5),
@@ -69,7 +80,7 @@ myX=list(c(33,NA,2,15,7,4,5),
          c(3),
          c(12,5,9))
 
-# deux méthodes pour faire  la moyenne de chaque liste
+# deux m?thodes pour faire  la moyenne de chaque liste
 
 moyennes=vector("list",length=5)
 for (i in 1:length(myX)){
@@ -78,8 +89,6 @@ for (i in 1:length(myX)){
 print(moyennes)
 ```
   
-  
-##
 ```{r}
 myX=list(c(33,NA,2,15,7,4,5),
          c(22,1,3,NA,11,2),
@@ -89,22 +98,21 @@ myX=list(c(33,NA,2,15,7,4,5),
 moyennes=map(myX,mean, na.rm=TRUE)
 print(moyennes)
 ```
-
-  %in% = considérant
-  %>% sert à éviter l'imbrication des fonctions les unes 
-  dans les autres 
-  Il peut être lu comme "ensuite" ou "puis""
+  
+  %in% = consid?rant
+  %>% sert ? ?viter l'imbrication des fonctions les unes dans les autres 
+  Il peut ?tre lu comme "ensuite" ou "puis""
   
 ```{r}
 mtcars
 mtcars %>% map(sum)
 
 ```
-
+  Trop cool 
   
-##
+  ##
 
-  Fait apparaître une liste des différents groupes de cyl 
+  Fait appara?tre une liste des diff?rents groupes de cyl 
 ```{r}
 mtcars %>% 
   split(.$cyl)
@@ -115,9 +123,9 @@ mtcars%>%
   split(.$cyl) %>%
   map(~ lm(mpg ~ wt, data = .x))
 ```
- 
+  Tellement nice 
   
-  Rend les résultats au carré sous forme de data frame
+  Rend les r?sultats au carr? sous forme de data frame
 ```{r}
 mtcars %>%
   split(.$cyl) %>% 
@@ -127,14 +135,10 @@ mtcars %>%
 
 ```
   
-  ##
-  
   La fonction walk :
-  Elle permet d'utiliser une fonction définie au préalable et d'éviter une énième boucle 
+  Elle permet d'utiliser une fonction d?finie au pr?alable et d'?viter une ?ni?me boucle 
   
 ```{r}
-
-x=c(4,6,9)
 print_moyenne=function(x){
   print(paste("la moyenne est de",
               mean(x,na.rm=TRUE)))
@@ -143,32 +147,19 @@ print_moyenne=function(x){
 walk(x,print_moyenne)
 ```
   
-  ##Pour éviter les problèmes 
-  
- reg=function(x,y,w=rep(1,length(x))){
-  result=lm(y~x,weights=w)
-  return(result)
-}
-
+  Pour ?viter les probl?mes 
+```{r}
 myX=list(c(2,5,6,7,1,0,1,1),
          c(5,1,6,4,2),
          c())
 myY=list(c(5,8,9,7,22,1,9,9),
          c(2,8,9,5,4),
          c())
-
-map2(myX,myY,reg) 
-
-##
-  Soucis car le troisième objet de la liste est nul. 
-  Pour faire apparaître les deux premiers qui sont bons on utilise safety()
+map2(myX,myY,reg)
+```
+  Soucis car le troisi?me objet de la liste est nul. 
+  Pour faire appara?tre les deux premiers qui sont bons on utilise safety()
 ```{r}
-reg=function(x,y,w=rep(1,length(x))){
-  result=lm(y~x,weights=w)
-  return(result)
-}
-
-
 myX=list(c(2,5,6,7,1,0,1,1),
          c(5,1,6,4,2),
          c())
@@ -178,9 +169,4 @@ myY=list(c(5,8,9,7,22,1,9,9),
 map2(myX,myY,safely(reg))
 ```
   
-  ##
-  
-  La fonction array-coercion () 
-  
-Utile pour transformer une matrice en liste 
   
