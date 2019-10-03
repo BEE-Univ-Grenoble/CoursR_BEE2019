@@ -65,6 +65,42 @@ ex : t[oa]to peut correspondre à tato ou toto
 ex : t[^u]to peut correspondre à toto, t4to mais pas à tuto
 
 
+## Manipulation des caractères avec *stringr*
+
+```{r}
+library(stringr)
+```
+
+*str_length* : connaître le nombre de caractères dans une chaîne de caractères                             
+
+```{r echo=TRUE}
+vec = "chat"
+str_length(vec)
+```
+
+##     
+
+*str_sub* : connaître les caractères d'une chaîne compris entre une position de départ et une position de fin
+
+```{r echo=TRUE}
+vec = "chat"
+str_sub(vec,2,4)
+str_sub(vec,3,3) = "u"
+vec
+```
+
+
+
+## Traitement de chaînes
+
+*str_c* : concaténer des chaînes de caractères entre elles
+```{r echo=TRUE}
+a = "Ameline"
+b = "Guillet"
+str_c(a,b, sep = " ") #équivalent de *paste*
+```
+
+
 
 ## Les principales fonctions
 
@@ -84,7 +120,7 @@ grep("^cha*t", c("achat", "chaat", "chti"), value = TRUE)
 
 ## 
 
-*grepl* retourne un vecteur logique (TRUE ou FALSE) selon si l'élément du vecteur présente le motif ou non.
+*grepl* retourne un vecteur logique selon si les éléments du vecteur présentent le motif ou non.
 
 ```{r echo=TRUE}
 grepl("^cha*t", c("achat", "chaat", "chti"))
@@ -92,7 +128,7 @@ grepl("^cha*t", c("achat", "chaat", "chti"))
 
 ##
 
-*regexpr* renvoie un vecteur de même longueur que le `text` donnant la position de départ de la première correspondance ou -1 s'il n'y en a pas. Il renvoie aussi l'attribut "match.length" donnant la longueur du texte trouvé (ou -1 si pas de correspondance).
+*regexpr* renvoie un vecteur de même longueur que la chaîne de caracètres donnant la position de départ de la première correspondance ou -1 s'il n'y en a pas. Il renvoie aussi l'attribut "match.length" donnant la longueur du texte trouvé (ou -1 si pas de correspondance).
 
 ```{r echo=TRUE}
 regexpr("^cha*t", c("achat", "chaat", "chti"))
