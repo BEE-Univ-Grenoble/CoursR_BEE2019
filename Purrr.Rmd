@@ -29,7 +29,7 @@ Il permet d'éviter les boucles en itérant une fonction sur chaque objet de la li
 
 ##
 
-Avant tout, que retournent ces fonctions ? 
+Avant tout, que retournent ces fonctions map ? 
 
 - Celles qui retournent des listes 
     map()
@@ -62,9 +62,20 @@ map(.x, .f, ...)
 map_if(.x, .p, .f, ...)
 ```
   .x = objet 
-  .p = sélection des éléments de .x   
+  .p = fonction de guarde
   .f = fonction appliquée 
-  
+
+La condition est l'action qu'executée par la fonction .p. Elle doit etre verifiée pour  que la fonction map_if traite l'objet.
+
+```{r}
+map_at(.x, .at, .f, ...)
+```
+  .x = objet
+  .at = vecteur de nom au format caractères (inclure) ou un vecteur de numériques positifs (inclure) ou de numériques négatifs (exclure)
+  .f = fonction appliquée
+
+Seul les éléments sélectionnés seront modifié
+
   ## Exemples 
   
 ```{r}
