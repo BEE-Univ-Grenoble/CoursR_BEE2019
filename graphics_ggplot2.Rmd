@@ -34,15 +34,21 @@ C'est un peu plus clair. Avec des classe d'age se serait encore mieux.
 ## Aussitôt dit aussitôt fait : 
 
 ```{r cars, echo = TRUE}
-ggplot(data, aes(age, y=cholesterol)) +
-  geom_boxplot(aes(group = cut_width(age,5)))
+ggplot(data, aes(x = age, group = cut_width(age,5), y=cholesterol)) +
+  geom_boxplot()
 ```
-L'argument **aes(group = cut_width(age,5))** forme des classe de 5ans de large.
+L'argument **aes(group = cut_width(age,5))** forme des classes de 5 ans de large.
 
 
-## Slide with Plot
+## Rendons cela un peu plus visuel !
 
-```{r pressure}
-plot(pressure)
+```{r}
+ggplot(data, aes(age,group = cut_width(age,5), y=cholesterol,fill=cut_width(age,15))) +
+  geom_boxplot()
+  
 ```
+
+
+
+
 
