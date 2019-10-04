@@ -48,6 +48,9 @@ ggplot(data, aes(age,group = cut_width(age,5), y=cholesterol,fill=cut_width(age,
   
 ```
 
+Ici nous avons nos classes de 5ans et une couleur pour des classes plus grandes, par exemple les jeunes, les moins jeunes et les personnes agées.
+
+## Voyon cela avec des histogrammes
 
 
 
