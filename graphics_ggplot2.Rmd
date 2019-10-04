@@ -11,21 +11,34 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## R Markdown
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r}
+library(ggplot2)
+data = read.csv("evans.csv",header = T)
+  
+# Box plot
+ggplot(data, aes(x=age, y=cholesterol)) +
+  geom_point()+
+  geom_smooth()
+```
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+Mais ici, ce nest pas tres claire, **Avec quoi ce serait mieux ?**
 
-## Slide with Bullets
+## Des boxplot ?
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+```{r}
+ggplot(data, aes(group = age, y=cholesterol)) +
+  geom_boxplot()
+```
+C'est un peu plus clair. Avec des classe d'age se serait encore mieux.
 
-## Slide with R Output
+## Aussitôt dit aussitôt fait : 
 
 ```{r cars, echo = TRUE}
-summary(cars)
+ggplot(data, aes(age, y=cholesterol)) +
+  geom_boxplot(aes(group = cut_width(age,5)))
 ```
+L'argument **aes(group = cut_width(age,5))** forme des classe de 5ans de large.
+
 
 ## Slide with Plot
 
