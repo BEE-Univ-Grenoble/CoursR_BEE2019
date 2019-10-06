@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Liste des présentations
 
 Pour le 17 septembre :
@@ -19,4 +24,24 @@ Pour le 1er octobre
 - Traitement de chaines et les expressions régulières
     Cavaliere Maude / Ameline Guillet
 - Gestion de fichiers et de repertoires, fouille dans ces structures
-    Ludovic Chaumaz
+    Ludovic Chaumaz / Nicolas Bartalucci
+    
+# Les modules à connaitre...
+
+## Tidyverse / Tibble / Tidyr
+Julia / Ameline
+
+## ggplot2
+Nicolas / Martial
+
+## DoParallel / F-foreach
+Jérémi / Aristide
+
+## Purr
+Cresciense / Maude
+
+## Dyplr (Algèbre relationnel)
+Ellie / Rémi / Bastien
+
+## LaTeX 
+Maxime Jaunatre / Ludovic 

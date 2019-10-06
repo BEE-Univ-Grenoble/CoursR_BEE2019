@@ -1,35 +1,199 @@
 ---
-title: "Cours structures donnees"
+title: "Structures de donn?es"
 author: "Lecaude Cresciense"
 date: "6 septembre 2019"
-output: ioslides_presentation
+output:
+  slidy_presentation: default
+  ioslides_presentation: default
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
+library(utf8)
 ```
 
-## R Markdown
+## Les matrices 
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Ce sont des vecteurs de m?me nature organis?s en donn?es tabulaires.
+Les attributs correspondent aux dimensions de la matrice. 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-## Slide with Bullets
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-## Slide with R Output
-
-```{r cars, echo = TRUE}
-summary(cars)
+```{r}
+m <- matrix(nrow = 2, ncol = 3)
+m
 ```
 
-## Slide with Plot
 
-```{r pressure}
-plot(pressure)
+```{r}
+m <- matrix(nrow = 2, ncol = 3)
+dim(m)
+```
+
+##
+
+```{r}
+m <- matrix(nrow = 2, ncol = 3)
+attributes(m)
+```
+
+
+##
+
+Les matrices se remplissent par d?faut en colonnes 
+
+
+```{r}
+m2 = matrix(1:6,nrow=2,ncol=3)
+m2
+
+```
+
+##
+On peut aussi transformer des vecteurs en matrices en int?grant une dimension. 
+
+
+```{r}
+vec = 1:10
+dim(vec)=c(2,5) 
+vec
+```
+ On indique que le vecteur doit maintenant ?tre ordonn? suivant deux lignes et 5 colonnes
+
+##
+On peut aussi assembler plusieurs vecteurs en matrices ? condition qu'ils aient la m?me taille.
+
+```{r}
+x=4:7
+y=8:11
+
+m4=rbind(x,y) 
+m4
+```
+
+##
+
+```{r}
+x=4:7
+y=8:11
+m5=cbind(x,y)
+m5
+```
+
+##
+
+## Les listes 
+ 
+ Ce sont des vecteurs particuliers qui contiennent des objets de diff?rentes classes. 
+ Elles sont tr?s utilis?es avec les fonctions de la famille "apply" 
+ 
+
+```{r}
+x <- list(1, "a", TRUE)
+ x
+```
+
+##
+
+ Un exemple avec la fonction apply 
+ 
+
+```{r}
+x <- list(a = 1:7, b = runif(n = 5, min = 10, max = 20),
+          booleen = c(TRUE,FALSE,FALSE,TRUE))
+x
+```
+
+##
+
+
+```{r}
+x <- list(a = 1:7, b = runif(n = 5, min = 10, max = 20), 
+          booleen = c(TRUE,FALSE,FALSE,TRUE))
+y<-lapply(x,mean)
+y
+```
+ 
+ 
+## Les dataframes 
+
+Ils sont utilis?s pour les donn?es tabulaires. 
+Tous les objets le composant doivent avoir la m?me longueur.
+Ils peuvent ?tre de classes diff?rentes.
+
+
+
+```{r}
+ x <- data.frame( num=1:4, log= c(T, T, F, F))
+ x
+```
+
+
+
+## Fonctions utiles
+
+Convertir les colonnes en lignes et inversement : la transposition 
+
+
+```{r}
+x <- data.frame( num=1:4, num2=4:7)
+x
+```
+
+##
+
+
+```{r}
+x <- data.frame( num=1:4, num2=4:7)
+x
+t(x)
+```
+
+##
+
+Comment passer d'une matrice ? un data frame, comment faire passer les lignes en colonnes ? 
+Avec as.data.frame(x), as.matrix(x), 
+
+Ajouter une colonne ? un data frame 
+
+
+```{r}
+D<-data.frame(a=1:5,b=8:12)
+D
+```
+
+
+
+```{r}
+c<-letters[1:5]
+c
+```
+
+##
+
+
+```{r}
+M<-data.frame(D,c)
+M
+```
+
+##
+
+Stocker les r?sultats d'une boucle dans un dataframe
+
+
+```{r}
+resultat<-NULL
+
+for(i in 1:100){
+
+V=rep(i,3)
+  x=V^2
+  y=V+x
+  
+ m=matrix(c(x,y,V),ncol=3)
+  m=as.data.frame(m)
+resultat<-rbind(resultat,m)
+}
+colnames(resultat)=c("x","y","V")
+resultat
 ```
 

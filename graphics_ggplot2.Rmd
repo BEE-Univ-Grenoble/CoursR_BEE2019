@@ -1,0 +1,57 @@
+---
+title: "Graphics with ggplot2"
+author: "Martial LEROY, Nicolas BARTALUCCI"
+date: "04/10/2019"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## R Markdown
+
+```{r}
+library(ggplot2)
+data = read.csv("evans.csv",header = T)
+  
+# Box plot
+ggplot(data, aes(x=age, y=cholesterol)) +
+  geom_point()+
+  geom_smooth()
+```
+
+Mais ici, ce nest pas tres claire, **Avec quoi ce serait mieux ?**
+
+## Des boxplot ?
+
+```{r}
+ggplot(data, aes(group = age, y=cholesterol)) +
+  geom_boxplot()
+```
+C'est un peu plus clair. Avec des classe d'age se serait encore mieux.
+
+## Aussitôt dit aussitôt fait : 
+
+```{r cars, echo = TRUE}
+ggplot(data, aes(x = age, group = cut_width(age,5), y=cholesterol)) +
+  geom_boxplot()
+```
+L'argument **aes(group = cut_width(age,5))** forme des classes de 5 ans de large.
+
+
+## Rendons cela un peu plus visuel !
+
+```{r}
+ggplot(data, aes(age,group = cut_width(age,5), y=cholesterol,fill=cut_width(age,15))) +
+  geom_boxplot()
+  
+```
+
+Ici nous avons nos classes de 5ans et une couleur pour des classes plus grandes, par exemple les jeunes, les moins jeunes et les personnes agées.
+
+## Voyon cela avec des histogrammes
+
+
+
+

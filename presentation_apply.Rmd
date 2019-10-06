@@ -1,39 +1,206 @@
 ---
-title: "presentation _apply"
-author: "martial"
-date: "9/6/2019"
+title: "We are Apply Familly"
+author: "Julia Guerra, Martial Leroy"
+date: "24/9/2019"
 output:
   slidy_presentation: default
   powerpoint_presentation: default
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+```{r include=FALSE}
+library(utf8)
+
+```
+```{r include=FALSE}
+library(htmltools)
+knitr::opts_chunk$set(
+  fig.align = "center"
+)
+knitr::knit_hooks$set(imgcenter = function(before, options, envir){
+  if (before) {
+    HTML("<p align='center'>")
+  } else {
+    HTML("</p>")
+  }
+})
+```    
+
+# A quoi ça sert ?
+
+
+* Apply = Appliquer
+
+A appliquer une fonction sur tout ou partie d'un objet
+
+```{r echo=FALSE, imgcenter = TRUE}
+knitr::include_graphics("https://raw.githubusercontent.com/BEE-Univ-Grenoble/CoursR_BEE2019/master/apply_family.PNG")
 ```
 
-Essai de changement
 
-## R Markdown
+# Comment ça marche?
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Pour faire fonctionner un 'apply' :
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+**apply(X, MARGIN, FUN, ...)**
 
-## Slide with Bullets
+<br><br>
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+il faut un objet = l'argument 'X' :
 
-## Slide with R Output
+* Vecteurs
+* Matrices
+* Data Frame
 
-```{r cars, echo = TRUE}
-summary(cars)
+
+Il faut également une fonction à appliquer = l'argument 'FUN'
+
+
+# Bien spécifier sur quoi on applique la fonction
+
+L'argument 'MARGIN' indique à R sur quelle dimension appliquer la fonction : lignes (**1**) ou colonnes (**2**)
+
+
+
+```{r echo=FALSE, imgcenter = TRUE}
+
+knitr::include_graphics("https://raw.githubusercontent.com/BEE-Univ-Grenoble/CoursR_BEE2019/master/content_content_apply_1.png")
+
 ```
 
-## Slide with Plot
 
-```{r pressure}
-plot(pressure)
+
+
+
+
+# Piege à éviter
+
+Chaque fonction de la famille des apply, possede des specificité de sortie.
+
+```{r}
+df = matrix(seq(1:9), nrow = 3, ncol = 3)
+df
+```
+
+
+
+```{r}
+apply(df, 1, "[") # extracting values by crossing dim 1
+
+```
+
+
+```{r}
+apply(df, 2, sum)     # vector of sums, by crossing dim 2
+
+```
+# lapply
+Même fonctionnement mais retourne une liste  
+**lapply(X, FUN, ...)**  
+"..." = optional arguments 
+```{r}
+df
+#       lapply(X, FUN, ...)
+head(lapply(df, "[")) # result is list of length = 9
+
+```
+
+# sapply
+Même fonctionnement que *lapply* mais retourne un vecteur  
+**sapply(X, FUN, ..., simplify = TRUE, USE.NAMES = TRUE)**  
+"..." = optional arguments 
+```{r}
+df
+#       sapply(X, FUN)
+sapply(df, "[") # returns vector
+
+```
+# vapply
+Même fonctionnement mais inclut security check = longueur attendue du résultat  
+**vapply(X, FUN, FUN.VALUE, ..., USE.NAMES = TRUE)**  
+
+```{r}
+df
+#       vapply(X, FUN, FUN.VALUE, ..., USE.NAMES = TRUE)
+vapply(df, "[", FUN.VALUE = c(1)) # result length = 1 bc it is a vector
+
+```
+
+# Si on a des listes en entrée ?
+```{r}
+# on passe aux listes
+lsta = list(df, cbind(df, c(20:22)), df) # list of 3 having one different-lenghted df
+
+lsta
+
+
+```
+# sapply
+
+```{r}
+sapply(lsta, mean) # mean of all values in sub-objects, returns a vector
+
+
+```
+
+# lapply
+
+```{r}
+
+lapply(lsta, mean) # mean of all values in sub-objects, returns a list
+```
+
+# vapply 
+Same than **sapply** but including a security check ... 
+```{r}
+vapply(lsta, mean, FUN.VALUE = c(1))
+
+```
+
+```{r eval = F}
+# wont't work 
+vapply(lsta, mean, FUN.VALUE = c("row1" = 0, "row2" = 0, "row3" = 0)) 
+
+```
+#rapply et mapply 
+**rapply(X, FUN, classes = "ANY", deflt = NULL, how = c("unlist", "replace", "list"), ...))**
+
+```{r}
+rapply(lsta, mean, how = "unlist")
+rapply(lsta, mean, how = "list")
+```
+
+#rapply et mapply 
+**mapply(FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE, USE.NAMES = TRUE)**
+```{r}
+mapply(rep, 1:4, 4:1)
+```
+
+
+
+# Utilisation en imbriquant plusieurs fonction
+```{r}
+rowmeanfun = function(x) {apply(x, 1, mean)}
+lsta[[1]]
+rowmeanfun(lsta[[1]])
+
+```
+
+
+```{r}
+
+lapply(lsta, rowmeanfun) # returns a list
+
+```
+
+```{r}
+
+sapply(lsta, rowmeanfun) # returns a df if dimensions are compatible
+
+```
+
+```{r}
+
+vapply(lsta, rowmeanfun, FUN.VALUE = c("row1" = 0, "row2" = 0, "row3" = 0)) # security check
+
 ```
 

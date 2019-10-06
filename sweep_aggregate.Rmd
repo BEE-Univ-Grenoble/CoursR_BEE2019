@@ -8,33 +8,8 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
-
-## R Markdown
-
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-## Slide with Bullets
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-## Slide with R Output
-
-```{r cars, echo = TRUE}
-summary(cars)
-```
-
-## Slide with Plot
-
-```{r pressure}
-plot(pressure)
-```
-
 
 <!--Maxime & aggregate-->
 
@@ -46,7 +21,7 @@ La fonction choisie s'applique selon une liste à fournir.
 Lien vers l'aide R de la fonction :  <hhttps://www.rdocumentation.org/packages/stats/versions/3.6.1/topics/aggregate>.
 
 ou alors : 
-```{r help, eval=FALSE, include=FALSE}
+```{r help}
 help('aggregate')
 ```
 
@@ -58,14 +33,14 @@ help('aggregate')
 - by, une liste contenant au minimum 1 vecteur.
 
 - FUN, une fonction de résumé de base, telle que sum(), mean(). Il est possible d'ajouter sa propre fonction.
-```{r arguments, echo=TRUE}
+```{r arguments, eval=FALSE, include=TRUE}
 # not runable, for syntax purppose
-# aggregate ( x = data.frame, by = list( c(1:5) ), FUN = mean )
+aggregate ( x = data.frame, by = list( c(1:5) ), FUN = mean )
 ```
 
 ## Exemple issu de R, data(state)
 
-```{r exemple , echo = TRUE}
+```{r exemple}
 state.x77[1:4,] ; class(state.x77)
 
 state.region[1:4] ; class(state.region)
@@ -73,12 +48,12 @@ state.region[1:4] ; class(state.region)
 
 ## Application simple
 
-```{r exemple R, echo = TRUE}
+```{r exemple R}
 ## Calcul les moyennes par regions.
 aggregate(state.x77, list(Region = state.region), mean)
 ```
 ## Application, deux parametres
-```{r exemple R2, echo = TRUE}
+```{r exemple R2}
 ## Calcul les moyennes par regions et selon le gel
 aggregate(x= state.x77, FUN= mean,
           by=list(Region = state.region, Cold = state.x77[,"Frost"] > 130))
@@ -88,7 +63,7 @@ aggregate(x= state.x77, FUN= mean,
 ## Cas particuliers
 
 La fonction ne considère pas les NAs, que ce soit dans le data.frame ou la liste. Les lignes sont 'oublies'.
-```{r NAs, echo=TRUE}
+```{r NAs}
 # consider NAs :
 #> fby1 <- factor(by1, exclude = "")
 #> fby2 <- factor(by2, exclude = "")
@@ -99,7 +74,7 @@ Les éléments de vecteurs de la liste by peuvent comprendre character, booleen,
 ## Autres formulations : tilde
 
 Si le vecteur 'by' est dans le tableau, possibilite d'utiliser tilde '~'. 
-```{r tilde, echo=TRUE}
+```{r tilde}
 summary(chickwts)
 aggregate(weight ~ feed, data = chickwts, mean)
 ```
@@ -132,3 +107,74 @@ aggregate(presidents, nfrequency = 1,
 # }
 ``` 
 *Fin maxime-->
+
+
+<!--Aristide et sweep-->
+
+## Fonction sweep()
+Fonction permettant d'appliquer une opération sur une matrice, par lignes ou par colonnes.
+
+**Arguments **
+```{r sweep arguments, eval=FALSE, include=TRUE}
+sweep(x, MARGIN, STATS, FUN = "-", check.margin = TRUE)
+```
+* **x** : une matrice
+* **MARGIN** : pour spécifier comment doit être appliquée l'opération (MARGIN = 1, par lignes, MARGIN = 2, par colonnes)
+* **STATS** : la ou les valeurs fournies pour l'opération
+* **FUN** : l'opération à appliquer (par défaut, une soustraction)
+* **check.margin** : Si TRUE, warning si les dimensions de STATS ne coincident pas avec celles de x
+
+## Exemple
+
+```{r exemple sweep 1}
+# Création d'une matrice de 4 lignes, 3 colonnes
+m1 <- matrix(1:12, ncol = 3, byrow = TRUE); m1
+
+# On ajoute 1 à chaque élément de la première ligne, 
+# puis 2 à chaque élément de la deuxième ligne, etc.
+sweep(m1, MARGIN = 1, STATS = 1:4, FUN = "+")
+```
+
+## Exemple type "matrice d'occurences"
+```{r exemple sweep 2}
+# Matrice 4*3 remplie avec des nombres aléatoires entre 1 et 20
+# Par exemple : lignes = sites, colonnes = taxons
+m2 <- matrix(sample(20,12,TRUE), nrow = 4); m2
+
+# Passage en abondance relative
+sweep(m2, MARGIN = 1, STATS = rowSums(m2), FUN = "/")
+```
+
+
+## Centrer-réduire avec sweep
+```{r matrice centree-reduite, include=FALSE}
+d1 <- rnorm(4, mean = 8, sd = 2)
+d2 <- rnorm(4, mean = 15, sd = 1)
+d3 <- rnorm(4, mean = 8, sd = 4)
+
+m3 <- matrix(c(d1,d2,d3), ncol = 3)
+```
+
+```{r centree-reduite 1}
+# Tirages aléatoires issus de lois normales
+m3
+
+# Moyenne et écart-type par colonne
+m3_means <- apply(m3, 2, mean); m3_means
+m3_sd <- apply(m3, 2, sd); m3_sd
+```
+
+## Centrer-réduire avec sweep
+```{r centree-reduite 2}
+# Matrice centrée
+m3_centree <- sweep(m3, 2, m3_means, "-"); m3_centree
+```
+
+## Centrer-réduire avec sweep
+```{r centree-reduite 3}
+# Matrice centrée-réduite
+m3_CentRed <- sweep(m3_centree, 2, m3_sd, "/"); m3_CentRed
+
+# similaire à scale(m3)
+```
+
