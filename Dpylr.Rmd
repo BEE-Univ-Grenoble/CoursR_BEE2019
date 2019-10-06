@@ -107,3 +107,24 @@ select(mtcars, gear, everything())
               cylinder = cyl)
 ```
 
+## Mutate 
+
+- Mutate permet de créer de nouvelles colonnes dans le tableau de données, en général à partir de variables existantes
+
+- Par exemple, mtcars contient mpg (Miles per Gallon) et on veut Km per Litre 
+```{r eval=FALSE, include=TRUE}
+cars = mtcars 
+cars <- mutate(cars, KmL = mpg*0.425144)
+select(cars, mpg, KmL)
+```
+- On peut utiliser les fonctions de tidyverse tels que if_else, fct_recode et case_when
+```{r eval=FALSE, include=TRUE}
+cars <- mutate(cars,
+                  type_speed = case_when(
+                    KmL > 10 & cyl > 6 ~ "Fast&High",
+                    KmL < 10 & cyl <= 6 ~ "Fast&Low",
+                    KmL <= 10 & cyl > 6 ~ "Slow&High",
+                    TRUE ~ "Other"))
+select(cars, cyl, KmL, type_speed)
+
+```
