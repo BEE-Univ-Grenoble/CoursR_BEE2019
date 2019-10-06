@@ -39,9 +39,64 @@ plot(pressure)
 
 Lorem Ipsum
 
+Lien vers la vignette Sweave :  <http://127.0.0.1:24054/library/utils/doc/Sweave.pdf>.
+
 ou alors : 
 ```{r help}
-help('aggregate')
+trouver l'option pour voir vignette sweave
 ```
+
+aide des options de chunks sweaves :
+```{r}
+help(RweaveLatex)
+```
+
+prefix.string > label > number
+figures can be exported in a special directory if global sweave option says so...notion of compedium
+
+can include files in tex, but won't process them , with `\imput` 
+`\SweaveInput{}` process them or not?
+
+`\Sexpr{expr}` add values in text or even code. But need to remove all braces
+
+can put reference to chunks with `<<name>>`
+
+This is `noweb` synthax but in fact there is a multitude of them
+
+encoding is ASCII by default, but can't be greatly modified (see fontenc and inputenc)
+encoding seem's tricky, to look further
+
+default figure scale is `\setkeys{Gin}{width=0.8\textwidth}`
+to modify it, insert same code afet `\begin{document}`
+
+new  file is generated for each figure, so par() are to reset each time
+need to create a function to set it as default, might be tricky as well
+
+default figure output is pdf, can be change by  `<<figN, fig=TRUE, pdf=FALSE, png=TRUE>>`
+
+Rtangle extract all code and form a .R apart (like maya did) (so there is no need to split = T)
+
+ONLY ONE GRAPH PER CHUNK !  SO NO FOR LOOP FOR FIGURES
+a way to hack it :
+```
+<<results=tex,echo=FALSE>>=
+for(i in 1:4){
+  fname <- paste("myfile", i, ".pdf", sep = "")
+  pdf(file = fname, width = 6, height = 6)
+  plot(rnorm(100)+i)
+  dev.off()
+  cat("\\includegraphics{", fname, "}\n\n", sep = "")
+}
+@
+```
+
+set line length in R :
+`{r} options(width = 40)`
+
+RTFMN!
+
+
+
+
 
 
