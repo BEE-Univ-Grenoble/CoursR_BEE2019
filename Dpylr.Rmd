@@ -1,0 +1,109 @@
+---
+title: "Variables locales et globales"
+author: "Ellie, Remi and Bastien"
+date: "6 October 2019"
+output:
+  beamer_presentation: default
+  ioslides_presentation: default
+  slidy_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+## Dplyr 
+
+- Dplyr fait partie du coeur du tidyverse
+- Dplyr est une extension facilitant le traitement et la manipulation de données contenues dans une ou plusieurs tables
+
+## Les verbes de Dplyr 
+
+- Filter
+- Arrange
+- Slice
+- Select 
+- Mutate 
+- Summary
+- Samply_n, sample_frac
+
+## Filter
+
+- Filter nous permet de sélectionner des lignes d'un dataframe selon une condition
+- Le premier argumente represente l'objet (datatframe, tibble...)
+- Le deuxième permet de sélectionner les variables pour lesquelles (expression == TRUE)
+
+```{r eval=FALSE, include=TRUE}
+filter(mtcars, cyl == 6, hp == 110)
+```
+
+- On peut utiliser cette fonction pour sélectionner les voitures avec "Horsepower" entre deux valeurs
+
+```{r eval=FALSE, include=TRUE}
+filter(mtcars, hp >= 150 & hp <= 200)
+```
+
+- On peut aussi utiliser une fonction pour sélectionner la valeur maximale, par exemple 
+```{r eval=FALSE, include=TRUE}
+filter(mtcars, disp == max(disp))
+```
+## Arrange
+
+- Avec 'Arrange' on peut ordonner les variables selon une colonne 
+
+```{r eval=FALSE, include=TRUE}
+       arrange(mtcars, drat)
+```
+ 
+- L'ordre défaut avec Dplyr est ascendant, mais on peut également ordonner en ordre descendant 
+
+```{r eval=FALSE, include=TRUE}
+       arrange(mtcars, desc(hp))
+```
+
+ - On peut égalament trier selon plusieurs colonnes
+ 
+```{r eval=FALSE, include=TRUE}
+       arrange(mtcars, cyl, vs, hp)
+```
+
+## Slice 
+
+- La fonction 'Slice' nous permet de sélectionner des lignes du tableau selon leur position (on passe en argument un chiffre ou un vecteur de chiffres)
+
+```{r eval=FALSE, include=TRUE}
+       slice(mtcars, 6:8)
+```
+
+ - On peut utiliser la fonction 'Arrange' combiné avec 'Slice' afin de sélectionner les trois voitures avec le plus grand "Gross Horsepower"
+ 
+```{r eval=FALSE, include=TRUE}
+      hp =  arrange(mtcars, desc(hp))
+      slice(hp, 1:3)
+```
+
+## Select 
+
+- La fonction 'Select' permet de sélectionner et extraire des colonnes d'un tableau de données, utile en combinaison avec les fonctions starts_with, ends_width, contains ou matches 
+
+```{r eval=FALSE, include=TRUE}
+  
+select(mtcars, contains("sec"))
+```
+- On peut réordonner les colonnes d'un tableau avec les fonctions 'Select' et 'Everything()' qui sélectionne l'ensemble des colonnes non encore sélectionnées
+- Afin de passer la colonne gear en première position dy tableau on peut faire : 
+```{r eval=FALSE, include=TRUE}
+  
+select(mtcars, gear, everything())
+```
+
+## Rename 
+
+- Rename permet de renommer les colonnes 
+
+```{r eval=FALSE, include=TRUE}
+   rename(mtcars, 
+              horsepower = hp,
+              cylinder = cyl)
+```
+
