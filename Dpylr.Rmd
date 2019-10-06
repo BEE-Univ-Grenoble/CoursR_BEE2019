@@ -3,8 +3,8 @@ title: "Variables locales et globales"
 author: "Ellie, Remi and Bastien"
 date: "6 October 2019"
 output:
-  beamer_presentation: default
   ioslides_presentation: default
+  beamer_presentation: default
   slidy_presentation: default
 ---
 
@@ -27,43 +27,44 @@ library(dplyr)
 - Summary
 - Samply_n, sample_frac
 
-## Filter
+## Filter 
 
 - Filter nous permet de sélectionner des lignes d'un dataframe selon une condition
 - Le premier argumente represente l'objet (datatframe, tibble...)
 - Le deuxième permet de sélectionner les variables pour lesquelles (expression == TRUE)
 
-```{r eval=FALSE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
 filter(mtcars, cyl == 6, hp == 110)
 ```
-
+## Filter 
 - On peut utiliser cette fonction pour sélectionner les voitures avec "Horsepower" entre deux valeurs
 
-```{r eval=FALSE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
 filter(mtcars, hp >= 150 & hp <= 200)
 ```
+## Filter 
 
 - On peut aussi utiliser une fonction pour sélectionner la valeur maximale, par exemple 
-```{r eval=FALSE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
 filter(mtcars, disp == max(disp))
 ```
 ## Arrange
 
 - Avec 'Arrange' on peut ordonner les variables selon une colonne 
 
-```{r eval=FALSE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
        arrange(mtcars, drat)
 ```
- 
+## Arrange
 - L'ordre défaut avec Dplyr est ascendant, mais on peut également ordonner en ordre descendant 
 
-```{r eval=FALSE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
        arrange(mtcars, desc(hp))
 ```
 
  - On peut égalament trier selon plusieurs colonnes
  
-```{r eval=FALSE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
        arrange(mtcars, cyl, vs, hp)
 ```
 
@@ -71,13 +72,13 @@ filter(mtcars, disp == max(disp))
 
 - La fonction 'Slice' nous permet de sélectionner des lignes du tableau selon leur position (on passe en argument un chiffre ou un vecteur de chiffres)
 
-```{r eval=FALSE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
        slice(mtcars, 6:8)
 ```
-
+## Arrange 
  - On peut utiliser la fonction 'Arrange' combiné avec 'Slice' afin de sélectionner les trois voitures avec le plus grand "Gross Horsepower"
  
-```{r eval=FALSE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
       hp =  arrange(mtcars, desc(hp))
       slice(hp, 1:3)
 ```
@@ -86,13 +87,14 @@ filter(mtcars, disp == max(disp))
 
 - La fonction 'Select' permet de sélectionner et extraire des colonnes d'un tableau de données, utile en combinaison avec les fonctions starts_with, ends_width, contains ou matches 
 
-```{r eval=FALSE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
   
 select(mtcars, contains("sec"))
 ```
+## Select 
 - On peut réordonner les colonnes d'un tableau avec les fonctions 'Select' et 'Everything()' qui sélectionne l'ensemble des colonnes non encore sélectionnées
 - Afin de passer la colonne gear en première position dy tableau on peut faire : 
-```{r eval=FALSE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
   
 select(mtcars, gear, everything())
 ```
@@ -101,7 +103,7 @@ select(mtcars, gear, everything())
 
 - Rename permet de renommer les colonnes 
 
-```{r eval=FALSE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
    rename(mtcars, 
               horsepower = hp,
               cylinder = cyl)
@@ -112,13 +114,14 @@ select(mtcars, gear, everything())
 - Mutate permet de créer de nouvelles colonnes dans le tableau de données, en général à partir de variables existantes
 
 - Par exemple, mtcars contient mpg (Miles per Gallon) et on veut Km per Litre 
-```{r eval=FALSE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
 cars = mtcars 
 cars <- mutate(cars, KmL = mpg*0.425144)
 select(cars, mpg, KmL)
 ```
+## Mutate
 - On peut utiliser les fonctions de tidyverse tels que if_else, fct_recode et case_when
-```{r eval=FALSE, include=TRUE}
+```{r eval=TRUE, include=TRUE}
 cars <- mutate(cars,
                   type_speed = case_when(
                     KmL > 10 & cyl > 6 ~ "Fast&High",
