@@ -43,7 +43,7 @@ columns: 3 100px;
 
 
 ```{r echo=FALSE, imgcenter = TRUE}
-knitr::include_graphics("https://raw.githubusercontent.com/BEE-Univ-Grenoble/CoursR_BEE2019/master/figures/tidyverse_cover.PNG")
+knitr::include_graphics("https://raw.githubusercontent.com/BEE-Univ-Grenoble/CoursR_BEE2019/master/figures/tidyverse_cover.png")
 
 
 ```
