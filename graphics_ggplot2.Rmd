@@ -29,7 +29,7 @@ Mais ici, ce nest pas tres claire, **Avec quoi ce serait mieux ?**
 ggplot(data, aes(group = age, y=cholesterol)) +
   geom_boxplot()
 ```
-C'est un peu plus clair. Avec des classe d'age se serait encore mieux.
+C'est un peu plus clair. Avec des classes d'age se serait encore mieux.
 
 ## Aussitôt dit aussitôt fait : 
 
