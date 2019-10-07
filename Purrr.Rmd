@@ -51,9 +51,8 @@ Celles qui retournent des dataframes crees par jointure de lignes ou de colonnes
   Elles peuvent retourner des listes plus importantes que celles en argument.
   Voir retourer des listes vides.
   
-  
-  
-  ## Structuration 
+##
+## Structuration 
 
 `map(.x, .f)`
    .x = objet 
@@ -72,7 +71,7 @@ La condition est l'action executee par la fonction .p. Elle doit etre verifiee p
 `map_at(.x, .at, .f)`
 
   .x = objet
-  .at = vecteur de nom au format caracteres (inclure) ou un vecteur de numeriques positifs (inclure) ou de numeriques negatifs (exclure)
+  .at = vecteur de nom au format caracteres,ou un vecteur de numeriques positifs, ou de numeriques negatifs
   .f = fonction appliquee
 
 Seul les elements selectionnes seront modifie
@@ -86,7 +85,10 @@ myX=list(c(33,NA,2,15,7,4,5),
          c(3),
          c(12,5,9))
 
-# deux m?thodes pour faire  la moyenne de chaque liste
+```
+##
+deux methodes pour faire  la moyenne de chaque liste
+```{r}
 
 moyennes=vector("list",length=5)
 for (i in 1:length(myX)){
@@ -94,6 +96,7 @@ for (i in 1:length(myX)){
 }
 print(moyennes)
 ```
+
   
 ##
 ```{r}
@@ -147,7 +150,7 @@ mtcars %>%
   Elle permet d'utiliser une fonction definie au prealable et d'eviter une enieme boucle 
   
 ```{r}
-x=c(2,5,8)
+x=list(c(2,5,8),c(2,6,8))
 print_moyenne=function(x){
   print(paste("la moyenne est de",
               mean(x,na.rm=TRUE)))
@@ -156,7 +159,7 @@ print_moyenne=function(x){
 walk(x,print_moyenne)
 ```
 ##
-Pour ?viter les probl?mes 
+Pour eviter les probl?mes 
   
 ```{r}
   
@@ -183,8 +186,8 @@ map2(myX,myY,reg)
 Error in model.frame.default(formula = y ~ x, weights = w, drop.unused.levels = TRUE): 
 type (NULL) incorrect pour la variable 'y'
 
-  Soucis car le troisi?me objet de la liste est nul. 
-  Pour faire appara?tre les deux premiers qui sont bons on utilise safely()
+  Soucis car le troisieme objet de la liste est nul. 
+  Pour faire apparaitre les deux premiers qui sont bons on utilise safely()
 
 myX=list(c(2,5,6,7,1,0,1,1),
          c(5,1,6,4,2),
