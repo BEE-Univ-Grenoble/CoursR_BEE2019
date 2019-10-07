@@ -91,13 +91,6 @@ str_sub(vec,3,3) = "u"
 vec
 ```
 
-*str_to-upper* : convertir les caractères en majuscules
-*str_to_lower* : convertir les caractères en minuscules
-
-```{r echo=TRUE}
-str_to_upper(vec)
-```
-
 
 
 ## Traitement de chaînes
@@ -106,19 +99,12 @@ str_to_upper(vec)
 ```{r echo=TRUE}
 a = "Ameline"
 b = "Guillet"
-c = str_c(a,b, sep = " ") #équivalent de "paste""
-c
-```
-
-*str_split* : découper une chaîne de caractère en fonction d'un délimiteur.
-
-```{r echo=TRUE}
-str_split(c, " ")
+str_c(a,b, sep = " ") #équivalent de *paste*
 ```
 
 
 
-## Les principales fonctions utilisant les expressions régulières
+## Les principales fonctions
 
 *grep* recherche les éléments d'une chaîne de caractères (`text`) qui présentent le motif (`pattern`) indiqué.
 

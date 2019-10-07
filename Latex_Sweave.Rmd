@@ -6,8 +6,15 @@ output: ioslides_presentation
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(# include = FALSE, # don't evaluate code chunk
+                      eval = FALSE, # don't run code
+                      echo = FALSE, # hide code
+                      message = FALSE, # hide message provoked by code
+                      warning = FALSE, # idem but for warningss
+                      fig.cap = "...") # don't know what it does
 ```
+
+<!--Ludovic & latex -->
 
 ## R Markdown
 
@@ -37,21 +44,65 @@ plot(pressure)
 
 ## Incorporer du code R
 
-Lorem Ipsum
+Rstudio incorpore le systeme de fichiers Rsweave pour faire du latex via la syntaxe `noweb`.
 
-Lien vers la vignette Sweave :  <http://127.0.0.1:24054/library/utils/doc/Sweave.pdf>.
+Pour faire simple, le markdown est un Rsweave simplifié.
 
-ou alors : 
-```{r help}
-trouver l'option pour voir vignette sweave
+Les chunks ont des balises différentes :
+
+markdown :
+```
+#```{r nom_du_chunk ,include = FALSE, eval = FALSE, echo = FALSE, message = FALSE, warning = FALSE}
+#  #code here
+# ```
+```
+sweave :
+```
+#<< label = label_du_chunk, option = value >>=
+# #code here
+#@
 ```
 
-aide des options de chunks sweaves :
-```{r}
-help(RweaveLatex)
+## Options des chunks
+
+Par défaut, premier mot du chunk est son label.
+
+Plusieurs chunks peuvent avoir le même label. 
+
+L'absence de label leur attribue un numero.
+
+*option des chunks  : TRUE, true, T ou FALSE, false, F*
+
+| option   |      meaning     |  default |
+|:--------:|:-------------:|:------:|
+| echo |  indique si le code doit apparaître ou non | TRUE |
+| eval |    indique si le code doit être exécuté ou non.   |   TRUE |
+| fig | indique si la figure doit être générée ou non. |    FALSE |
+| pdf | indique si un pdf de la figure doit être généré ou non. |   FALSE |
+| ref.label | rappelle un chunk pour le reproduire (avec le nom du chunk en value) |   FALSE |
+
+## Utilisation des chunks
+
+Les informations sont 'stockés' par chunk et peuvent être rappelées
+
+```
+<<first>>=
+ x <- 3
+@
 ```
 
+```
+<<second>>=
+ y <- <<first>>^2
+@
+```
+
+Et incorporées dans le text avec `\Sexpr{y}`
+
+<!--notes diverses 
+## Incorporer du code R
 prefix.string > label > number
+
 figures can be exported in a special directory if global sweave option says so...notion of compedium
 
 can include files in tex, but won't process them , with `\imput` 
@@ -90,10 +141,30 @@ for(i in 1:4){
 @
 ```
 
+## Incorporer du code R
 set line length in R :
 `{r} options(width = 40)`
+-->
 
-RTFMN!
+## Références et aides
+
+Lien vers la vignette Sweave :  <http://127.0.0.1:24054/library/utils/doc/Sweave.pdf>.
+
+aide des options de chunks sweaves :
+```{r, echo = T}
+help(RweaveLatex)
+```
+
+Au final : `RTFM`
+
+```{r exemple, include = FALSE, eval = FALSE, echo = FALSE, message = FALSE, warning = FALSE}
+print('hello world !')
+# include : don't evaluate code chunk
+# eval : don't run the code
+# echo : hide code
+# message : hide message provoked by code
+# warning : idem but for warningss
+```
 
 
 
