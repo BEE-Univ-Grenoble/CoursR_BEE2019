@@ -16,28 +16,120 @@ knitr::opts_chunk$set(# include = FALSE, # don't evaluate code chunk
 
 <!--Ludovic & latex -->
 
-## R Markdown
+## Qu'est ce que c'est ?
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Système de composition de document
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+MiKTeX pour Windows / TeX Live pour Linux et Mac
 
-## Slide with Bullets
+Ex : 
+```{r, echo = T}
+\documentclass{article}
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
 
-## Slide with R Output
+\begin{document}
 
-```{r cars, echo = TRUE}
-summary(cars)
+Bonjour
+
+\end{document}
 ```
 
-## Slide with Plot
+va créer un fichier avec écrit "Bonjour".
 
-```{r pressure}
-plot(pressure)
+## Packages
+
+Ne peut pas faire grand chose par défaut.
+
+De nombreux packages permettent de nombreuses fonctionnalités.
+
+## Quelques fonctionnalités utiles
+
+Structure des documents :
+
+Différentes fonctions pour différents éléments de structure.
+
+Ex :
+```{r, echo = T}
+\part     # pour une partie
+\chapter     # pour un chapitre
+\section     # pour une section
+\paragraph     # pour un paragraphe
+```
+
+Etc...
+
+## Quelques fonctionnalités utiles
+
+Style du texte :
+
+```{r, echo = T}
+\textbf{Bonjour}     # écrit "Bonjour" en gras
+\textit{Bonjour}     # écrit "Bonjour" en italique
+\textul{Bonjour}     # écrit "Bonjour" souligné
+\textcolor{red}{Bonjour}     # écrit "Bonjour" en rouge
+```
+
+Etc...
+
+## Ajouter des éléments
+
+Ajouter une image :
+
+```{r, echo = T}
+\includegraphics{image.png}
+```
+
+Ajouter un tableau :
+
+```{r, echo = T}
+\begin{tabular}{|c|c|}
+\hline
+1 & 2 \\
+\hline
+3 & 4 \\
+\hline
+\end{tabular}
+```
+
+Très pratique pour ajouter des équations ! Existe des fonctions pour fractions, racines carrées...
+
+## Ajouter un autre fichier Tex
+
+```{r, echo = T}
+\input{nom_du_fichier}
+```
+
+Très pratique pour réutiliser un Template déjà créé !
+
+## Table des matières
+
+Avec le découpage vu précédemment, une ligne de code suffit à créer une table des matières !!!
+
+```{r, echo = T}
+\tableofcontents
+```
+
+## Bibliographie
+
+```{r, echo = T}
+@article{nom_de_la_ref1,
+champ1 ={},
+champ2 ={}
+}
+
+@misc{nom_de_la_ref1,
+champ1 ={},
+champ2 ={}
+}
+
+
+\begin{document}
+
+Je pose la ref ici \cite{nom_de_la_ref}
+
+\bibliographystyle{}
+
+\end{document}
 ```
 
 <!--Maxime & sweave-->
