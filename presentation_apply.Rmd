@@ -33,7 +33,7 @@ knitr::knit_hooks$set(imgcenter = function(before, options, envir){
 A appliquer une fonction sur tout ou partie d'un objet
 
 ```{r echo=FALSE, imgcenter = TRUE}
-knitr::include_graphics("https://raw.githubusercontent.com/BEE-Univ-Grenoble/CoursR_BEE2019/master/apply_family.PNG")
+knitr::include_graphics("https://raw.githubusercontent.com/BEE-Univ-Grenoble/CoursR_BEE2019/master/figures/apply_family.PNG")
 ```
 
 
@@ -63,7 +63,7 @@ L'argument 'MARGIN' indique à R sur quelle dimension appliquer la fonction : li
 
 ```{r echo=FALSE, imgcenter = TRUE}
 
-knitr::include_graphics("https://raw.githubusercontent.com/BEE-Univ-Grenoble/CoursR_BEE2019/master/content_content_apply_1.png")
+knitr::include_graphics("https://raw.githubusercontent.com/BEE-Univ-Grenoble/CoursR_BEE2019/master/figures/content_content_apply_1.png")
 
 ```
 
