@@ -6,8 +6,15 @@ output: ioslides_presentation
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(# include = FALSE, # don't evaluate code chunk
+                      eval = FALSE, # don't run code
+                      echo = FALSE, # hide code
+                      message = FALSE, # hide message provoked by code
+                      warning = FALSE, # idem but for warningss
+                      fig.cap = "...") # don't know what it does
 ```
+
+<!--Ludovic & latex -->
 
 ## R Markdown
 
@@ -37,11 +44,130 @@ plot(pressure)
 
 ## Incorporer du code R
 
-Lorem Ipsum
+Rstudio incorpore le systeme de fichiers Rsweave pour faire du latex via la syntaxe `noweb`.
 
-ou alors : 
-```{r help}
-help('aggregate')
+Pour faire simple, le markdown est un Rsweave simplifié.
+
+Les chunks ont des balises différentes :
+
+markdown :
 ```
+#```{r nom_du_chunk ,include = FALSE, eval = FALSE, echo = FALSE, message = FALSE, warning = FALSE}
+#  #code here
+# ```
+```
+sweave :
+```
+#<< label = label_du_chunk, option = value >>=
+# #code here
+#@
+```
+
+## Options des chunks
+
+Par défaut, premier mot du chunk est son label.
+
+Plusieurs chunks peuvent avoir le même label. 
+
+L'absence de label leur attribue un numero.
+
+*option des chunks  : TRUE, true, T ou FALSE, false, F*
+
+| option   |      meaning     |  default |
+|:--------:|:-------------:|:------:|
+| echo |  indique si le code doit apparaître ou non | TRUE |
+| eval |    indique si le code doit être exécuté ou non.   |   TRUE |
+| fig | indique si la figure doit être générée ou non. |    FALSE |
+| pdf | indique si un pdf de la figure doit être généré ou non. |   FALSE |
+| ref.label | rappelle un chunk pour le reproduire (avec le nom du chunk en value) |   FALSE |
+
+## Utilisation des chunks
+
+Les informations sont 'stockés' par chunk et peuvent être rappelées
+
+```
+<<first>>=
+ x <- 3
+@
+```
+
+```
+<<second>>=
+ y <- <<first>>^2
+@
+```
+
+Et incorporées dans le text avec `\Sexpr{y}`
+
+<!--notes diverses 
+## Incorporer du code R
+prefix.string > label > number
+
+figures can be exported in a special directory if global sweave option says so...notion of compedium
+
+can include files in tex, but won't process them , with `\imput` 
+`\SweaveInput{}` process them or not?
+
+`\Sexpr{expr}` add values in text or even code. But need to remove all braces
+
+can put reference to chunks with `<<name>>`
+
+This is `noweb` synthax but in fact there is a multitude of them
+
+encoding is ASCII by default, but can't be greatly modified (see fontenc and inputenc)
+encoding seem's tricky, to look further
+
+default figure scale is `\setkeys{Gin}{width=0.8\textwidth}`
+to modify it, insert same code afet `\begin{document}`
+
+new  file is generated for each figure, so par() are to reset each time
+need to create a function to set it as default, might be tricky as well
+
+default figure output is pdf, can be change by  `<<figN, fig=TRUE, pdf=FALSE, png=TRUE>>`
+
+Rtangle extract all code and form a .R apart (like maya did) (so there is no need to split = T)
+
+ONLY ONE GRAPH PER CHUNK !  SO NO FOR LOOP FOR FIGURES
+a way to hack it :
+```
+<<results=tex,echo=FALSE>>=
+for(i in 1:4){
+  fname <- paste("myfile", i, ".pdf", sep = "")
+  pdf(file = fname, width = 6, height = 6)
+  plot(rnorm(100)+i)
+  dev.off()
+  cat("\\includegraphics{", fname, "}\n\n", sep = "")
+}
+@
+```
+
+## Incorporer du code R
+set line length in R :
+`{r} options(width = 40)`
+-->
+
+## Références et aides
+
+Lien vers la vignette Sweave :  <http://127.0.0.1:24054/library/utils/doc/Sweave.pdf>.
+
+aide des options de chunks sweaves :
+```{r, echo = T}
+help(RweaveLatex)
+```
+
+Au final : `RTFM`
+
+```{r exemple, include = FALSE, eval = FALSE, echo = FALSE, message = FALSE, warning = FALSE}
+print('hello world !')
+# include : don't evaluate code chunk
+# eval : don't run the code
+# echo : hide code
+# message : hide message provoked by code
+# warning : idem but for warningss
+```
+
+
+
+
 
 

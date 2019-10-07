@@ -7,7 +7,7 @@ output: ioslides_presentation
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-unlink('~/ETUDES/UGA/M2_BEE_DynaMO/UE_OIMM/CoursR_BEE2019/Directory_Files_cache', recursive = TRUE)
+unlink('Directory_Files_cache', recursive = TRUE)
 ```
 
 # We can use R to create, delete, move and obtain information on files and directories.
@@ -21,7 +21,14 @@ getwd()
 
 - **setwd** function :
 ```{r setwd, echo = TRUE}
-setwd("C:/Users/BARTALUCCI_Nicolas/Desktop/")
+original.path=getwd()
+setwd("../")
+getwd()
+setwd(original.path)
+```
+
+```{r, include=FALSE}
+Test=dir.exists("Garden")
 ```
 
 
@@ -116,7 +123,6 @@ unlink("Garden/Kitchen", recursive = TRUE)
 ## Check the existence of a directory or a file
 
 - **file.exists** function :
-- **file.remove** and **unlink** functions :
 ```{r exist, echo = TRUE}
 file.exists(c("Garden/Egg_plant.csv","Garden/Vegetable_1.txt","Garden/Potatoe.txt"))
 dir.exists(c("Garden","Garden/Kitchen", "Mountain"))
@@ -140,7 +146,7 @@ library(tools) ; file_ext("Garden/Egg_plant.csv")
 
 - **shell.exec** or **file.show** functions can be used :
 ```{r open, echo = TRUE}
-#shell.exec("C:/Users/BARTALUCCI_Nicolas/Desktop/Garden/Vegetable_1.txt")
+#shell.exec("Garden/Vegetable_1.txt")
 #file.show("Garden/Egg_plant.csv")
 ```
 
@@ -149,7 +155,16 @@ library(tools) ; file_ext("Garden/Egg_plant.csv")
 #file.choose()
 ```
 
-```{r, include=FALSE}
-unlink("Garden", recursive = TRUE)
+## Save and reload a R object
+
+- **save** and **load** functions are usefull to create a file and load it with a R object inside :
+```{r save and load, echo = TRUE}
+dt=data.frame(c(1:10),c(2:11))
+save(dt, file="Garden/Tomatoe.Rdata")
+dt2=get(load("Garden/Tomatoe.Rdata"))
 ```
 
+
+```{r, include=FALSE}
+if (!Test) {unlink("Garden", recursive = TRUE)}
+```

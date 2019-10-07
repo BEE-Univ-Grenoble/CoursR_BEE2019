@@ -13,9 +13,9 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Introduction :
 
 ### Définition
-Les expressions régulières sont des **chaînes de caractères** décrivant un *motif*, un ensemble de chaînes de caractères possible, selon une syntaxe définie.  
+Les expressions régulières sont des **chaînes de caractères** décrivant un *motif*. Ce motif décrit un ensemble de chaînes de caractères possible selon une syntaxe définie.  
 
-### Exemples
+### Exemples de motif
 
 en expressions régulières le `.` correspond à tout autre caractère donc `t.t.` peut correspondre à :
 
@@ -36,33 +36,71 @@ Il existe 2 types de syntaxe :
 ## Syntaxe POSIX
 Quelques éléments de syntaxe pour les expressions régulières...
 
-`.` tout caractère 
-ex : tot. peut correspondre à toto tota totu etc...
+`.` le motif peut prendre tout caractère sauf le retour à la ligne 
+**ex :** 'tot.' peut correspondre aux chaines de caractères 'toto' 'tota' 'totu' etc...
 
-`^` le motif qui suit le "^" est situé en début de chaine 
-ex : ^man peut correspondre à mange mais pas démange
+`^` le caret indique le début du motif
+ex : '^man' peut correspondre à 'man', 'mange' mais pas 'démange'
 
-`$` le motif qui suit le "$" est situé en fin de chaine
+`$` le dollar en fin de chaine indique la fin du motif
+ex : 'man$' peut correspondre à 'maman' mais pas à 'mange'
 
 `|` indique un motif alternatif
-ex : to|ti sélectionnera to et ti en absence de to ? (à vérifier)
+ex : 'toto|titi' sélectionnera 'toto' et 'titi'
 
-`?` 0 ou 1 occurence du motif
-ex : ?bla sélectionnera toto et bla mais pas blabla
 
 ## Syntaxe POSIX
 
-`*` 0 ou plusieurs occurences du motif
-ex : *bla selectionnera toto ou blabla mais pas bla
+`?` 0 ou 1 occurence du caractère qui précède
+ex : 'ab?' sélectionnera 'a' et 'ab' mais pas 'abbb'
 
-`+` 1 ou plusieurs occurences du motif 
-ex : +bla selectionnera bla et blabla mais pas toto
+`*` 0 ou plusieurs occurences du caractère qui précède
+ex : 'ab*' selectionnera  'a' ou 'abbb' mais pas 'ab'
 
-`[...]` le motif peut prendre un des caractères entre crochets
-ex : t[oa]to peut correspondre à tato ou toto
+`+` 1 ou plusieurs occurences du caractère qui précède
+ex : 'ab+' selectionnera 'ab' et 'abbb' mais pas 'a'
 
-`[^...]` le motif peut prendre tous les caracteres a l'exception de ceux qui sont indiqués entre crochets
-ex : t[^u]to peut correspondre à toto, t4to mais pas à tuto
+`[...]` l'expression régulière peut prendre un des caractères entre crochets
+ex : 't[oa]to' peut correspondre à 'tato' ou 'toto'
+
+`[^...]` l'expression régulière peut prendre tous les caractères à l'exception de ceux qui sont indiqués entre crochets
+ex : 't[^u]to' peut correspondre à 'toto', 't4to' mais pas à 'tuto'
+
+
+## Manipulation des caractères avec *stringr*
+
+```{r}
+library(stringr)
+```
+
+*str_length* : connaître le nombre de caractères dans une chaîne de caractères                             
+
+```{r echo=TRUE}
+vec = "chat"
+str_length(vec)
+```
+
+##     
+
+*str_sub* : connaître les caractères d'une chaîne compris entre une position de départ et une position de fin
+
+```{r echo=TRUE}
+vec = "chat"
+str_sub(vec,2,4)
+str_sub(vec,3,3) = "u"
+vec
+```
+
+
+
+## Traitement de chaînes
+
+*str_c* : concaténer des chaînes de caractères entre elles
+```{r echo=TRUE}
+a = "Ameline"
+b = "Guillet"
+str_c(a,b, sep = " ") #équivalent de *paste*
+```
 
 
 
@@ -84,7 +122,7 @@ grep("^cha*t", c("achat", "chaat", "chti"), value = TRUE)
 
 ## 
 
-*grepl* retourne un vecteur logique (TRUE ou FALSE) selon si l'élément du vecteur présente le motif ou non.
+*grepl* retourne un vecteur logique selon si les éléments du vecteur présentent le motif ou non.
 
 ```{r echo=TRUE}
 grepl("^cha*t", c("achat", "chaat", "chti"))
@@ -92,7 +130,7 @@ grepl("^cha*t", c("achat", "chaat", "chti"))
 
 ##
 
-*regexpr* renvoie un vecteur de même longueur que le `text` donnant la position de départ de la première correspondance ou -1 s'il n'y en a pas. Il renvoie aussi l'attribut "match.length" donnant la longueur du texte trouvé (ou -1 si pas de correspondance).
+*regexpr* renvoie un vecteur de même longueur que la chaîne de caracètres donnant la position de départ de la première correspondance ou -1 s'il n'y en a pas. Il renvoie aussi l'attribut "match.length" donnant la longueur du texte trouvé (ou -1 si pas de correspondance).
 
 ```{r echo=TRUE}
 regexpr("^cha*t", c("achat", "chaat", "chti"))

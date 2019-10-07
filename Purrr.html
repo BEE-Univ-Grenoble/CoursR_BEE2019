@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dealing with directory and files</title>
+  <title>Purrr</title>
 
   <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <meta name="generator" content="pandoc" />
 
@@ -19,7 +20,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Dealing with directory and files',
+                title: 'Purrr',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -29,7 +30,7 @@
       // Author information
       presenters: [
             {
-        name:  'Nicolas BARTALUCCI, Ludovic CHAUMAZ' ,
+        name:  'Lecaude Cresciense - Maude Cavaliere' ,
         company: '',
         gplus: '',
         twitter: '',
@@ -257,6 +258,7 @@ background: black;
 }
 
 slides > slide {
+display: none;
 font-family: 'Open Sans', Arial, sans-serif;
 font-size: 26px;
 color: #797979;
@@ -277,19 +279,17 @@ transition: all 0.6s ease-in-out;
 }
 
 slides > slide.far-past {
+display: none;
 }
 
 slides > slide.past {
+display: block;
 opacity: 0;
 }
 
 slides > slide.current {
 display: block;
 opacity: 1;
-z-index: 1;
-}
-slides > slide:not(.current) {
-z-index: 0;
 }
 
 slides > slide.current .auto-fadein {
@@ -304,11 +304,13 @@ background-size: 100% 100%;
 }
 
 slides > slide.next {
+display: block;
 opacity: 0;
 pointer-events: none;
 }
 
 slides > slide.far-next {
+display: none;
 }
 
 slides > slide.dark {
@@ -380,6 +382,8 @@ width: 1100px;
 
 slides.layout-widescreen > slide.far-past,
 slides.layout-faux-widescreen > slide.far-past {
+display: block;
+display: none;
 -webkit-transform: translate(-2260px);
 -moz-transform: translate(-2260px);
 -ms-transform: translate(-2260px);
@@ -413,6 +417,8 @@ pointer-events: none;
 
 slides.layout-widescreen > slide.far-next,
 slides.layout-faux-widescreen > slide.far-next {
+display: block;
+display: none;
 -webkit-transform: translate(2260px);
 -moz-transform: translate(2260px);
 -ms-transform: translate(2260px);
@@ -1343,13 +1349,6 @@ opacity: 1;
 
 .overview .slide-area {
 display: none;
-}
-slides > slide {
-background: linear-gradient(#ffffff, #ffffff 85%, #e6e6e6);
-background-color: white;
-}
-slides > slide {
-opacity: 0;
 }
 @media print {
 
@@ -3076,10 +3075,6 @@ if (document.readyState !== "loading" &&
       font-style: italic;
     }
 
-    summary {
-      display: list-item;
-    }
-
     slides > slide {
       -webkit-transition: all 0.4s ease-in-out;
       -moz-transition: all 0.4s ease-in-out;
@@ -3095,10 +3090,6 @@ if (document.readyState !== "loading" &&
       transition: opacity 0.6s ease-in 0.4s;
       opacity: 0;
     }
-/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
-slide:not(.current) .plotly.html-widget{
-  display: block;
-}
 
   </style>
 
@@ -3115,278 +3106,386 @@ slide:not(.current) .plotly.html-widget{
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">30/09/2019</p>
+            <p style="margin-top: 6px; margin-left: -2px;">26 septembre 2019</p>
           </hgroup>
   </slide>
 
-<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>We can use R to create, delete, move and obtain information on files and directories.</h2></hgroup><article  id="we-can-use-r-to-create-delete-move-and-obtain-information-on-files-and-directories.">
+<slide class=""><hgroup><h2></h2></hgroup><article  id="section">
 
-</article></slide><slide class=""><hgroup><h2>Get and change the current working directory</h2></hgroup><article  id="get-and-change-the-current-working-directory">
+<pre class = 'prettyprint lang-r'>library(purrr)</pre>
 
-<ul>
-<li><strong>getwd</strong> function :</li>
-</ul>
+<pre >## Warning: package &#39;purrr&#39; was built under R version 3.5.2</pre>
 
-<pre class = 'prettyprint lang-r'>getwd()</pre>
+<pre class = 'prettyprint lang-r'>mtcars</pre>
 
-<pre >## [1] &quot;D:/Documents/ETUDES/UGA/M2_BEE_DynaMO/UE_OIMM/CoursR_BEE2019&quot;</pre>
+<pre >##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
 
-<ul>
-<li><strong>setwd</strong> function :</li>
-</ul>
+</article></slide><slide class=""><hgroup><h2>A quoi ça sert et qu’est ce c’est ?</h2></hgroup><article  id="a-quoi-ca-sert-et-quest-ce-cest">
 
-<pre class = 'prettyprint lang-r'>original.path=getwd()
-setwd(&quot;../&quot;)
-getwd()</pre>
+<p>C’est un package du tidyverse.</p>
 
-<pre >## [1] &quot;D:/Documents/ETUDES/UGA/M2_BEE_DynaMO/UE_OIMM&quot;</pre>
+<p>Pour la programmation fonctionnelle : ce qui arrive dans R est le résultat d ’une fonction. Ce qui y est déjà est un objet</p>
 
-<pre class = 'prettyprint lang-r'>setwd(original.path)</pre>
+<p>Le package purrr fait intervenir principalement les fonctions de type map, les fonctions walk et safely, et est surtout utilisé pour les objets de type liste. Il permet d’éviter les boucles en itérant une fonction sur chaque objet de la liste.</p>
 
-</article></slide><slide class=""><hgroup><h2>Create files and directory</h2></hgroup><article  id="create-files-and-directory">
+<p>La sortie finale est de la même taille que l’objet initial.</p>
 
-<ul>
-<li><strong>dir.create</strong> function to create a folder :</li>
-</ul>
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-1">
 
-<pre class = 'prettyprint lang-r'>dir.create(&quot;Garden&quot;)
-dir.create(&quot;Garden/Kitchen&quot;)</pre>
-
-<p>It is still possible to create a folder by giving the full path where we want to create it.</p>
-
-<ul>
-<li><strong>file.create</strong> function to create a file :</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>file.create(&quot;Garden/Potatoe.txt&quot;) #text document
-file.create(&quot;Garden/Banana.docx&quot;) #word document
-file.create(&quot;Garden/Egg_plant.csv&quot;) #csv document</pre>
-
-<p>Thus, creating a lot of files is easy :</p>
-
-<pre class = 'prettyprint lang-r'>sapply(paste0(&quot;Garden/Vegetable_&quot;, 1:42,&quot;.txt&quot;), file.create)</pre>
-
-</article></slide><slide class=""><hgroup><h2>Rename a file</h2></hgroup><article  id="rename-a-file">
-
-<ul>
-<li><strong>file.rename</strong> function :</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>file.rename(&quot;Garden/Vegetable_22.txt&quot;,&quot;Garden/Truite.txt&quot;)</pre>
-
-<pre >## [1] TRUE</pre>
-
-</article></slide><slide class=""><hgroup><h2>How to move a file</h2></hgroup><article  id="how-to-move-a-file">
+<p>Avant tout, que retournent ces fonctions ?</p>
 
 <ul>
-<li><strong>file.move</strong> from <em>filesstrings</em> library can be used :</li>
+<li>Celles qui retournent des listes map() map_if() map_at()</li>
+<li><p>Celles qui retournent des logiques,characters,vecteurs,entiers : map_lgl() map_int() map_dbl() map_chr()</p>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-2">
+
+<p>Celles qui retournent des dataframes créés par jointure de lignes ou de colonnes -map_dfr et map_dfc</p></li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>#install.packages(&quot;filesstrings&quot;)
-library(filesstrings)</pre>
+</article></slide><slide class=""><hgroup><h2>Structuration</h2></hgroup><article  id="structuration">
 
-<pre >## Loading required package: stringr</pre>
+<p>map(.x, .f,)</p>
 
-<pre class = 'prettyprint lang-r'>file.move(&quot;Garden/Vegetable_11.txt&quot;, &quot;Garden/Livingroom&quot;)</pre>
+<p>.x = objet .f = fonction appliquée</p>
 
-<pre >## 1 directory created.</pre>
+<p>map_if(.x, .p, .f, …)</p>
 
-<pre >## 1 file moved. 0 failed.</pre>
+<p>.x = objet .p = sélection des éléments de .x<br/>.f = fonction appliquée</p>
 
-</article></slide><slide class=""><hgroup><h2>Copying a file or folder</h2></hgroup><article  id="copying-a-file-or-folder">
+<p>## Exemples</p>
 
-<ul>
-<li><strong>file.copy</strong> function :</li>
-</ul>
+<pre class = 'prettyprint lang-r'>myX=list(c(33,NA,2,15,7,4,5),
+         c(22,1,3,NA,11,2),
+         c(1,5),
+         c(3),
+         c(12,5,9))
 
-<pre class = 'prettyprint lang-r'>file.copy(&quot;Garden/Banana.docx&quot;,&quot;Garden/Kitchen&quot;)</pre>
+# deux méthodes pour faire  la moyenne de chaque liste
 
-<pre >## [1] TRUE</pre>
+moyennes=vector(&quot;list&quot;,length=5)
+for (i in 1:length(myX)){
+  moyennes[i]=mean(myX[[i]],na.rm=TRUE)
+}
+print(moyennes)</pre>
 
-<p>The second argument is the folder in which you want to duplicate the file.</p>
+<pre >## [[1]]
+## [1] 11
+## 
+## [[2]]
+## [1] 7.8
+## 
+## [[3]]
+## [1] 3
+## 
+## [[4]]
+## [1] 3
+## 
+## [[5]]
+## [1] 8.666667</pre>
 
-</article></slide><slide class=""><hgroup><h2>Listing files in a directory</h2></hgroup><article  id="listing-files-in-a-directory">
+<pre class = 'prettyprint lang-r'>myX=list(c(33,NA,2,15,7,4,5),
+         c(22,1,3,NA,11,2),
+         c(1,5),
+         c(3),
+         c(12,5,9))
+moyennes=map(myX,mean, na.rm=TRUE)
+print(moyennes)</pre>
 
-<ul>
-<li><strong>list.files</strong> function :</li>
-</ul>
+<pre >## [[1]]
+## [1] 11
+## 
+## [[2]]
+## [1] 7.8
+## 
+## [[3]]
+## [1] 3
+## 
+## [[4]]
+## [1] 3
+## 
+## [[5]]
+## [1] 8.666667</pre>
 
-<pre class = 'prettyprint lang-r'>list.files(&quot;Garden&quot;,
-           recursive = TRUE, #if you want all the subdirectory files
-           full.names = TRUE #to have the full names
-           )</pre>
+<p>%in% = considérant %&gt;% sert à éviter l’imbrication des fonctions les unes dans les autres Il peut être lu comme &ldquo;ensuite&rdquo; ou &ldquo;puis&rdquo;&quot;</p>
 
-<pre >##  [1] &quot;Garden/Banana.docx&quot;                
-##  [2] &quot;Garden/Egg_plant.csv&quot;              
-##  [3] &quot;Garden/Kitchen/Banana.docx&quot;        
-##  [4] &quot;Garden/Livingroom/Vegetable_11.txt&quot;
-##  [5] &quot;Garden/Potatoe.txt&quot;                
-##  [6] &quot;Garden/Truite.txt&quot;                 
-##  [7] &quot;Garden/Vegetable_1.txt&quot;            
-##  [8] &quot;Garden/Vegetable_10.txt&quot;           
-##  [9] &quot;Garden/Vegetable_12.txt&quot;           
-## [10] &quot;Garden/Vegetable_13.txt&quot;           
-## [11] &quot;Garden/Vegetable_14.txt&quot;           
-## [12] &quot;Garden/Vegetable_15.txt&quot;           
-## [13] &quot;Garden/Vegetable_16.txt&quot;           
-## [14] &quot;Garden/Vegetable_17.txt&quot;           
-## [15] &quot;Garden/Vegetable_18.txt&quot;           
-## [16] &quot;Garden/Vegetable_19.txt&quot;           
-## [17] &quot;Garden/Vegetable_2.txt&quot;            
-## [18] &quot;Garden/Vegetable_20.txt&quot;           
-## [19] &quot;Garden/Vegetable_21.txt&quot;           
-## [20] &quot;Garden/Vegetable_23.txt&quot;           
-## [21] &quot;Garden/Vegetable_24.txt&quot;           
-## [22] &quot;Garden/Vegetable_25.txt&quot;           
-## [23] &quot;Garden/Vegetable_26.txt&quot;           
-## [24] &quot;Garden/Vegetable_27.txt&quot;           
-## [25] &quot;Garden/Vegetable_28.txt&quot;           
-## [26] &quot;Garden/Vegetable_29.txt&quot;           
-## [27] &quot;Garden/Vegetable_3.txt&quot;            
-## [28] &quot;Garden/Vegetable_30.txt&quot;           
-## [29] &quot;Garden/Vegetable_31.txt&quot;           
-## [30] &quot;Garden/Vegetable_32.txt&quot;           
-## [31] &quot;Garden/Vegetable_33.txt&quot;           
-## [32] &quot;Garden/Vegetable_34.txt&quot;           
-## [33] &quot;Garden/Vegetable_35.txt&quot;           
-## [34] &quot;Garden/Vegetable_36.txt&quot;           
-## [35] &quot;Garden/Vegetable_37.txt&quot;           
-## [36] &quot;Garden/Vegetable_38.txt&quot;           
-## [37] &quot;Garden/Vegetable_39.txt&quot;           
-## [38] &quot;Garden/Vegetable_4.txt&quot;            
-## [39] &quot;Garden/Vegetable_40.txt&quot;           
-## [40] &quot;Garden/Vegetable_41.txt&quot;           
-## [41] &quot;Garden/Vegetable_42.txt&quot;           
-## [42] &quot;Garden/Vegetable_5.txt&quot;            
-## [43] &quot;Garden/Vegetable_6.txt&quot;            
-## [44] &quot;Garden/Vegetable_7.txt&quot;            
-## [45] &quot;Garden/Vegetable_8.txt&quot;            
-## [46] &quot;Garden/Vegetable_9.txt&quot;</pre>
+<pre class = 'prettyprint lang-r'>mtcars</pre>
 
-<pre class = 'prettyprint lang-r'>list.files(&quot;Garden&quot;,
-           recursive = TRUE, #if you want all the subdirectory files
-           pattern = &quot;.csv&quot;)</pre>
+<pre >##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+## Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</pre>
 
-<pre >## [1] &quot;Egg_plant.csv&quot;</pre>
+<pre class = 'prettyprint lang-r'>mtcars %&gt;% map(sum)</pre>
 
-<p>Useful if you want to read in all the CSV files from a directory :</p>
+<pre >## $mpg
+## [1] 642.9
+## 
+## $cyl
+## [1] 198
+## 
+## $disp
+## [1] 7383.1
+## 
+## $hp
+## [1] 4694
+## 
+## $drat
+## [1] 115.09
+## 
+## $wt
+## [1] 102.952
+## 
+## $qsec
+## [1] 571.16
+## 
+## $vs
+## [1] 14
+## 
+## $am
+## [1] 13
+## 
+## $gear
+## [1] 118
+## 
+## $carb
+## [1] 90</pre>
 
-<pre class = 'prettyprint lang-r'>#all_csv=lapply(list.files(&quot;Garden&quot;,pattern = &quot;.csv&quot;), read.csv)</pre>
+<p>##</p>
 
-</article></slide><slide class=""><hgroup><h2>Get details about files</h2></hgroup><article  id="get-details-about-files">
+<p>Fait apparaître une liste des différents groupes de cyl</p>
 
-<ul>
-<li><strong>fileSnapshot</strong> function for a directory :</li>
-</ul>
+<pre class = 'prettyprint lang-r'>mtcars %&gt;% 
+  split(.$cyl)</pre>
 
-<pre class = 'prettyprint lang-r'>snapshot=fileSnapshot(&quot;Garden&quot;)
-head(snapshot$info)</pre>
+<pre >## $`4`
+##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Datsun 710     22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Merc 240D      24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## Merc 230       22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## Fiat 128       32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## Honda Civic    30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## Toyota Corona  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## Fiat X1-9      27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+## 
+## $`6`
+##                 mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## 
+## $`8`
+##                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8</pre>
 
-<pre >##               size isdir mode               mtime               ctime
-## Banana.docx      0 FALSE  666 2019-10-03 18:23:46 2019-10-03 18:23:46
-## Egg_plant.csv    0 FALSE  666 2019-10-03 18:23:46 2019-10-03 18:23:46
-## Kitchen          0  TRUE  777 2019-10-03 18:23:47 2019-10-03 18:23:46
-## Livingroom       0  TRUE  777 2019-10-03 18:23:47 2019-10-03 18:23:47
-## Potatoe.txt      0 FALSE  666 2019-10-03 18:23:46 2019-10-03 18:23:46
-## Truite.txt       0 FALSE  666 2019-10-03 18:23:46 2019-10-03 18:23:46
-##                             atime exe
-## Banana.docx   2019-10-03 18:23:46  no
-## Egg_plant.csv 2019-10-03 18:23:46  no
-## Kitchen       2019-10-03 18:23:47  no
-## Livingroom    2019-10-03 18:23:47  no
-## Potatoe.txt   2019-10-03 18:23:46  no
-## Truite.txt    2019-10-03 18:23:46  no</pre>
+<pre class = 'prettyprint lang-r'>mtcars%&gt;%
+  split(.$cyl) %&gt;%
+  map(~ lm(mpg ~ wt, data = .x))</pre>
 
-<ul>
-<li><strong>file.info</strong> function for a file :</li>
-</ul>
+<pre >## $`4`
+## 
+## Call:
+## lm(formula = mpg ~ wt, data = .x)
+## 
+## Coefficients:
+## (Intercept)           wt  
+##      39.571       -5.647  
+## 
+## 
+## $`6`
+## 
+## Call:
+## lm(formula = mpg ~ wt, data = .x)
+## 
+## Coefficients:
+## (Intercept)           wt  
+##       28.41        -2.78  
+## 
+## 
+## $`8`
+## 
+## Call:
+## lm(formula = mpg ~ wt, data = .x)
+## 
+## Coefficients:
+## (Intercept)           wt  
+##      23.868       -2.192</pre>
 
-<pre class = 'prettyprint lang-r'>file.info(&quot;Garden/Banana.docx&quot;)</pre>
+<p>Rend les résultats au carré sous forme de data frame</p>
 
-<pre >##                    size isdir mode               mtime               ctime
-## Garden/Banana.docx    0 FALSE  666 2019-10-03 18:23:46 2019-10-03 18:23:46
-##                                  atime exe
-## Garden/Banana.docx 2019-10-03 18:23:47  no</pre>
+<pre class = 'prettyprint lang-r'>mtcars %&gt;%
+  split(.$cyl) %&gt;% 
+  map(~ lm(mpg ~ wt, data = .)) %&gt;%
+  map(summary) %&gt;%
+  map_dfr(&quot;r.squared&quot;)</pre>
 
-<p>To have seperated details you can also use <strong>file.ctime</strong> and <strong>file.mtime</strong> functions.</p>
+<pre >## # A tibble: 1 x 3
+##     `4`   `6`   `8`
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 0.509 0.465 0.423</pre>
 
-</article></slide><slide class=""><hgroup><h2>Delete files</h2></hgroup><article  id="delete-files">
+<p>La fonction walk : Elle permet d’utiliser une fonction définie au préalable et d’éviter une énième boucle</p>
 
-<ul>
-<li><strong>file.remove</strong> and <strong>unlink</strong> functions :</li>
-</ul>
+<pre class = 'prettyprint lang-r'>x=c(4,6,9)
+print_moyenne=function(x){
+  print(paste(&quot;la moyenne est de&quot;,
+              mean(x,na.rm=TRUE)))
+  return(NULL)
+}
+walk(x,print_moyenne)</pre>
 
-<pre class = 'prettyprint lang-r'>file.remove(&quot;Garden/Banana.docx&quot;)</pre>
+<pre >## [1] &quot;la moyenne est de 4&quot;
+## [1] &quot;la moyenne est de 6&quot;
+## [1] &quot;la moyenne est de 9&quot;</pre>
 
-<pre >## [1] TRUE</pre>
+<p>##Pour éviter les problèmes</p>
 
-<pre class = 'prettyprint lang-r'>unlink(&quot;Garden/Potatoe.txt&quot;)
-unlink(&quot;Garden/Kitchen&quot;, recursive = TRUE)</pre>
+<p>reg=function(x,y,w=rep(1,length(x))){ result=lm(y~x,weights=w) return(result) }</p>
 
-</article></slide><slide class=""><hgroup><h2>Check the existence of a directory or a file</h2></hgroup><article  id="check-the-existence-of-a-directory-or-a-file">
+<p>myX=list(c(2,5,6,7,1,0,1,1), c(5,1,6,4,2), c()) myY=list(c(5,8,9,7,22,1,9,9), c(2,8,9,5,4), c())</p>
 
-<ul>
-<li><strong>file.exists</strong> function :</li>
-</ul>
+<p>map2(myX,myY,reg)</p>
 
-<pre class = 'prettyprint lang-r'>file.exists(c(&quot;Garden/Egg_plant.csv&quot;,&quot;Garden/Vegetable_1.txt&quot;,&quot;Garden/Potatoe.txt&quot;))</pre>
+<p>Soucis car le troisième objet de la liste est nul. Pour faire apparaître les deux premiers qui sont bons on utilise safety()</p>
 
-<pre >## [1]  TRUE  TRUE FALSE</pre>
+<pre class = 'prettyprint lang-r'>reg=function(x,y,w=rep(1,length(x))){
+  result=lm(y~x,weights=w)
+  return(result)
+}
 
-<pre class = 'prettyprint lang-r'>dir.exists(c(&quot;Garden&quot;,&quot;Garden/Kitchen&quot;, &quot;Mountain&quot;))</pre>
 
-<pre >## [1]  TRUE FALSE FALSE</pre>
+myX=list(c(2,5,6,7,1,0,1,1),
+         c(5,1,6,4,2),
+         c())
+myY=list(c(5,8,9,7,22,1,9,9),
+         c(2,8,9,5,4),
+         c())
+map2(myX,myY,safely(reg))</pre>
 
-</article></slide><slide class=""><hgroup><h2>Get other informations on a file</h2></hgroup><article  id="get-other-informations-on-a-file">
+<pre >## [[1]]
+## [[1]]$result
+## 
+## Call:
+## lm(formula = y ~ x, weights = w)
+## 
+## Coefficients:
+## (Intercept)            x  
+##      9.2162      -0.1622  
+## 
+## 
+## [[1]]$error
+## NULL
+## 
+## 
+## [[2]]
+## [[2]]$result
+## 
+## Call:
+## lm(formula = y ~ x, weights = w)
+## 
+## Coefficients:
+## (Intercept)            x  
+##     5.76744     -0.04651  
+## 
+## 
+## [[2]]$error
+## NULL
+## 
+## 
+## [[3]]
+## [[3]]$result
+## NULL
+## 
+## [[3]]$error
+## &lt;simpleError in model.frame.default(formula = y ~ x, weights = w, drop.unused.levels = TRUE): type (NULL) incorrect pour la variable &#39;y&#39;&gt;</pre>
 
-<ul>
-<li><strong>basename</strong> function gives the basename :</li>
-</ul>
+<p>##</p>
 
-<pre class = 'prettyprint lang-r'>basename(&quot;Garden/Egg_plant.csv&quot;)</pre>
+<p>La fonction array-coercion ()</p>
 
-<pre >## [1] &quot;Egg_plant.csv&quot;</pre>
-
-<ul>
-<li><strong>dirname</strong> function gives the path of the directory :</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>dirname(&quot;Garden/Egg_plant.csv&quot;)</pre>
-
-<pre >## [1] &quot;Garden&quot;</pre>
-
-<ul>
-<li><strong>file_ext</strong> function (<em>tools</em> package) gives the extension :</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>library(tools) ; file_ext(&quot;Garden/Egg_plant.csv&quot;)</pre>
-
-<pre >## [1] &quot;csv&quot;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Physically open a file or open a selection window</h2></hgroup><article  id="physically-open-a-file-or-open-a-selection-window">
-
-<ul>
-<li><strong>shell.exec</strong> or <strong>file.show</strong> functions can be used :</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>#shell.exec(&quot;Garden/Vegetable_1.txt&quot;)
-#file.show(&quot;Garden/Egg_plant.csv&quot;)</pre>
-
-<ul>
-<li><strong>file.choose</strong> function opens a selection window :</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>#file.choose()</pre>
-
-</article></slide><slide class=""><hgroup><h2>Save and reload a R object</h2></hgroup><article  id="save-and-reload-a-r-object">
-
-<ul>
-<li><strong>save</strong> and <strong>load</strong> functions are usefull to create a file and load it with a R object inside :</li>
-</ul>
-
-<pre class = 'prettyprint lang-r'>dt=data.frame(c(1:10),c(2:11))
-save(dt, file=&quot;Garden/Tomatoe.Rdata&quot;)
-dt2=get(load(&quot;Garden/Tomatoe.Rdata&quot;))</pre></article></slide>
+<p>Utile pour transformer une matrice en liste</p></article></slide>
 
 
   <slide class="backdrop"></slide>

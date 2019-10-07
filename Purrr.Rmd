@@ -1,0 +1,218 @@
+---
+title: "Purrr"
+author: "Lecaude Cresciense - Maude Cavaliere"
+date: "26 septembre 2019"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##
+```{r}
+library(purrr)
+mtcars
+```
+
+## A quoi ca sert et qu'est ce c'est ? 
+
+C'est un package du tidyverse.
+
+Pour la programmation fonctionnelle : ce qui arrive dans R est le resultat d 'une fonction. Ce qui y est deja est un objet 
+
+Le package purrr fait intervenir principalement les fonctions de type map, les fonctions walk et safely, et est surtout utilise pour les objets de type liste. 
+Il permet d'?viter les boucles en it?rant une fonction sur chaque objet de la liste.
+
+ La sortie finale est de la meme taille que l'objet initial.
+
+
+##
+
+Avant tout, que retournent ces fonctions map ? 
+
+- Celles qui retournent des listes 
+    map()
+    map_if()
+    map_at()
+    
+- Celles qui retournent des logiques,characters,vecteurs,entiers :
+  map_lgl()
+  map_int()
+  map_dbl()
+  map_chr()
+  
+- Celles qui retournent des dataframes crees par jointure de lignes ou de colonnes 
+  -map_dfr et map_dfc
+  
+  
+  
+  ## Structuration 
+
+`map(.x, .f)`
+   .x = objet 
+  .f = fonction appliquee
+  
+`map_if(.x, .p, .f)`
+
+  .x = objet 
+  .p = fonction de guarde
+  .f = fonction appliquee 
+
+##
+
+La condition est l'action executee par la fonction .p. Elle doit etre verifiee pour  que la fonction map_if traite l'objet.
+
+`map_at(.x, .at, .f)`
+
+  .x = objet
+  .at = vecteur de nom au format caracteres (inclure) ou un vecteur de numeriques positifs (inclure) ou de numeriques negatifs (exclure)
+  .f = fonction appliquee
+
+Seul les elements selectionnes seront modifie
+
+  ## Exemples 
+  
+```{r}
+myX=list(c(33,NA,2,15,7,4,5),
+         c(22,1,3,NA,11,2),
+         c(1,5),
+         c(3),
+         c(12,5,9))
+
+# deux m?thodes pour faire  la moyenne de chaque liste
+
+moyennes=vector("list",length=5)
+for (i in 1:length(myX)){
+  moyennes[i]=mean(myX[[i]],na.rm=TRUE)
+}
+print(moyennes)
+```
+  
+##
+```{r}
+myX=list(c(33,NA,2,15,7,4,5),
+         c(22,1,3,NA,11,2),
+         c(1,5),
+         c(3),
+         c(12,5,9))
+moyennes=map(myX,mean, na.rm=TRUE)
+print(moyennes)
+```
+  
+  %in% = considerant
+  %>% sert a eviter l'imbrication des fonctions les unes dans les autres 
+  Il peut etre lu comme "ensuite" ou "puis""
+  
+```{r}
+mtcars
+mtcars %>% map(sum)
+
+```
+
+  
+ ##
+
+  Fait apparaitre une liste des diff?rents groupes de cyl 
+```{r}
+mtcars %>% 
+  split(.$cyl)
+```
+  
+```{r}
+mtcars%>%
+  split(.$cyl) %>%
+  map(~ lm(mpg ~ wt, data = .x))
+```
+
+##
+  Rend les resultats au carre sous forme de data frame
+```{r}
+mtcars %>%
+  split(.$cyl) %>% 
+  map(~ lm(mpg ~ wt, data = .)) %>%
+  map(summary) %>%
+  map_dfr("r.squared")
+
+```
+  
+##
+  La fonction walk :
+  Elle permet d'utiliser une fonction definie au prealable et d'eviter une enieme boucle 
+  
+```{r}
+x=c(2,5,8)
+print_moyenne=function(x){
+  print(paste("la moyenne est de",
+              mean(x,na.rm=TRUE)))
+  return(NULL)
+}
+walk(x,print_moyenne)
+```
+##
+Pour ?viter les probl?mes 
+  
+```{r}
+  
+ reg=function(x,y,w=rep(1,length(x))){
+  result=lm(y~x,weights=w)
+  return(result)
+}
+```
+
+
+
+  Pour eviter les problemes 
+
+
+myX=list(c(2,5,6,7,1,0,1,1),
+         c(5,1,6,4,2),
+         c())
+myY=list(c(5,8,9,7,22,1,9,9),
+         c(2,8,9,5,4),
+         c())
+
+
+map2(myX,myY,reg) 
+
+##
+##
+Error in model.frame.default(formula = y ~ x, weights = w, drop.unused.levels = TRUE): 
+type (NULL) incorrect pour la variable 'y'
+
+  Soucis car le troisi?me objet de la liste est nul. 
+  Pour faire appara?tre les deux premiers qui sont bons on utilise safely()
+
+reg=function(x,y,w=rep(1,length(x))){
+  result=lm(y~x,weights=w)
+  return(result)
+}
+
+myX=list(c(2,5,6,7,1,0,1,1),
+         c(5,1,6,4,2),
+         c())
+myY=list(c(5,8,9,7,22,1,9,9),
+         c(2,8,9,5,4),
+         c())
+map2(myX,myY,safely(reg))
+
+## [[1]]
+ [[1]]$result
+ 
+ Call:
+ lm(formula = y ~ x, weights = w)
+ 
+Coefficients:
+ (Intercept)            x  
+      9.2162      -0.1622  
+
+
+[[1]]$error
+ NULL
+  
+
+  ##
+  
+  La fonction array-coercion () 
+  
+Utile pour transformer une matrice en liste 
