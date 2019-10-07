@@ -35,17 +35,15 @@ Avant tout, que retournent ces fonctions map ?
     map()
     map_if()
     map_at()
+    
 - Celles qui retournent des logiques,characters,vecteurs,entiers :
   map_lgl()
   map_int()
   map_dbl()
   map_chr()
   
-  ##
-  
-  Celles qui retournent des dataframes crees par jointure de lignes ou de colonnes 
+- Celles qui retournent des dataframes crees par jointure de lignes ou de colonnes 
   -map_dfr et map_dfc
-  
   
   
   
@@ -152,7 +150,7 @@ print_moyenne=function(x){
 walk(x,print_moyenne)
 ```
 ##
-Pour éviter les problèmes 
+Pour ?viter les probl?mes 
   
 ```{r}
   
@@ -182,8 +180,8 @@ map2(myX,myY,reg)
 Error in model.frame.default(formula = y ~ x, weights = w, drop.unused.levels = TRUE): 
 type (NULL) incorrect pour la variable 'y'
 
-  Soucis car le troisième objet de la liste est nul. 
-  Pour faire apparaître les deux premiers qui sont bons on utilise safely()
+  Soucis car le troisi?me objet de la liste est nul. 
+  Pour faire appara?tre les deux premiers qui sont bons on utilise safely()
 
 reg=function(x,y,w=rep(1,length(x))){
   result=lm(y~x,weights=w)
