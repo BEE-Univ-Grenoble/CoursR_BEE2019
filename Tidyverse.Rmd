@@ -234,7 +234,7 @@ tibble(x = 1, y = x)
 
 
 
-#Quelques fonctions de tidyr
+# Some *tidyr* features
 
 *separate* : separate each cell in a column to make several colums
 
