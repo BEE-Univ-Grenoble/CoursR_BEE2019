@@ -42,13 +42,14 @@ Avant tout, que retournent ces fonctions map ?
   map_dbl()
   map_chr()
   
-<<<<<<< HEAD
-  
-  Celles qui retournent des dataframes crees par jointure de lignes ou de colonnes 
-=======
-- Celles qui retournent des dataframes crees par jointure de lignes ou de colonnes 
->>>>>>> 81fcebbe4eadeb1f51fab5d0aef382b5928e67e2
+
+Celles qui retournent des dataframes crees par jointure de lignes ou de colonnes 
+
   -map_dfr et map_dfc
+  
+  Il existe d'autres fonctions, qui prennent ET retournent des listes. Ce sont les lmap()
+  Elles peuvent retourner des listes plus importantes que celles en argument.
+  Voir retourer des listes vides.
   
   
   
