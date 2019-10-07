@@ -158,9 +158,7 @@ sweave :
 ## Options des chunks
 
 Par défaut, premier mot du chunk est son label.
-
 Plusieurs chunks peuvent avoir le même label. 
-
 L'absence de label leur attribue un numero.
 
 *option des chunks  : TRUE, true, T ou FALSE, false, F*
@@ -189,35 +187,45 @@ Les informations sont 'stockés' par chunk et peuvent être rappelées
 @
 ```
 
-Et incorporées dans le text avec `\Sexpr{y}`
+Et incorporées dans le text avec `\Sexpr{y}`. Mais besoin d'enlever {}
+
+## Cas particulier des figures
+
+Chaque figure est générée dans un chunk a part, donc toutes les commandes de types par() doivent être répétés pour chaque chunk.
+
+Idem, la génération de plot dans des boucles ne marche pas avec le systeme de compilation.
+
+Les figures sont en pdf par défaut mais exemple :
+
+```
+<<<<figN, fig=TRUE, pdf=FALSE, png=TRUE>>>>=
+ plot(c(1,2,3))
+@
+```
+
+Les figures peuvent être générées dans un dossier à part (notion de compendium)
+
+l'échelle des figures par défaut : `\setkeys{Gin}{width=0.8\textwidth}`
+
+## Détails
+
+L'encodage est en ASCII de base et peut être modifié par les commandes latex (see `fontenc` et `inputenc`).
+
+Il ne s'agit là que de la syntaxe `noweb`, il en existe d'autres !
+
+Moyen d'extraire tout les chunks dans un script à part comme l'a fait Maya pour nos TD.
+
+
 
 <!--notes diverses 
-## Incorporer du code R
 prefix.string > label > number
-
-figures can be exported in a special directory if global sweave option says so...notion of compedium
 
 can include files in tex, but won't process them , with `\imput` 
 `\SweaveInput{}` process them or not?
 
-`\Sexpr{expr}` add values in text or even code. But need to remove all braces
-
-can put reference to chunks with `<<name>>`
-
-This is `noweb` synthax but in fact there is a multitude of them
-
-encoding is ASCII by default, but can't be greatly modified (see fontenc and inputenc)
-encoding seem's tricky, to look further
-
-default figure scale is `\setkeys{Gin}{width=0.8\textwidth}`
-to modify it, insert same code afet `\begin{document}`
-
-new  file is generated for each figure, so par() are to reset each time
-need to create a function to set it as default, might be tricky as well
-
-default figure output is pdf, can be change by  `<<figN, fig=TRUE, pdf=FALSE, png=TRUE>>`
-
-Rtangle extract all code and form a .R apart (like maya did) (so there is no need to split = T)
+## Incorporer du code R
+set line length in R :
+`{r} options(width = 40)`
 
 ONLY ONE GRAPH PER CHUNK !  SO NO FOR LOOP FOR FIGURES
 a way to hack it :
@@ -233,9 +241,6 @@ for(i in 1:4){
 @
 ```
 
-## Incorporer du code R
-set line length in R :
-`{r} options(width = 40)`
 -->
 
 ## Références et aides
