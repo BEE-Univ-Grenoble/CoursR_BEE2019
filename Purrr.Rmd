@@ -22,7 +22,7 @@ C'est un package du tidyverse.
 Pour la programmation fonctionnelle : ce qui arrive dans R est le resultat d 'une fonction. Ce qui y est deja est un objet 
 
 Le package purrr fait intervenir principalement les fonctions de type map, les fonctions walk et safely, et est surtout utilise pour les objets de type liste. 
-Il permet d'?viter les boucles en it?rant une fonction sur chaque objet de la liste.
+Il permet d'eviter les boucles en iterant une fonction sur chaque objet de la liste.
 
  La sortie finale est de la meme taille que l'objet initial.
 
@@ -41,7 +41,6 @@ Avant tout, que retournent ces fonctions map ?
   map_dbl()
   map_chr()
   
-  ##
   
   Celles qui retournent des dataframes crees par jointure de lignes ou de colonnes 
   -map_dfr et map_dfc
@@ -61,10 +60,10 @@ Avant tout, que retournent ces fonctions map ?
   .p = fonction de guarde
   .f = fonction appliquee 
 
-##
 
 La condition est l'action executee par la fonction .p. Elle doit etre verifiee pour  que la fonction map_if traite l'objet.
 
+##
 `map_at(.x, .at, .f)`
 
   .x = objet
@@ -162,9 +161,7 @@ Pour éviter les problèmes
 }
 ```
 
-
-
-  Pour eviter les problemes 
+Pour eviter les problemes 
 
 
 myX=list(c(2,5,6,7,1,0,1,1),
@@ -178,17 +175,11 @@ myY=list(c(5,8,9,7,22,1,9,9),
 map2(myX,myY,reg) 
 
 ##
-##
 Error in model.frame.default(formula = y ~ x, weights = w, drop.unused.levels = TRUE): 
 type (NULL) incorrect pour la variable 'y'
 
   Soucis car le troisième objet de la liste est nul. 
   Pour faire apparaître les deux premiers qui sont bons on utilise safely()
-
-reg=function(x,y,w=rep(1,length(x))){
-  result=lm(y~x,weights=w)
-  return(result)
-}
 
 myX=list(c(2,5,6,7,1,0,1,1),
          c(5,1,6,4,2),
@@ -198,7 +189,8 @@ myY=list(c(5,8,9,7,22,1,9,9),
          c())
 map2(myX,myY,safely(reg))
 
-## [[1]]
+##
+[[1]]
  [[1]]$result
  
  Call:
@@ -208,12 +200,10 @@ Coefficients:
  (Intercept)            x  
       9.2162      -0.1622  
 
-
 [[1]]$error
  NULL
   
-
-  ##
+##
   
   La fonction array-coercion () 
   
