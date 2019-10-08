@@ -10,7 +10,7 @@ output:
     widescreen: true
 ---
 
-<font size="2"> Texte </font>
+Comment : <font size="2"> Texte </font>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
