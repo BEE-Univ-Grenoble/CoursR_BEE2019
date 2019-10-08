@@ -10,7 +10,7 @@ output:
     widescreen: true
 ---
 
-<font size="2"> Texte </font>
+Comment : <font size="2"> Texte </font>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -123,8 +123,8 @@ Nous avons des classes de 5 ans et une couleur pour des classes plus grandes : p
 ```{r, echo=TRUE}
 plot2 = plot + ggtitle("Taux de cholesterol\nen fonction de l'âge") + 
       theme(plot.title = element_text(lineheight=.8, face="bold")) +
-      xlab("Age") +
-      ylab("Taux de cholestrerol") +
+      xlab("Age") +      ylab("Taux de cholestrerol") +
+      scale_x_continuous(breaks=c(8:16)*5) +
       scale_fill_hue(name="Classes d'âge", labels=c("Jeunes", "Seniors", "Agés"))
 plot2
 ```
@@ -133,7 +133,7 @@ plot2
 
 ```{r, echo=TRUE}
 data$fumeur=factor(data$fumeur)
-plot2 + facet_wrap(fumeur~.)
+plot2 + facet_wrap(~fumeur)
 ```
 
 ## Quelques exemples... pour utiliser une densité : {.smaller}
@@ -177,5 +177,3 @@ The cheat sheets : https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheats
 The function reference : https://ggplot2.tidyverse.org/reference/
 
 The color brewer : http://colorbrewer2.org/
-
-
