@@ -95,8 +95,8 @@ Pour paralléliser: remplacer `%do%` par `%dopar%`
 - l'opération à répéter est longue (opération à droite de `%dopar%` est longue à calculer)
 - le nombre d'itération est un multiple du nombre de coeurs utilisés
 ```{r, include=TRUE,eval=FALSE}
-foreach(i=(petit ou grand vecteur),.combine ="c")%dopar%{Gros modèle enervé}
-foreach(i=1:3,.combine = "c") %dopar%{glm(NDVI~PP+TEMP,datanasa[[i]],
+foreach(i=(petit ou grand vecteur))%dopar%{Gros modèle enervé}
+foreach(i=1:3,) %dopar%{glm(NDVI~PP+TEMP,datanasa[[i]],
                                   family=binomial(logit))}
 ```
 ```{r, include=TRUE,eval=FALSE}
@@ -104,7 +104,7 @@ formula1=formula(NDVI~PP)
 formula2=formula(NDVI~PP*TEMP)
 formula3=formula(NDVI~PP*TEMP + SNOW)
 listform=list(formula1,formula2,formula3)
-foreach(F=listform,.combine = "c") %dopar%{glm(F,datanasa[[i]],
+foreach(F=listform) %dopar%{glm(F,datanasa[[i]],
                                   family=binomial(logit))}
 ```
 
