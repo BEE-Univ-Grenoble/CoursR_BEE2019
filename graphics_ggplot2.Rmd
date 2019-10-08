@@ -14,6 +14,11 @@ Comment : <font size="2"> Texte </font>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+for (package in c("tidyverse","sf","viridisLite","viridis","reshape2")) {
+  if (!package%in%rownames(installed.packages())) {
+    install.packages(package)
+  }
+}
 library(tidyverse)
 library(sf)
 library(viridisLite)
