@@ -13,9 +13,9 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Introduction :
 
 ### Définition
-Les expressions régulières sont des **chaînes de caractères** décrivant un *motif*, un ensemble de chaînes de caractères possible, selon une syntaxe définie.  
+Les expressions régulières sont des **chaînes de caractères** décrivant un *motif*. Ce motif décrit un ensemble de chaînes de caractères possible selon une syntaxe définie.  
 
-### Exemples
+### Exemples de motif
 
 en expressions régulières le `.` correspond à tout autre caractère donc `t.t.` peut correspondre à :
 
@@ -36,33 +36,35 @@ Il existe 2 types de syntaxe :
 ## Syntaxe POSIX
 Quelques éléments de syntaxe pour les expressions régulières...
 
-`.` tout caractère 
-ex : tot. peut correspondre à toto tota totu etc...
+`.` le motif peut prendre tout caractère sauf le retour à la ligne 
+**ex :** 'tot.' peut correspondre aux chaines de caractères 'toto' 'tota' 'totu' etc...
 
-`^` le motif qui suit le "^" est situé en début de chaine 
-ex : ^man peut correspondre à mange mais pas démange
+`^` le caret indique le début du motif
+ex : '^man' peut correspondre à 'man', 'mange' mais pas 'démange'
 
-`$` le motif qui suit le "$" est situé en fin de chaine
+`$` le dollar en fin de chaine indique la fin du motif
+ex : 'man$' peut correspondre à 'maman' mais pas à 'mange'
 
 `|` indique un motif alternatif
-ex : to|ti sélectionnera to et ti en absence de to ? (à vérifier)
+ex : 'toto|titi' sélectionnera 'toto' et 'titi'
 
-`?` 0 ou 1 occurence du motif
-ex : ?bla sélectionnera toto et bla mais pas blabla
 
 ## Syntaxe POSIX
 
-`*` 0 ou plusieurs occurences du motif
-ex : *bla selectionnera toto ou blabla mais pas bla
+`?` 0 ou 1 occurence du caractère qui précède
+ex : 'ab?' sélectionnera 'a' et 'ab' mais pas 'abbb'
 
-`+` 1 ou plusieurs occurences du motif 
-ex : +bla selectionnera bla et blabla mais pas toto
+`*` 0 ou plusieurs occurences du caractère qui précède
+ex : 'ab*' selectionnera  'a' ou 'abbb' mais pas 'ab'
 
-`[...]` le motif peut prendre un des caractères entre crochets
-ex : t[oa]to peut correspondre à tato ou toto
+`+` 1 ou plusieurs occurences du caractère qui précède
+ex : 'ab+' selectionnera 'ab' et 'abbb' mais pas 'a'
 
-`[^...]` le motif peut prendre tous les caracteres a l'exception de ceux qui sont indiqués entre crochets
-ex : t[^u]to peut correspondre à toto, t4to mais pas à tuto
+`[...]` l'expression régulière peut prendre un des caractères entre crochets
+ex : 't[oa]to' peut correspondre à 'tato' ou 'toto'
+
+`[^...]` l'expression régulière peut prendre tous les caractères à l'exception de ceux qui sont indiqués entre crochets
+ex : 't[^u]to' peut correspondre à 'toto', 't4to' mais pas à 'tuto'
 
 
 ## Manipulation des caractères avec *stringr*
@@ -163,7 +165,6 @@ sub("cha", "CHU", c("achatchat", "chaat", "chti"))
 ```{r echo=TRUE}
 gsub("cha", "CHU", c("achatchat", "chaat", "chti"))
 ```
-
 
 
 
