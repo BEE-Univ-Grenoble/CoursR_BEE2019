@@ -1,0 +1,288 @@
+---
+title: "dplyr"
+author: "Ellie, Remi et Bastien"
+date: "8 octobre 2019"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(dplyr)
+df<-data.frame(Titanic)
+```
+
+## Dplyr
+
+- Dplyr fait partie du coeur du tidyverse
+- Dplyr est une extension facilitant le traitement et la manipulation de données contenues dans une ou plusieurs tables 
+
+## Les verbes de Dplyr 
+
+- Filter
+- Arrange
+- Slice
+- Select 
+- Mutate 
+
+## Filter 
+
+- Filter nous permet de sélectionner des lignes d'un dataframe selon une condition
+- Le premier argumente represente l'objet (datatframe, tibble...)
+- Le deuxième permet de sélectionner les variables pour lesquelles (expression == TRUE)
+
+```{r echo=TRUE}
+filter(mtcars, cyl == 6, hp == 110)
+```
+
+## Filter 
+- On peut utiliser cette fonction pour sélectionner les voitures avec "Horsepower" entre deux valeurs
+
+```{r echo=TRUE}
+filter(mtcars, hp >= 150 & hp <= 200)
+```
+
+## Filter 
+
+- On peut aussi utiliser une fonction pour sélectionner la valeur maximale, par exemple 
+```{r echo=TRUE}
+filter(mtcars, disp == max(disp))
+```
+
+## Arrange
+
+- Avec 'Arrange' on peut ordonner les variables selon une colonne 
+
+```{r echo=TRUE}
+       arrange(mtcars, drat)
+```
+
+## Arrange
+- L'ordre défaut avec Dplyr est ascendant, mais on peut également ordonner en ordre descendant 
+
+```{r echo=TRUE}
+       arrange(mtcars, desc(hp))
+```
+
+ - On peut égalament trier selon plusieurs colonnes
+ 
+```{r echo=TRUE}
+       arrange(mtcars, cyl, vs, hp)
+```
+
+## Slice 
+
+- La fonction 'Slice' nous permet de sélectionner des lignes du tableau selon leur position (on passe en argument un chiffre ou un vecteur de chiffres)
+
+```{r echo=TRUE}
+       slice(mtcars, 6:8)
+```
+
+## Arrange 
+ - On peut utiliser la fonction 'Arrange' combiné avec 'Slice' afin de sélectionner les trois voitures avec le plus grand "Gross Horsepower"
+ 
+```{r echo=TRUE}
+      hp =  arrange(mtcars, desc(hp))
+      slice(hp, 1:3)
+```
+
+## Select 
+
+- La fonction 'Select' permet de sélectionner et extraire des colonnes d'un tableau de données, utile en combinaison avec les fonctions starts_with, ends_width, contains ou matches 
+
+```{r echo=TRUE}
+  
+select(mtcars, contains("sec"))
+```
+
+## Select 
+- On peut réordonner les colonnes d'un tableau avec les fonctions 'Select' et 'Everything()' qui sélectionne l'ensemble des colonnes non encore sélectionnées
+- Afin de passer la colonne gear en première position dy tableau on peut faire : 
+```{r echo=TRUE}
+  
+select(mtcars, gear, everything())
+```
+
+## Rename 
+
+- Rename permet de renommer les colonnes 
+
+```{r echo=TRUE}
+   rename(mtcars, 
+              horsepower = hp,
+              cylinder = cyl)
+```
+
+## Mutate 
+
+- Mutate permet de créer de nouvelles colonnes dans le tableau de données, en général à partir de variables existantes
+
+- Par exemple, mtcars contient mpg (Miles per Gallon) et on veut Km per Litre 
+```{r echo=TRUE}
+cars = mtcars 
+cars <- mutate(cars, KmL = mpg*0.425144)
+select(cars, mpg, KmL)
+```
+
+## Mutate
+- On peut utiliser les fonctions de tidyverse tels que if_else, fct_recode et case_when
+```{r echo=TRUE}
+cars <- mutate(cars,
+                  type_speed = case_when(
+                    KmL > 10 & cyl > 6 ~ "Fast&High",
+                    KmL < 10 & cyl <= 6 ~ "Fast&Low",
+                    KmL <= 10 & cyl > 6 ~ "Slow&High",
+                    TRUE ~ "Other"))
+select(cars, cyl, KmL, type_speed)
+```
+
+## L' opérateur "pipe" et le pipeline
+
+- Pour effectuer plusieurs opérations à la suite, différentes syntaxes sont utilisables
+```{r echo=TRUE}
+arrange(select(filter(df, Class == "Crew"), -Age), Sex)
+```
+
+## L' opérateur "pipe" et le pipeline
+
+- dplyr propose un opérateur permettant d'enchaîner les opérations de manière plus lisible: %>% 
+- Cet opérateur prend le résultat situé à sa gauche et lui applique la fonction située à sa droite
+
+```
+df %>% filter (Class == "Crew")
+filter(df, Class == "Crew")
+```
+## L' opérateur "pipe" et le pipeline
+
+- A l'aide de l'opérateur %>% on va pouvoir enchaîner les opérations en créant un pipeline
+```{r echo=TRUE}
+df %>% 
+  filter(Class == "Crew") %>% 
+  select (-Age) %>% 
+  arrange (Sex)
+```
+
+## La fonction summarise
+
+- Cette fonction permet d'agréger les lignes du tableau en effectuant des opérations résumées sur une ou plusieurs colones
+```{r echo=TRUE}
+df %>% summarise(nb_passager=sum(Freq))
+```
+
+## La fonction summarise
+
+- Avec cette fonction on peut utiliser l'opérateur n() qui permet de retourner le nombre de ligne
+```{r echo=TRUE}
+df %>% filter(Class == "Crew") %>%  summarise(nb = n())
+```
+
+## La fonction summarise
+
+- Pour compter le nombre de lignes on peut aussi utiliser la fonction count
+```{r echo=TRUE}
+df %>% count(Class)
+```
+
+## La fonction group_by
+
+- Cette fonction permet de grouper des lignes à partir des valeurs d'une ou plusieurs colones
+```{r echo=TRUE}
+df %>% group_by(Class)
+```
+
+## La fonction group_by
+
+- Lorsque des lignes sont groupées, les fonctions slice, filter, select, mutate ou summarise vont effectuer leurs opérations sur ces groupes de lignes
+```{r echo=TRUE}
+df %>% group_by (Class) %>% summarise(nb_passager = sum (Freq))
+```
+
+## La fonction group_by
+
+- Par défaut arrange ne tient pas compte des groupes. Il faut donc lui ajouter la condition : .by_group = TRUE
+```{r echo=TRUE}
+df %>% 
+  filter (Class == "Crew") %>% 
+  group_by (Sex) %>% 
+  arrange(Age, .by_group = TRUE)
+```
+
+## La fonction group_by
+
+- Cette fonction permet aussi de grouper selon plusieurs variables à la fois
+```{r echo=TRUE}
+df %>% group_by (Class, Sex) %>% summarise (nb_passager = sum (Freq))
+```
+
+## La fonction group_by
+
+- On peut aussi utiliser plusieurs fois la fonction group_by dans un même pipeline
+```{r echo=TRUE}
+df %>% 
+  group_by(Class, Sex, Age) %>%
+  summarise(nb_passager = sum(Freq)) %>% 
+  group_by (Class) %>% 
+  filter (nb_passager == max(nb_passager))
+ 
+```
+
+## La fonction group_by
+
+- Pour dégrouper un tableau on peut utiliser la fonction ungroup
+
+```
+df_2 <- df %>% group_by (Class)
+df_2 %>% ungroup()
+```
+
+## Lead et Lag
+
+- Lead : Permet d'obtenir la valeur voulu ainsi que les suivantes
+
+- Lag : Permet d'obtenir la valeur voulu ainsi que les precédentes
+
+```{r echo=TRUE}
+x=c(5,6,8,2,11,25,45,7,21,56,5)
+lead(x, 5)
+lag(x,5)
+
+```
+
+## Sample_n
+
+- Sample_n permet d'extraire aléatoirement le nombre voulu de ligne d'un tableau
+
+```{r echo=TRUE}
+y=tbl_df(iris)
+sample_n(y,5)
+
+```
+
+## Sample_frac
+
+- Sample_frac permet d'extraire aléatoirement une fraction des ligne d'un tableau
+
+```{r echo=TRUE}
+y=tbl_df(iris)
+sample_frac(y,0.2)
+nrow(y)
+nrow(sample_frac(y,0.2))
+
+```
+
+## Distinct
+
+- Distinct permet d'obtenir un tableau supprimant les lignes en double, similaire à unique.data.frame()
+
+```{r echo=TRUE}
+y=tbl_df(iris)
+nrow(y)
+nrow(distinct(y))
+```
+
+## Concaténation
+
+- bind_row() et bind_col() permettent d'ajouter des lignes ou des colonnes
+
+- left_join(x,y) permet d'ajouter le tableau x a la gauche du tableau y
