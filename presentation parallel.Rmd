@@ -79,7 +79,10 @@ registerDoParallel(clust)
 ```{r}
 getDoParWorkers()
 ```
-
+*Stopper le clustering*
+```{r}
+stopCluster(clust)
+```
 
 
 ## %dopar%
