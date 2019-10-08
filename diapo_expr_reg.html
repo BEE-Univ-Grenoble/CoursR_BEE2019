@@ -150,7 +150,54 @@
 
 <p><code>[^...]</code> le motif peut prendre tous les caracteres a l&#39;exception de ceux qui sont indiqués entre crochets ex : t[^u]to peut correspondre à toto, t4to mais pas à tuto</p>
 
-</article></slide><slide class=""><hgroup><h2>Les principales fonctions</h2></hgroup><article  id="les-principales-fonctions">
+</article></slide><slide class=""><hgroup><h2>Manipulation des caractères avec <em>stringr</em></h2></hgroup><article  id="manipulation-des-caracteres-avec-stringr">
+
+<p><em>str_length</em> : connaître le nombre de caractères dans une chaîne de caractères</p>
+
+<pre class = 'prettyprint lang-r'>vec = &quot;chat&quot;
+str_length(vec)</pre>
+
+<pre >## [1] 4</pre>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section">
+
+<p><em>str_sub</em> : connaître les caractères d&#39;une chaîne compris entre une position de départ et une position de fin</p>
+
+<pre class = 'prettyprint lang-r'>vec = &quot;chat&quot;
+str_sub(vec,2,4)</pre>
+
+<pre >## [1] &quot;hat&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>str_sub(vec,3,3) = &quot;u&quot;
+vec</pre>
+
+<pre >## [1] &quot;chut&quot;</pre>
+
+<p><em>str_to-upper</em> : convertir les caractères en majuscules <em>str_to_lower</em> : convertir les caractères en minuscules</p>
+
+<pre class = 'prettyprint lang-r'>str_to_upper(vec)</pre>
+
+<pre >## [1] &quot;CHUT&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Traitement de chaînes</h2></hgroup><article  id="traitement-de-chaines">
+
+<p><em>str_c</em> : concaténer des chaînes de caractères entre elles</p>
+
+<pre class = 'prettyprint lang-r'>a = &quot;Ameline&quot;
+b = &quot;Guillet&quot;
+c = str_c(a,b, sep = &quot; &quot;) #équivalent de &quot;paste&quot;&quot;
+c</pre>
+
+<pre >## [1] &quot;Ameline Guillet&quot;</pre>
+
+<p><em>str_split</em> : découper une chaîne de caractère en fonction d&#39;un délimiteur.</p>
+
+<pre class = 'prettyprint lang-r'>str_split(c, &quot; &quot;)</pre>
+
+<pre >## [[1]]
+## [1] &quot;Ameline&quot; &quot;Guillet&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2>Les principales fonctions utilisant les expressions régulières</h2></hgroup><article  id="les-principales-fonctions-utilisant-les-expressions-regulieres">
 
 <p><em>grep</em> recherche les éléments d&#39;une chaîne de caractères (<code>text</code>) qui présentent le motif (<code>pattern</code>) indiqué.</p>
 
@@ -166,17 +213,17 @@
 
 <pre >## [1] &quot;chaat&quot; &quot;chti&quot;</pre>
 
-</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section">
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-1">
 
-<p><em>grepl</em> retourne un vecteur logique (TRUE ou FALSE) selon si l&#39;élément du vecteur présente le motif ou non.</p>
+<p><em>grepl</em> retourne un vecteur logique selon si les éléments du vecteur présentent le motif ou non.</p>
 
 <pre class = 'prettyprint lang-r'>grepl(&quot;^cha*t&quot;, c(&quot;achat&quot;, &quot;chaat&quot;, &quot;chti&quot;))</pre>
 
 <pre >## [1] FALSE  TRUE  TRUE</pre>
 
-</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-1">
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article  id="section-2">
 
-<p><em>regexpr</em> renvoie un vecteur de même longueur que le <code>text</code> donnant la position de départ de la première correspondance ou -1 s&#39;il n&#39;y en a pas. Il renvoie aussi l&#39;attribut &quot;match.length&quot; donnant la longueur du texte trouvé (ou -1 si pas de correspondance).</p>
+<p><em>regexpr</em> renvoie un vecteur de même longueur que la chaîne de caracètres donnant la position de départ de la première correspondance ou -1 s&#39;il n&#39;y en a pas. Il renvoie aussi l&#39;attribut &quot;match.length&quot; donnant la longueur du texte trouvé (ou -1 si pas de correspondance).</p>
 
 <pre class = 'prettyprint lang-r'>regexpr(&quot;^cha*t&quot;, c(&quot;achat&quot;, &quot;chaat&quot;, &quot;chti&quot;))</pre>
 

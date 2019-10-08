@@ -65,60 +65,122 @@ ex : t[oa]to peut correspondre à tato ou toto
 ex : t[^u]to peut correspondre à toto, t4to mais pas à tuto
 
 
-## Manipulation des caractères avec *stringr*
+## Traitement de chaînes avec *stringr*
 
 ```{r}
 library(stringr)
+library(tibble)
 ```
 
 *str_length* : connaître le nombre de caractères dans une chaîne de caractères                             
 
 ```{r echo=TRUE}
-vec = "chat"
+vec = c("chat","potté !")
 str_length(vec)
 ```
 
 ##     
 
-*str_sub* : connaître les caractères d'une chaîne compris entre une position de départ et une position de fin
+*str_sub* : connaître les caractères d'une chaîne compris entre une position de départ et une position de fin...
 
 ```{r echo=TRUE}
-vec = "chat"
-str_sub(vec,2,4)
-str_sub(vec,3,3) = "u"
+vec = c("chat","potté !")
+str_sub(vec,2,5) # connaitre les caractères entre la 2ème et la 5ème position
+```
+...et possibilité de remplacer ces caractères par un nouveau.
+```{r echo=TRUE}
+str_sub(vec,3,3) = "u" # remplace le 3ème caractère par "u"
 vec
 ```
 
 
+## Traitement de chaînes avec *stringr*
 
-## Traitement de chaînes
+*str_split* : on peut découper une chaîne de caractères en fonction d'un délimiteur.
 
-*str_c* : concaténer des chaînes de caractères entre elles
+```{r}
+data = tibble(
+  prenom= c("tim", "nahema", "thomas", "harry"),
+  nom_famille = c("bale", "chouette", "dupont", "potter"),
+  lieu = c("berlin-ALLEMAGNE", "nantes-FRANCE", "paris-FRANCE", "poudlard-ECOSSE"))
+```
+
+```{r echo = TRUE}
+data
+```
+
+
+## Traitement de chaînes avec *stringr*
+
+*str_split* : on peut découper une chaîne de caractères en fonction d'un séparateur.
+
+```{r echo = TRUE}
+str_split(data$lieu,       #notre chaîne à découper
+          "-",             #le séparateur
+          simplify = TRUE) #pour obtenir une matrice et pas une liste
+```
+
+
+## Traitement de chaînes avec *stringr*
+
+*str_c* : on peut concaténer des chaînes de caractères entre elles (équivalent de *paste*)
+
 ```{r echo=TRUE}
-a = "Ameline"
-b = "Guillet"
-str_c(a,b, sep = " ") #équivalent de *paste*
+data
+```
+
+
+## Traitement de chaînes avec *stringr*
+
+*str_c* : concaténer des chaînes de caractères entre elles (équivalent de *paste*)
+
+```{r echo=TRUE}
+nom_prenom = str_c(data$prenom,      # 1ère chaîne à concaténer
+                   data$nom_famille, # 2nde chaîne à concaténer
+                   sep=" ") 
+nom_prenom
 ```
 
 
 
-## Les principales fonctions
+
+*str_to_title* : capitaliser les éléments d’une chaîne de caractères :
+
+```{r echo = TRUE}
+data
+```
+```{r echo = TRUE}
+str_to_title(nom_prenom)
+```
+
+## Convertir en majuscules et minuscules
+
+Autres fonctions : </br>
+ - *str_to_lower* : mettre en minuscules les éléments d’une chaîne de caractères </br>
+ - *str_to_upper* : mettre en majuscules les éléments d’une chaîne de caractères
+
+## Les principales fonctions utilisant les expressions régulières
 
 *grep* recherche les éléments d'une chaîne de caractères (`text`) qui présentent le motif (`pattern`) indiqué.
 
-Il retourne les indices de ces éléments :
+Exemple avec le `pattern` "^cha*t" : la fonction va rechercher toutes les suites qui commencent par la chaine "ch" suivie de la lettre "a" zéro ou plusieurs fois suivie par la lettre "t".
 
+*grep* retourne les indices de ces éléments :
+            
 ```{r echo=TRUE}
 grep("^cha*t", c("achat", "chaat", "chti"), value = FALSE)
 ```
 
-Ou il retourne un nouveau vecteur avec les éléments qui présentent le motif :
+
+##
+
+Ou il retourne un nouveau vecteur avec les éléments qui présentent le motif si **value** = TRUE :
 
 ```{r echo=TRUE}
 grep("^cha*t", c("achat", "chaat", "chti"), value = TRUE)
 ```
 
-## 
+
 
 *grepl* retourne un vecteur logique selon si les éléments du vecteur présentent le motif ou non.
 
@@ -128,7 +190,7 @@ grepl("^cha*t", c("achat", "chaat", "chti"))
 
 ##
 
-*regexpr* renvoie un vecteur de même longueur que la chaîne de caracètres donnant la position de départ de la première correspondance ou -1 s'il n'y en a pas. Il renvoie aussi l'attribut "match.length" donnant la longueur du texte trouvé (ou -1 si pas de correspondance).
+*regexpr* renvoie un vecteur de même longueur que la chaîne de caracètres, donnant la position de départ de la première correspondance ou -1 s'il n'y en a pas. Il renvoie aussi l'attribut "match.length" donnant la longueur du texte trouvé (ou -1 si pas de correspondance).
 
 ```{r echo=TRUE}
 regexpr("^cha*t", c("achat", "chaat", "chti"))
@@ -144,12 +206,11 @@ regexpr("^cha*t", c("achat", "chaat", "chti"))
 sub("cha", "CHU", c("achatchat", "chaat", "chti"))
 ```
 
-*gsub* pareil mais permet de remplacer tous les motifs correspondants et non que le premier.
+*gsub* pareil mais permet de remplacer tous les motifs correspondants et non pas que le premier.
 
 ```{r echo=TRUE}
 gsub("cha", "CHU", c("achatchat", "chaat", "chti"))
 ```
-
 
 
 
