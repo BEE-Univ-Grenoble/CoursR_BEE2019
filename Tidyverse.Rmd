@@ -10,7 +10,7 @@ output:
 ```{r include=FALSE}
 library(utf8)
 library(dplyr)
-library(tidyr)
+library(tidyverse)
 library(htmltools)
 knitr::opts_chunk$set(
   fig.align = "center"
@@ -206,7 +206,14 @@ tibble(`a + b` = 1:5)
 
 # A "tibble" data frame
 * it never creates row.names()
+```{r}
+head(mtcars)
+as_tibble(mtcars)
+rownames_to_column(mtcars)
+```
 
+
+# A "tibble" data frame
 * only vectors of length 1 are recycled
 
 * columns are built sequentially : they can make use of columns created in the same call

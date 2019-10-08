@@ -97,28 +97,28 @@ columns: 3 100px;
 </ul>
 <div class="col2">
 <p>Ex. Not Tidy:</p>
-<pre><code>##   ID       t1       t2       t3
-## 1  1 6.646998 6.891388 8.193797
-## 2  2 6.094188 8.650578 7.139699
-## 3  3 5.750675 8.601485 5.050517
-## 4  4 4.913499 8.846727 6.417616
-## 5  5 5.213178 7.510030 6.430373
-## 6  6 5.896457 9.334290 8.026392</code></pre>
+<pre><code>##   ID       t1        t2       t3
+## 1  1 4.919790  8.836754 7.334834
+## 2  2 7.162386 10.405432 6.056875
+## 3  3 5.928759  6.456390 7.238135
+## 4  4 6.512841  9.587220 6.488085
+## 5  5 6.107141  9.379452 6.550332
+## 6  6 4.257297  9.107301 7.830666</code></pre>
 <p></br><br />
 </br> VS Tidy:</p>
-<pre><code>##    ID time  measure
-## 1   1   t1 6.646998
-## 2   2   t1 6.094188
-## 3   3   t1 5.750675
-## 4   4   t1 4.913499
-## 5   5   t1 5.213178
-## 6   6   t1 5.896457
-## 7   7   t2 6.891388
-## 8   8   t2 8.650578
-## 9   9   t2 8.601485
-## 10 10   t2 8.846727
-## 11 11   t2 7.510030
-## 12 12   t2 9.334290</code></pre>
+<pre><code>##    ID time   measure
+## 1   1   t1  4.919790
+## 2   2   t1  7.162386
+## 3   3   t1  5.928759
+## 4   4   t1  6.512841
+## 5   5   t1  6.107141
+## 6   6   t1  4.257297
+## 7   7   t2  8.836754
+## 8   8   t2 10.405432
+## 9   9   t2  6.456390
+## 10 10   t2  9.587220
+## 11 11   t2  9.379452
+## 12 12   t2  9.107301</code></pre>
 </div>
 </div>
 <div id="why-tidyverse-base-r" class="slide section level1">
@@ -128,24 +128,24 @@ columns: 3 100px;
                     <span class="st">&quot;t2&quot;</span> =<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(<span class="dv">6</span>,<span class="fl">8.5</span>), <span class="dv">2</span>),
                     <span class="st">&quot;t3&quot;</span> =<span class="st"> </span><span class="kw">round</span>(<span class="kw">rnorm</span>(<span class="dv">6</span>,<span class="fl">8.5</span>), <span class="dv">2</span>))
 data1</code></pre></div>
-<pre><code>##   ID   t1   t2    t3
-## 1  1 6.27 9.59 10.15
-## 2  2 5.96 9.85  8.79
-## 3  3 5.89 9.84  9.15
-## 4  4 4.28 8.06  8.98
-## 5  5 5.52 7.75  9.74
-## 6  6 6.46 9.79  7.86</code></pre>
+<pre><code>##   ID   t1    t2    t3
+## 1  1 6.05  6.73  8.88
+## 2  2 5.63  8.42  8.36
+## 3  3 5.92  7.20 10.41
+## 4  4 5.25  8.80 10.11
+## 5  5 5.83 10.80  8.36
+## 6  6 6.22  8.32  7.49</code></pre>
 </div>
 <div id="why-tidyverse-base-r-1" class="slide section level1">
 <h1>Why Tidyverse … ? – Base R</h1>
 <div class="col2">
-<pre><code>##   ID   t1   t2    t3
-## 1  1 6.27 9.59 10.15
-## 2  2 5.96 9.85  8.79
-## 3  3 5.89 9.84  9.15
-## 4  4 4.28 8.06  8.98
-## 5  5 5.52 7.75  9.74
-## 6  6 6.46 9.79  7.86</code></pre>
+<pre><code>##   ID   t1    t2    t3
+## 1  1 6.05  6.73  8.88
+## 2  2 5.63  8.42  8.36
+## 3  3 5.92  7.20 10.41
+## 4  4 5.25  8.80 10.11
+## 5  5 5.83 10.80  8.36
+## 6  6 6.22  8.32  7.49</code></pre>
 <p></br></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data2 &lt;-<span class="st"> </span><span class="kw">cbind.data.frame</span>(<span class="st">&quot;ID&quot;</span> =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>,<span class="dv">3</span>),
                           <span class="st">&quot;time&quot;</span> =<span class="kw">c</span>(
@@ -158,36 +158,36 @@ data1</code></pre></div>
                             data1<span class="op">$</span>t3))</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data2</code></pre></div>
 <pre><code>##    ID time measure
-## 1   1   t1    6.27
-## 2   2   t1    5.96
-## 3   3   t1    5.89
-## 4   4   t1    4.28
-## 5   5   t1    5.52
-## 6   6   t1    6.46
-## 7   1   t2    9.59
-## 8   2   t2    9.85
-## 9   3   t2    9.84
-## 10  4   t2    8.06
-## 11  5   t2    7.75
-## 12  6   t2    9.79
-## 13  1   t3   10.15
-## 14  2   t3    8.79
-## 15  3   t3    9.15
-## 16  4   t3    8.98
-## 17  5   t3    9.74
-## 18  6   t3    7.86</code></pre>
+## 1   1   t1    6.05
+## 2   2   t1    5.63
+## 3   3   t1    5.92
+## 4   4   t1    5.25
+## 5   5   t1    5.83
+## 6   6   t1    6.22
+## 7   1   t2    6.73
+## 8   2   t2    8.42
+## 9   3   t2    7.20
+## 10  4   t2    8.80
+## 11  5   t2   10.80
+## 12  6   t2    8.32
+## 13  1   t3    8.88
+## 14  2   t3    8.36
+## 15  3   t3   10.41
+## 16  4   t3   10.11
+## 17  5   t3    8.36
+## 18  6   t3    7.49</code></pre>
 </div>
 </div>
 <div id="why-tidyverse-tidyr-way" class="slide section level1">
 <h1>Why Tidyverse … ? – Tidyr way</h1>
 <div class="col2">
-<pre><code>##   ID   t1   t2    t3
-## 1  1 6.27 9.59 10.15
-## 2  2 5.96 9.85  8.79
-## 3  3 5.89 9.84  9.15
-## 4  4 4.28 8.06  8.98
-## 5  5 5.52 7.75  9.74
-## 6  6 6.46 9.79  7.86</code></pre>
+<pre><code>##   ID   t1    t2    t3
+## 1  1 6.05  6.73  8.88
+## 2  2 5.63  8.42  8.36
+## 3  3 5.92  7.20 10.41
+## 4  4 5.25  8.80 10.11
+## 5  5 5.83 10.80  8.36
+## 6  6 6.22  8.32  7.49</code></pre>
 <p></br> </br> </br></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
 data2 &lt;-<span class="st"> </span><span class="kw">gather</span>(data1, 
@@ -197,24 +197,24 @@ data2 &lt;-<span class="st"> </span><span class="kw">gather</span>(data1,
                 <span class="dt">factor_key =</span> <span class="ot">TRUE</span>)       <span class="co"># saves as factor</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data2</code></pre></div>
 <pre><code>##    ID time measure
-## 1   1   t1    6.27
-## 2   2   t1    5.96
-## 3   3   t1    5.89
-## 4   4   t1    4.28
-## 5   5   t1    5.52
-## 6   6   t1    6.46
-## 7   1   t2    9.59
-## 8   2   t2    9.85
-## 9   3   t2    9.84
-## 10  4   t2    8.06
-## 11  5   t2    7.75
-## 12  6   t2    9.79
-## 13  1   t3   10.15
-## 14  2   t3    8.79
-## 15  3   t3    9.15
-## 16  4   t3    8.98
-## 17  5   t3    9.74
-## 18  6   t3    7.86</code></pre>
+## 1   1   t1    6.05
+## 2   2   t1    5.63
+## 3   3   t1    5.92
+## 4   4   t1    5.25
+## 5   5   t1    5.83
+## 6   6   t1    6.22
+## 7   1   t2    6.73
+## 8   2   t2    8.42
+## 9   3   t2    7.20
+## 10  4   t2    8.80
+## 11  5   t2   10.80
+## 12  6   t2    8.32
+## 13  1   t3    8.88
+## 14  2   t3    8.36
+## 15  3   t3   10.41
+## 16  4   t3   10.11
+## 17  5   t3    8.36
+## 18  6   t3    7.49</code></pre>
 </div>
 </div>
 <div id="dplyr-and-the-pipe-operator" class="slide section level1">
@@ -255,7 +255,7 @@ data2 &lt;-<span class="st"> </span><span class="kw">gather</span>(data1,
 <ul>
 <li><em>enhanced print() method</em> - “tbl_df” class</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dplyr<span class="op">::</span>starwars <span class="co"># calls &quot;print&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(dplyr<span class="op">::</span>starwars)</code></pre></div>
 <pre><code>## # A tibble: 87 x 13
 ##    name  height  mass hair_color skin_color eye_color birth_year gender
 ##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; 
@@ -328,7 +328,69 @@ dft</code></pre></div>
 <div id="a-tibble-data-frame-4" class="slide section level1">
 <h1>A “tibble” data frame</h1>
 <ul>
-<li><p>it never creates row.names()</p></li>
+<li>it never creates row.names()</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(mtcars)</code></pre></div>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as_tibble</span>(mtcars)</code></pre></div>
+<pre><code>## # A tibble: 32 x 11
+##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4
+##  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4
+##  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
+##  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+##  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+##  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+##  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
+##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
+## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+## # … with 22 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rownames_to_column</span>(mtcars)</code></pre></div>
+<pre><code>##                rowname  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1            Mazda RX4 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## 2        Mazda RX4 Wag 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## 3           Datsun 710 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## 4       Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## 5    Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## 6              Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## 7           Duster 360 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## 8            Merc 240D 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## 9             Merc 230 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## 10            Merc 280 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## 11           Merc 280C 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## 12          Merc 450SE 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## 13          Merc 450SL 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## 14         Merc 450SLC 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## 15  Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## 16 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## 17   Chrysler Imperial 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## 18            Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## 19         Honda Civic 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## 20      Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## 21       Toyota Corona 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## 22    Dodge Challenger 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## 23         AMC Javelin 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## 24          Camaro Z28 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## 25    Pontiac Firebird 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## 26           Fiat X1-9 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## 27       Porsche 914-2 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## 28        Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## 29      Ford Pantera L 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## 30        Ferrari Dino 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## 31       Maserati Bora 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+## 32          Volvo 142E 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+</div>
+<div id="a-tibble-data-frame-5" class="slide section level1">
+<h1>A “tibble” data frame</h1>
+<ul>
 <li><p>only vectors of length 1 are recycled</p></li>
 <li><p>columns are built sequentially : they can make use of columns created in the same call</p></li>
 </ul>
