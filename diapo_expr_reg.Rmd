@@ -72,7 +72,7 @@ library(stringr)
 library(tibble)
 ```
 
-*str_length* : connaître le nombre de caractères dans une chaîne de caractères                             
+*str_length* : connaître le nombre de caractères dans un vecteur de chaînes                          
 
 ```{r echo=TRUE}
 vec = c("chat","potté !")
@@ -85,7 +85,7 @@ str_length(vec)
 
 ```{r echo=TRUE}
 vec = c("chat","potté !")
-str_sub(vec,2,5) # connaitre les caractères entre la 2ème et la 5ème position
+str_sub(vec,2,4) # connaitre les caractères entre la 2ème et la 5ème position
 ```
 ...et possibilité de remplacer ces caractères par un nouveau.
 ```{r echo=TRUE}
@@ -132,7 +132,7 @@ data
 
 ## Traitement de chaînes avec *stringr*
 
-*str_c* : concaténer des chaînes de caractères entre elles (équivalent de *paste*)
+*str_c* : on peut concaténer des chaînes de caractères entre elles (équivalent de *paste*)
 
 ```{r echo=TRUE}
 nom_prenom = str_c(data$prenom,      # 1ère chaîne à concaténer
@@ -144,19 +144,16 @@ nom_prenom
 
 
 
-*str_to_title* : capitaliser les éléments d’une chaîne de caractères :
+*str_to_title* : capitaliser les éléments d’une chaîne de caractères
 
-```{r echo = TRUE}
-data
-```
 ```{r echo = TRUE}
 str_to_title(nom_prenom)
 ```
 
 ## Convertir en majuscules et minuscules
 
-Autres fonctions : </br>
- - *str_to_lower* : mettre en minuscules les éléments d’une chaîne de caractères </br>
+Autres fonctions : </br> </br>
+ - *str_to_lower* : mettre en minuscules les éléments d’une chaîne de caractères </br> </br>
  - *str_to_upper* : mettre en majuscules les éléments d’une chaîne de caractères
 
 ## Les principales fonctions utilisant les expressions régulières
@@ -185,12 +182,12 @@ grep("^cha*t", c("achat", "chaat", "chti"), value = TRUE)
 *grepl* retourne un vecteur logique selon si les éléments du vecteur présentent le motif ou non.
 
 ```{r echo=TRUE}
-grepl("^cha*t", c("achat", "chaat", "chti"))
+grepl("^cha*t", c("achat", "chaat", "chti")) # équivalent string_detect
 ```
 
 ##
 
-*regexpr* renvoie un vecteur de même longueur que la chaîne de caracètres, donnant la position de départ de la première correspondance ou -1 s'il n'y en a pas. Il renvoie aussi l'attribut "match.length" donnant la longueur du texte trouvé (ou -1 si pas de correspondance).
+*regexpr* renvoie un vecteur (d'integers) de même longueur que la chaîne de caracètres, donnant la position de départ de la première correspondance ou -1 s'il n'y en a pas. Il renvoie aussi l'attribut "match.length" (integers) donnant la longueur du texte trouvé (ou -1 si pas de correspondance).
 
 ```{r echo=TRUE}
 regexpr("^cha*t", c("achat", "chaat", "chti"))
