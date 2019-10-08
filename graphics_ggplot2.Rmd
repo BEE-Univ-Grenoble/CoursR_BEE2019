@@ -100,7 +100,6 @@ plot2
 ```{r, echo = TRUE}
 ggplot(data, aes(group = age, y=cholesterol)) +  geom_boxplot()
 ```
-
 C'est un peu plus clair, mais ce serait mieux avec des classes d'âge.
 
 ## Aussitôt dit aussitôt fait : {.smaller}
