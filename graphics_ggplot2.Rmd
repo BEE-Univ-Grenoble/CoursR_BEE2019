@@ -2,56 +2,181 @@
 title: "Graphics with ggplot2"
 author: "Martial LEROY, Nicolas BARTALUCCI"
 date: "04/10/2019"
-output: ioslides_presentation
+output:
+  ioslides_presentation:
+    fig_width: 5
+    fig_height: 4
+    fig_caption: true
+    widescreen: true
 ---
+
+<font size="2"> Texte </font>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(sf)
+library(viridisLite)
+library(viridis)
+library(reshape2)
 ```
 
-## R Markdown
+## Différents formats de données
 
-```{r}
+- le format large :
+```{r, echo=FALSE, include=TRUE}
+olddata_wide <- read.table(header=TRUE, text='
+ subject sex control cond1 cond2
+       1   M     7.9  12.3  10.7
+       2   F     6.3  10.6  11.1
+       3   F     9.5  13.1  13.8
+       4   M    11.5  13.4  12.9
+')
+olddata_wide$subject <- factor(olddata_wide$subject)
+olddata_wide
+```
+
+----
+
+- le format long :
+```{r, echo=FALSE, include=TRUE}
+olddata_long <- read.table(header=TRUE, text='
+ subject sex condition measurement
+       1   M   control         7.9
+       1   M     cond1        12.3
+       1   M     cond2        10.7
+       2   F   control         6.3
+       2   F     cond1        10.6
+       2   F     cond2        11.1
+       3   F   control         9.5
+       3   F     cond1        13.1
+       3   F     cond2        13.8
+       4   M   control        11.5
+       4   M     cond1        13.4
+       4   M     cond2        12.9
+')
+olddata_long$subject <- factor(olddata_long$subject)
+olddata_long
+```
+
+
+## Passer d'un format large à long
+
+- en utilisant la fonction *melt* de **reshape2** :
+```{r, echo=TRUE}
+newdata=melt(olddata_wide, id.vars=c("subject", "sex"))
+head(newdata)
+```
+
+- ou en utilisant la fonction *gather* de **tidyr**.
+
+## Passer d'un format long à large
+
+- en utilisant la fonction *dcast* de **reshape2** :
+```{r, echo=TRUE}
+newdata=dcast(olddata_long, subject + sex ~ condition, value.var="measurement")
+head(newdata)
+```
+
+- ou en utilisant la fonction *spread* de **tidyr**.
+
+## Comment utiliser **ggplot2** ? {.smaller}
+```{r, echo = TRUE}
 library(ggplot2)
 data = read.csv("evans.csv",header = T)
-  
-# Box plot
-ggplot(data, aes(x=age, y=cholesterol)) +
-  geom_point()+
-  geom_smooth()
+plot1 = ggplot(data, aes(x=age, y=cholesterol)) +  geom_point()
+plot1
 ```
 
-Mais ici, ce nest pas tres claire, **Avec quoi ce serait mieux ?**
-
-## Des boxplot ?
-
-```{r}
-ggplot(data, aes(group = age, y=cholesterol)) +
-  geom_boxplot()
+## Ajoutons un calque : {.smaller}
+Ajoutons la régression et l'intervalle de confiance :
+```{r, echo = TRUE}
+plot2 = plot1 + geom_smooth(method = lm)
+plot2
 ```
-C'est un peu plus clair. Avec des classe d'age se serait encore mieux.
 
-## Aussitôt dit aussitôt fait : 
 
-```{r cars, echo = TRUE}
-ggplot(data, aes(x = age, group = cut_width(age,5), y=cholesterol)) +
-  geom_boxplot()
+## Essayons avec un boxplot ? {.smaller}
+```{r, echo = TRUE}
+ggplot(data, aes(group = age, y=cholesterol)) +  geom_boxplot()
 ```
+
+C'est un peu plus clair, mais ce serait mieux avec des classes d'âge.
+
+## Aussitôt dit aussitôt fait : {.smaller}
+```{r, echo = TRUE}
+ggplot(data, aes(x = age, group = cut_width(age,5), y=cholesterol)) +  geom_boxplot()
+```
+
 L'argument **aes(group = cut_width(age,5))** forme des classes de 5 ans de large.
 
 
-## Rendons cela un peu plus visuel !
-
-```{r}
-ggplot(data, aes(age,group = cut_width(age,5), y=cholesterol,fill=cut_width(age,15))) +
-  geom_boxplot()
-  
+## Rendons cela un peu plus visuel ! {.smaller}
+```{r, echo=TRUE}
+plot = ggplot(data, aes(age,group = cut_width(age,5), y=cholesterol,fill=cut_width(age,15))) +  geom_boxplot()
+plot
 ```
 
-Ici nous avons nos classes de 5ans et une couleur pour des classes plus grandes, par exemple les jeunes, les moins jeunes et les personnes agées.
+Nous avons des classes de 5 ans et une couleur pour des classes plus grandes : par exemple les jeunes, les moins jeunes et les personnes agées.
 
-## Voyon cela avec des histogrammes
+## Ajoutons un titre : {.smaller}
 
+```{r, echo=TRUE}
+plot2 = plot + ggtitle("Taux de cholesterol\nen fonction de l'âge") + 
+      theme(plot.title = element_text(lineheight=.8, face="bold")) +
+      xlab("Age") +
+      ylab("Taux de cholestrerol") +
+      scale_fill_hue(name="Classes d'âge", labels=c("Jeunes", "Seniors", "Agés"))
+plot2
+```
 
+## Rediviser le jeu de données {.smaller}
+
+```{r, echo=TRUE}
+data$fumeur=factor(data$fumeur)
+plot2 + facet_wrap(fumeur~.)
+```
+
+## Quelques exemples... pour utiliser une densité : {.smaller}
+
+```{r, echo=TRUE}
+library(viridis)
+ggplot(diamonds, aes(x, depth)) +
+  stat_density_2d(aes(fill = stat(nlevel)), geom = "polygon", n = 100, bins = 10, contour = TRUE) +
+  scale_fill_viridis_c(option = "B")
+```
+
+## Ploter un shapefile : {.smaller}
+
+```{r, echo=TRUE}
+library(sf)
+nc = st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
+ggplot(nc) +
+  geom_sf(aes(fill = AREA)) +
+  ggtitle("Area of counties in North Carolina") +
+  theme_bw()
+```
+
+## Utiliser geom_hex : {.smaller}
+
+```{r, echo=TRUE}
+a = data.frame(x=rnorm(20000, 10, 1.9), y=rnorm(20000, 10, 1.2) )
+b = data.frame(x=rnorm(20000, 14.5, 1.9), y=rnorm(20000, 14.5, 1.9) )
+c = data.frame(x=rnorm(20000, 9.5, 1.9), y=rnorm(20000, 15.5, 1.9) )
+ggplot(rbind(a,b,c), aes(x=x, y=y)) +
+  geom_hex(bins = 50, size = 0.5, color = "black") +
+  scale_fill_gradientn(colours = c('#8c510a','#bf812d','#dfc27d','#f6e8c3',
+                                   '#f5f5f5','#c7eae5','#80cdc1','#35978f','#01665e'))
+```
+
+## Liens utiles : {.smaller}
+
+The R cookbook : http://www.cookbook-r.com/Graphs/
+
+The cheat sheets : https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+The function reference : https://ggplot2.tidyverse.org/reference/
+
+The color brewer : http://colorbrewer2.org/
 
 
