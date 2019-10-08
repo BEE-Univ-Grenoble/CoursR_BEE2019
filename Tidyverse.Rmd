@@ -1,0 +1,402 @@
+---
+title: "Tidyverse & tidy data"
+author: "Ameline Guillet, Julia Guerra"
+date: "24/9/2019"
+output:
+  slidy_presentation: default
+  powerpoint_presentation: default
+---
+
+```{r include=FALSE}
+library(utf8)
+library(dplyr)
+library(tidyverse)
+library(htmltools)
+knitr::opts_chunk$set(
+  fig.align = "center"
+)
+knitr::knit_hooks$set(imgcenter = function(before, options, envir){
+  if (before) {
+    HTML("<p align='center'>")
+  } else {
+    HTML("</p>")
+  }
+})
+```    
+<style>
+.col2 {
+columns: 2 300px;         /* number of columns and width in pixels*/
+-webkit-columns: 2 300px; /* chrome, safari */
+-moz-columns: 2 300px;    /* firefox */
+}
+.col3 {
+columns: 3 100px;
+-webkit-columns: 3 100px;
+-moz-columns: 3 100px;
+}
+</style>
+
+# A big family
+
+
+```{r echo=FALSE, imgcenter = TRUE}
+knitr::include_graphics("https://raw.githubusercontent.com/BEE-Univ-Grenoble/CoursR_BEE2019/master/tidyverse_cover.png")
+
+
+```
+
+
+# The basis : tidy data 
+
+Designed for *facilitating* data science :  
+</br>
+</br>
+
+**Tidy data**:  
+
+* 1 row = 1 observation  
+* 1 column = 1 variable
+
+
+# The basis : tidy data 
+
+* 1 row = 1 observation  
+* 1 column = 1 variable
+
+<div class = "col2">
+Ex. Not Tidy:  
+
+```{r, echo = FALSE}
+data1 <- data.frame("ID" = 1:6, 
+                    "t1" = rnorm(6,5.6), 
+                    "t2" = rnorm(6,8.5),
+                    "t3" = rnorm(6,6.8))
+data1
+```
+</br>  
+</br>
+VS        Tidy:  
+```{r, echo = FALSE}
+data2= cbind.data.frame("ID" = 1:18, "time" = c(rep("t1",6), rep("t2",6),rep("t3",6)), "measure" = c(data1$t1, data1$t2, data1$t3))
+data2[1:12,]
+```
+</div>
+
+
+# Why Tidyverse ... ? -- Base R
+```{r}
+data1 <- data.frame("ID" = 1:6, 
+                    "t1" = round(rnorm(6,5.6), 2), 
+                    "t2" = round(rnorm(6,8.5), 2),
+                    "t3" = round(rnorm(6,8.5), 2))
+data1
+```
+
+# Why Tidyverse ... ? -- Base R
+<div class = "col2">
+```{r, echo = FALSE}
+data1
+```
+</br>
+
+```{r}
+data2 <- cbind.data.frame("ID" = rep(1:6,3),
+                          "time" =c(
+                            rep("t1",6),
+                            rep("t2",6),
+                            rep("t3",6)),
+                          "measure" = c(
+                            data1$t1, 
+                            data1$t2, 
+                            data1$t3))
+```
+
+```{r}
+data2
+```
+
+
+</div>
+
+# Why Tidyverse ... ? -- Tidyr way
+<div class = "col2">
+```{r, echo = FALSE}
+data1
+```
+</br>
+</br>
+</br>
+
+```{r}
+library(tidyr)
+data2 <- gather(data1, 
+                "t1", "t2", "t3",        # new key names (levels)
+                key = "time",            # previous key name (factor name)
+                value = "measure",       # to-assign values 
+                factor_key = TRUE)       # saves as factor
+```
+
+```{r}
+data2
+```
+
+</div>
+
+# *dplyr* and the pipe operator    %>%
+* The pipe comes from *magrittr*
+* Allows to concadenate operations 
+</br>
+</br>
+
+But... *what* is a tibble ?
+
+# A "tibble" data frame
+https://tibble.tidyverse.org/
+</br>  
+
+>- *data.frames that are lazy and surly: they do less and complain more*  
+
+>- *Modern reimagining of the data.frame, keeping what time has proven to be effective, and throwing out what is not.*  
+
+>- *enhanced print() method* - "tbl_df" class 
+```{r}
+head(dplyr::starwars)
+```
+
+# A "tibble" data frame
+* *enhanced print() method* - "tbl_df" class 
+```{r}
+print(dplyr::starwars)
+# only prints as many rows and columns as fit on one screen, supplemented by a summary of the remaining rows and columns.
+# reveals the type of each column: <chr> = character, <fct> = factor, <dbl> = 'double' (nowadays "numeric")
+```
+
+# A "tibble" data frame
+* it never changes the type of the inputs (characters won't become factors by default)
+
+<div class = "col2">
+```{r}
+df = data.frame(a = c("toto", "tutu"), 
+                b = 1, 
+                c = 1:2)
+df
+class(df$a)
+```
+</br>  
+
+```{r}
+
+dft = tibble(a = c("toto", "tutu"),
+             b = 1, 
+             c = 1:2)
+dft
+class(dft$a)
+```
+
+
+</div>
+
+# A "tibble" data frame
+* it never changes the names of variables
+```{r}
+data.frame(`a + b` = 1:5)
+tibble(`a + b` = 1:5)
+
+```
+
+# A "tibble" data frame
+* it never creates row.names()
+```{r}
+head(mtcars)
+as_tibble(mtcars)
+rownames_to_column(mtcars)
+```
+
+
+# A "tibble" data frame
+* only vectors of length 1 are recycled
+
+* columns are built sequentially : they can make use of columns created in the same call
+
+<div class = "col2">
+
+```{r}
+x = "a"
+data.frame(x = 1, y = x)
+
+```
+</br>  
+
+
+```{r}
+x = "a"
+tibble(x = 1, y = x)
+```
+
+
+</div>
+
+
+
+# Tidyr and some of its functions : separate()
+
+The goal of **tidyr** is to help you create and manipulate tidy data
+
+> * *separate()* : separates each cell in a column to make several columns
+
+
+```{r echo = FALSE}
+library(tidyr)
+library(dplyr)
+data3=tibble(country = c("A","A","B","B","C","C"),
+            year=c(1999, 2000,1999, 2000,1999, 2000),
+            rate=c("0.7K/19M","2K/20M","37K/172M","80K/173M","212K/1T","213K/1T"))
+```
+<div class = "col2">
+```{r echo = TRUE}
+data3
+```
+
+</br>  
+</br>
+
+```{r echo = TRUE}
+separate(data3, # tibble, dataframe
+        rate, # column separated
+        sep="/", # separator between columns
+        into=c("cases","pop"), # names of new variables
+        remove=TRUE) # remove input column from output dataframe
+```
+
+</div>
+
+# Tidyr and some of its functions : unite()
+
+  *unite()* : collapses cells across several columns to make a single column
+
+```{r echo = FALSE}
+data4=tibble(country = c("A","A","B","B","C","C"),
+            century=c("19","20","19","20","19","20"),
+            year=c("99","00","99","00","99","00"))
+```
+<div class = "col2">
+```{r echo = TRUE}
+data4
+```
+
+</br>  
+</br>  
+
+
+```{r echo = TRUE}
+unite(data4,      # tibble, dataframe
+      century, year, # columns pasted
+      col="year", # name of the new column
+      sep="",     # separator to use between values
+      remove=TRUE) # remove input columns from output dataframe
+```
+</div>
+
+# Tidyr and some of its functions for nested data frames
+
+A **nested data frame** is a data frame where one (or more) columns is a list of data frames.
+</br>You can create it by hand :
+```{r echo = TRUE}
+data6 = tibble(
+  g = c(1, 2, 3),
+  data = list(
+    tibble(x = 1, y = 2),
+    tibble(x = 4:5, y = 6:7),
+    tibble(x = 10)
+  )
+)
+data6
+```
+
+# Tidyr and some of its functions for nested data frames
+
+Or you can create it with the *nest()* function :
+```{r echo = FALSE}
+iris = as_tibble(iris)
+```
+```{r}
+iris
+```
+
+# Tidyr and some of its functions for nested data frames
+
+Or you can create it with the *nest* function :
+<div class = "col2">
+```{r}
+iris_nested =
+  nest(iris, #data.frame, tibble
+  -Species, #all columns except Species
+  .key = "all_data") #name of the new column
+iris_nested
+```
+</div>
+
+Each row in the output corresponds to one group in the input.
+
+# Tidyr and some of its functions for nested data frames
+
+The opposite of the *nest()* function is the *unnest()* function.
+```{r}
+iris=unnest(iris_nested)
+iris
+```
+
+Other functions : </br>
+  - *unnest_wider()* : turns each element of a list-column into a column </br>
+  - *unnest_longer()* turns each element of a list-column into a row
+
+
+# How to deal with NA values ?
+
+  *complete()* : turns implicit missing values into explicit missing values
+
+```{r echo = FALSE}
+data5 <- tibble(eleve = c("Thomas","Thomas", "Marie", "Tim"),
+                matiere = c("Maths","Francais","Maths","Francais"),
+                note = c(10,15,18,8))
+```
+<div class = "col2">
+```{r echo = TRUE}
+data5
+```
+</br>
+</br>
+```{r echo = TRUE}
+data5 = complete(data5, eleve, matiere)
+data5
+```
+</div>
+
+# How to deal with NA values ?
+
+We can replace the NA values with the argument **fill**, a list that for each variable supplies a single value to use instead of NA.
+
+```{r echo = TRUE}
+data5
+```
+<div class = "col2">
+```{r echo = TRUE}
+data5_filled = complete(data5,
+                        eleve, matiere,
+                        fill=list(note=0))
+```
+</br>
+```{r}
+data5_filled
+```
+
+</div>
+
+# How to deal with NA values ?
+
+Other functions : </br>
+ - *replace_na()* : replaces NA values with a known value </br>
+ - *fill()* : replaces NA values with next/previous value </br>
+ - *drop_na()* : makes explicit NA values implicit (the opposite of *complete()*)
+
+
